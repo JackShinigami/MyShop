@@ -5,8 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DAL_MyShop"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="600" Width="1000">
+    <StackPanel Orientation="Vertical">
+        <DataGrid Height="338" AutoGenerateColumns="True" Name="dataGrid" CanUserAddRows="False">
 
-    </Grid>
+        </DataGrid>
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Load Product" Height="50" Click="click_LoadProduct" Margin="10"/>
+            <Button Content="Load Category" Height="50" Click="click_LoadCategory" Margin="10"/>
+            <Button Content="Load Product with Category" Height="50" Click="click_LoadProductWithCategory" Margin="10"/>
+            <Button Content="Load Customer" Height="50" Click="click_LoadCustomer" Margin="10"/>
+            <Button Content="Load Order"  Height="50" Click="click_Order" Margin="10"/>
+            <Button Content="Load Order with Customer" Height="50" Click="click_OrderWithCustomer" Margin="10"/>
+            <Button Content="Load Order Detail" Height="50" Click="click_OrderDetail" Margin="10"/>
+            <Button Content="Load full information Order" Height="50" Click="click_LoadFull" Margin="10"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Import Data From Excel" Height="50" Margin="10" Click="click_ImportData"/>
+            <Button Content="Add Product" Height="50" Margin="10" Click="click_Add"/>
+            <Button Content="Update Product" Height="50" Margin="10" Click="click_Update"/>
+            <Button Content="Delete Product" Height="50" Margin="10" Click="click_Delete"/>
+        </StackPanel>
+    </StackPanel>
+    
 </Window>
