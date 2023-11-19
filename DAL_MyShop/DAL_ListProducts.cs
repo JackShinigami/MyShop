@@ -47,7 +47,7 @@ namespace DAL_MyShop
             return products;
         }
 
-        public List<Product> GetProducts(int skip , int take,  SortType sortType = SortType.Id, string searchKey="", int beginPrice=0, int endPrice= int.MaxValue)
+        public List<Product> GetProducts(int skip , int take,  SortType sortType = SortType.Id, bool ascending = true, string searchKey="", int beginPrice=0, int endPrice= int.MaxValue)
         {
             List<Product> products;
             products = context.Products
@@ -55,28 +55,52 @@ namespace DAL_MyShop
             switch (sortType)
             {
                 case SortType.Id:
-                    products = products.OrderBy(p => p.Id).ToList();
+                    if(ascending)
+                        products = products.OrderBy(p => p.Id).ToList();
+                    else
+                        products = products.OrderByDescending(p => p.Id).ToList();
                     break;
                 case SortType.ProductName:
-                    products = products.OrderBy(p => p.ProductName).ToList();
+                    if (ascending)
+                        products = products.OrderBy(p => p.ProductName).ToList();
+                    else
+                        products = products.OrderByDescending(p => p.ProductName).ToList();
                     break;
                 case SortType.Author:
-                    products = products.OrderBy(p => p.Author).ToList();
+                    if (ascending)
+                        products = products.OrderBy(p => p.Author).ToList();
+                    else
+                        products = products.OrderByDescending(p => p.Author).ToList();
                     break;
                 case SortType.PublishYear:
-                    products = products.OrderBy(p => p.PublishYear).ToList();
+                    if (ascending)
+                        products = products.OrderBy(p => p.PublishYear).ToList();
+                    else
+                        products = products.OrderByDescending(p => p.PublishYear).ToList();
                     break;
                 case SortType.Publisher:
-                    products = products.OrderBy(p => p.Publisher).ToList(); 
+                    if (ascending)
+                        products = products.OrderBy(p => p.Publisher).ToList();
+                    else
+                        products = products.OrderByDescending(p => p.Publisher).ToList();
                     break;
                 case SortType.CostPrice:
-                    products = products.OrderBy(p => p.CostPrice).ToList();
+                    if (ascending)
+                        products = products.OrderBy(p => p.CostPrice).ToList();
+                    else
+                        products = products.OrderByDescending(p => p.CostPrice).ToList();
                     break;
                 case SortType.SellingPrice:
-                    products = products.OrderBy(p => p.SellingPrice).ToList();
+                    if (ascending)
+                        products = products.OrderBy(p => p.SellingPrice).ToList();
+                    else
+                        products = products.OrderByDescending(p => p.SellingPrice).ToList();
                     break;
                 case SortType.Quantity:
-                    products = products.OrderBy(p => p.Quantity).ToList();
+                    if (ascending)
+                        products = products.OrderBy(p => p.Quantity).ToList();
+                    else
+                        products = products.OrderByDescending(p => p.Quantity).ToList();
                     break;
                 default:
                     break;
@@ -85,7 +109,7 @@ namespace DAL_MyShop
             return products;
         }
         
-        public List<Product> GetProductsWithCategory(string categoryId, int skip, int take, SortType sortType = SortType.Id, string searchKey = "", int beginPrice = 0, int endPrice = int.MaxValue)
+        public List<Product> GetProductsWithCategory(string categoryId, int skip, int take, SortType sortType = SortType.Id, bool ascending = true, string searchKey = "", int beginPrice = 0, int endPrice = int.MaxValue)
         {
             List<Product> products;
             products = context.Products
@@ -95,28 +119,52 @@ namespace DAL_MyShop
             switch (sortType)
             {
                 case SortType.Id:
-                    products = products.OrderBy(p => p.Id).ToList();
+                    if (ascending)
+                        products = products.OrderBy(p => p.Id).ToList();
+                    else
+                        products = products.OrderByDescending(p => p.Id).ToList();
                     break;
                 case SortType.ProductName:
-                    products = products.OrderBy(p => p.ProductName).ToList();
+                    if (ascending)
+                        products = products.OrderBy(p => p.ProductName).ToList();
+                    else
+                        products = products.OrderByDescending(p => p.ProductName).ToList();
                     break;
                 case SortType.Author:
-                    products = products.OrderBy(p => p.Author).ToList();
+                    if (ascending)
+                        products = products.OrderBy(p => p.Author).ToList();
+                    else
+                        products = products.OrderByDescending(p => p.Author).ToList();
                     break;
                 case SortType.PublishYear:
-                    products = products.OrderBy(p => p.PublishYear).ToList();
+                    if (ascending)
+                        products = products.OrderBy(p => p.PublishYear).ToList();
+                    else
+                        products = products.OrderByDescending(p => p.PublishYear).ToList();
                     break;
                 case SortType.Publisher:
-                    products = products.OrderBy(p => p.Publisher).ToList();
+                    if (ascending)
+                        products = products.OrderBy(p => p.Publisher).ToList();
+                    else
+                        products = products.OrderByDescending(p => p.Publisher).ToList();
                     break;
                 case SortType.CostPrice:
-                    products = products.OrderBy(p => p.CostPrice).ToList();
+                    if (ascending)
+                        products = products.OrderBy(p => p.CostPrice).ToList();
+                    else
+                        products = products.OrderByDescending(p => p.CostPrice).ToList();
                     break;
                 case SortType.SellingPrice:
-                    products = products.OrderBy(p => p.SellingPrice).ToList();
+                    if (ascending)
+                        products = products.OrderBy(p => p.SellingPrice).ToList();
+                    else
+                        products = products.OrderByDescending(p => p.SellingPrice).ToList();
                     break;
                 case SortType.Quantity:
-                    products = products.OrderBy(p => p.Quantity).ToList();
+                    if (ascending)
+                        products = products.OrderBy(p => p.Quantity).ToList();
+                    else
+                        products = products.OrderByDescending(p => p.Quantity).ToList();
                     break;
                 default:
                     break;
@@ -165,6 +213,14 @@ namespace DAL_MyShop
             product!.ImagePath = updatedProduct.ImagePath;
 
             context.SaveChanges();
+        }
+
+        public Product GetProductById(string id)
+        {
+            Product product = context.Products.Find(id);
+            if (product == null)
+                throw new Exception("Id is not existed");
+            return product;
         }
     }
 }

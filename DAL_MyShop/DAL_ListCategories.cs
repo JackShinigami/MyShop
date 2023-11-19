@@ -37,7 +37,7 @@ namespace DAL_MyShop
             return categories;
         }
 
-        public void AddCategory(Category category)
+        public void AddCategory(Category category) 
         {
             if (category.Id == null || category.Id == "")
             {

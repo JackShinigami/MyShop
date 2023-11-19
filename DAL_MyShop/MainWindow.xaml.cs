@@ -34,9 +34,16 @@ namespace DAL_MyShop
         //Ví dụ cách dùng DAL để lấy dữ liệu từ database-------------------------------------------------------------
         private BindingList<object> itemList;
         DAL_ListProducts dao = DAL_ListProducts.Instance;
+        DAL_ListOrders daoOrder = DAL_ListOrders.Instance;
+        DAL_ListOrderDetails daoOrderDetail = DAL_ListOrderDetails.Instance;
+        DAL_ListCustomers daoCustomer = DAL_ListCustomers.Instance;
         private void click_LoadProduct(object sender, RoutedEventArgs e)
         {
-            dataGrid.ItemsSource = dao.GetProducts(0, 10, DAL_ListProducts.SortType.SellingPrice, "", 0, 500);
+            dataGrid.ItemsSource = dao.GetProducts(0, 10, DAL_ListProducts.SortType.SellingPrice, false ,"", 0, 500);
+
+            //dataGrid.ItemsSource = daoOrderDetail.GetBestSellingProducts(3);
+            //List<dynamic> list = daoOrderDetail.GetBestSellingProducts(3);
+            ////MessageBox.Show(list[0].ProductId);
         }
 
         private void click_Add(object sender, RoutedEventArgs e)
@@ -60,27 +67,54 @@ namespace DAL_MyShop
 
         private void click_Update(object sender, RoutedEventArgs e)
         {
-            Product p = new Product()
+            //Product p = new Product()
+            //{
+            //    Id = "P23",
+            //    ProductName = "Hello",
+            //    Author = "Author 23",
+            //    PublishYear = 2021,
+            //    Publisher = "Publisher 23",
+            //    CostPrice = 100,
+            //    SellingPrice = 200,
+            //    Quantity = 10,
+            //    CategoryId = "Cat1",
+            //    ImagePath = ""
+            //};
+
+            //dao.UpdateProduct("P23", p);
+
+            Customer customer = new Customer()
             {
-                Id = "P23",
-                ProductName = "Hello",
-                Author = "Author 23",
-                PublishYear = 2021,
-                Publisher = "Publisher 23",
-                CostPrice = 100,
-                SellingPrice = 200,
-                Quantity = 10,
-                CategoryId = "Cat1",
-                ImagePath = ""
+                Id = "C1",
+                CustomerName = "Customer 23",
+                Address = "Address 23",
+                TelephoneNumber = "123456789"
             };
 
-            dao.UpdateProduct("P23", p);
+            daoCustomer.UpdateCustomer("C1", customer);
         }
 
         private void click_Delete(object sender, RoutedEventArgs e)
         {
             dao.DeleteProduct("P23");
         }
+
+        private void click_Order(object sender, RoutedEventArgs e)
+        {
+            
+            dataGrid.ItemsSource = daoOrder.GetOrders(0, 10, DAL_ListOrders.SortType.OrderDate, false, new DateTime(2023, 1, 1), new DateTime(2023, 1, 3));
+        }
+
+        private void click_OrderDetail(object sender, RoutedEventArgs e)
+        {
+            dataGrid.ItemsSource = daoOrderDetail.GetOrderDetails();
+        }
+
+        private void click_LoadCustomer(object sender, RoutedEventArgs e)
+        {
+            dataGrid.ItemsSource = daoCustomer.GetCustomers(0, 10, DAL_ListCustomers.SortType.CustomerName, false, "");
+        }
+
         //-------------------------------------------------------------------------------------------------------------
         //-------------------------------------------------------------------------------------------------------------
         //-------------------------------------------------------------------------------------------------------------
@@ -146,21 +180,9 @@ namespace DAL_MyShop
             dataGrid.ItemsSource = itemList;
         }
 
-        private void click_LoadCustomer(object sender, RoutedEventArgs e)
-        {
-            IEnumerable<object> customers = from c in context.Customers
-                                            select c;
-            itemList = new BindingList<object>(customers.ToList());
-            dataGrid.ItemsSource = itemList;
-        }
+       
 
-        private void click_Order(object sender, RoutedEventArgs e)
-        {
-            IEnumerable<object> orders = from o in context.Orders
-                                         select o;
-            itemList = new BindingList<object>(orders.ToList());
-            dataGrid.ItemsSource = itemList;
-        }
+        
 
         private void click_OrderWithCustomer(object sender, RoutedEventArgs e)
         {
@@ -171,13 +193,7 @@ namespace DAL_MyShop
             dataGrid.ItemsSource = itemList;
         }
 
-        private void click_OrderDetail(object sender, RoutedEventArgs e)
-        {
-            IEnumerable<object> orderDetails = from od in context.OrderDetails
-                                               select od;
-            itemList = new BindingList<object>(orderDetails.ToList());
-            dataGrid.ItemsSource = itemList;
-        }
+       
 
         private void click_LoadFull(object sender, RoutedEventArgs e)
         {
