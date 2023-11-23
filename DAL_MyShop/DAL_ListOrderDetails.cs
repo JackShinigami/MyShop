@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using DocumentFormat.OpenXml.Wordprocessing;
 using DTO_MyShop;
 namespace DAL_MyShop
 {
@@ -93,21 +94,63 @@ namespace DAL_MyShop
         /// 
         /// </summary>
         /// <param name="top"></param>
-        /// <returns>object chứa 2 thuộc tính là ProductId và tổng số lượng</returns>
+        /// <returns>object chứa 3 thuộc tính là ProductId, tổng số lượng, ProductName</returns>
         public List<dynamic> GetBestSellingProducts(int top)
         {
             List<dynamic> bestSellingProducts = new List<dynamic>();
-            var groupProducts = context.OrderDetails.GroupBy(od => od.ProductId)
-                .Select(g => new { ProductId = g.Key , Quantity = g.Sum(od => od.Quantity) })
+            var groupProducts = context.OrderDetails
+                .GroupBy(od => od.ProductId)
+                .Select(g => new { ProductId = g.Key, Quantity = g.Sum(od => od.Quantity) })
                 .OrderByDescending(g => g.Quantity)
                 .Take(top)
                 .ToList();
-            foreach (var item in groupProducts)
+
+            var newGroupProducts = groupProducts.Join(context.Products, g => g.ProductId, p => p.Id, (g, p) => (g, p))
+                .Select(t => new { t.g.ProductId, t.g.Quantity, t.p.ProductName }).ToList();
+               
+
+            foreach (var item in newGroupProducts)
             {
                 bestSellingProducts.Add(item);
             }
 
             return bestSellingProducts;
+        }
+
+        public dynamic GetRevenueAndProfit(DateTime beginDate, DateTime endDate)
+        {
+            var temp = from od in context.OrderDetails
+                       from o in context.Orders
+                       from p in context.Products
+                       where od.OrderId == o.Id && od.ProductId == p.Id && o.OrderDate >= beginDate && o.OrderDate <= endDate
+                       select new { Revenue = od.Quantity * p.SellingPrice, Profit = od.Quantity * (p.SellingPrice - p.CostPrice) };
+            var res = (from r in temp
+                       group r by 1 into g
+                       select new { Revenue = g.Sum(r => r.Revenue), Profit = g.Sum(r => r.Profit) }).ToList();
+
+            if (res.Count == 0)
+                return new { Revenue = 0, Profit = 0 };
+
+            return res[0];
+        }
+
+        public List<dynamic> GetSalesOfProducts(DateTime beginDate, DateTime endDate)
+        {
+            var res = new List<dynamic>();
+            
+            var temp = from od in context.OrderDetails
+                       from o in context.Orders
+                       from p in context.Products
+                       where od.OrderId == o.Id && od.ProductId == p.Id && o.OrderDate >= beginDate && o.OrderDate <= endDate
+                       select new { ProductId = p.Id, ProductName = p.ProductName, od.Quantity};
+            var group = (from t in temp
+                        group t by t.ProductId into g
+                        select new { ProductId = g.Key, ProductName = g.First().ProductName, Quantity = g.Sum(t => t.Quantity) }).ToList();
+            foreach (var item in group)
+            {
+                res.Add(item);
+            }
+            return res;
         }
     }
 
