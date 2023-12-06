@@ -48,7 +48,8 @@ namespace DAL_MyShop
             //var a = daoOrderDetail.GetRevenueAndProfit(new DateTime(2023, 1, 1), new DateTime(2023, 12, 3));
             //MessageBox.Show(a.Revenue.ToString() + " " + a.Profit.ToString());
 
-            dataGrid.ItemsSource = daoOrderDetail.GetSalesOfProduct(new DateTime(2023, 1, 1), new DateTime(2023, 12, 3));
+            dataGrid.ItemsSource = daoOrderDetail.GetSalesOfProducts(new DateTime(2023, 1, 1), new DateTime(2023, 12, 3));
+           
         }
 
         private void click_Add(object sender, RoutedEventArgs e)
