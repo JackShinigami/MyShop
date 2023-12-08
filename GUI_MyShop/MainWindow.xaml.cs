@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using BUS_MyShop;
 namespace GUI_MyShop
 {
     /// <summary>
@@ -23,6 +23,16 @@ namespace GUI_MyShop
         public MainWindow()
         {
             InitializeComponent();
+            BUS_User.Instance!.SaveUser("admin", "admin");
+
+            if(BUS_User.Instance!.CheckLogin("admin", "admin"))
+            {
+                MessageBox.Show("Login successfully");
+            }
+            else
+            {
+                MessageBox.Show("Login failed");
+            }
         }
     }
 }

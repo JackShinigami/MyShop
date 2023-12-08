@@ -39,11 +39,17 @@ namespace DAL_MyShop
         DAL_ListCustomers daoCustomer = DAL_ListCustomers.Instance;
         private void click_LoadProduct(object sender, RoutedEventArgs e)
         {
-            dataGrid.ItemsSource = dao.GetProducts(0, 10, DAL_ListProducts.SortType.SellingPrice, false ,"", 0, 500);
+            //dataGrid.ItemsSource = dao.GetProducts(0, 10, DAL_ListProducts.SortType.SellingPrice, false ,"", 0, 500);
 
             //dataGrid.ItemsSource = daoOrderDetail.GetBestSellingProducts(3);
             //List<dynamic> list = daoOrderDetail.GetBestSellingProducts(3);
             ////MessageBox.Show(list[0].ProductId);
+            ///
+            //var a = daoOrderDetail.GetRevenueAndProfit(new DateTime(2023, 1, 1), new DateTime(2023, 12, 3));
+            //MessageBox.Show(a.Revenue.ToString() + " " + a.Profit.ToString());
+
+            dataGrid.ItemsSource = daoOrderDetail.GetSalesOfProducts(new DateTime(2023, 1, 1), new DateTime(2023, 12, 3));
+           
         }
 
         private void click_Add(object sender, RoutedEventArgs e)
