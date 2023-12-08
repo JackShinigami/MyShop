@@ -2,14 +2,32 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\close.png" />
+    <None Remove="Assets\close_mouseover.png" />
+    <None Remove="Assets\maximize.png" />
+    <None Remove="Assets\maximize_mouseover.png" />
+    <None Remove="Assets\minimize.png" />
+    <None Remove="Assets\minimize_mouseover.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BUS_MyShop\BUS_MyShop.csproj" />
     <ProjectReference Include="..\DTO_MyShop\DTO_MyShop.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\close.png" />
+    <Resource Include="Assets\close_mouseover.png" />
+    <Resource Include="Assets\maximize.png" />
+    <Resource Include="Assets\maximize_mouseover.png" />
+    <Resource Include="Assets\minimize.png" />
+    <Resource Include="Assets\minimize_mouseover.png" />
   </ItemGroup>
 
 </Project>

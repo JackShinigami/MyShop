@@ -2,8 +2,21 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:GUI_MyShop"
-             StartupUri="MainWindow.xaml">
+             StartupUri="LoginWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--<ResourceDictionary
+                    Source="Styles/ButtonStyles.xaml" />-->
+                <ResourceDictionary
+                    Source="Styles/TextBoxStyles.xaml" />
+                <ResourceDictionary
+                    Source="Styles/PasswordBoxStyles.xaml" />
+                <ResourceDictionary
+                    Source="Styles/CheckBoxStyles.xaml" />
+                <ResourceDictionary
+                    Source="Styles/ButtonStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
