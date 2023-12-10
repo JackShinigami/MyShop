@@ -14,7 +14,8 @@
     WindowStartupLocation="CenterScreen"
     ResizeMode="CanResize"
     Height="675"
-    Width="1200">
+    Width="1200"
+    Loaded="Window_Loaded">
 
     <Border
         x:Name="border"
@@ -304,17 +305,45 @@
                             Opacity="0.5" />
                     </Border.Effect>
 
-                    <StackPanel>
+                    <Grid>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition
+                                Height="3*" />
+                            <RowDefinition
+                                Height="*" />
+                            <RowDefinition
+                                Height="*" />
+                            <RowDefinition
+                                Height="*" />
+                            <RowDefinition
+                                Height="*" />
+                            <RowDefinition
+                                Height="*" />
+                            <RowDefinition
+                                Height="*" />
+                            <RowDefinition
+                                Height="*" />
+                            <RowDefinition
+                                Height="*" />
+                            <RowDefinition
+                                Height="2*" />
+                        </Grid.RowDefinitions>
 
                         <TextBlock
-                            Margin="0,50,0,50"
+                            Grid.Row="0"
+                            x:Name="titleSignTextBlock"
                             HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
                             FontSize="40"
                             FontWeight="Bold"
                             Foreground="#20a8bb"
+                            
                             Text="Đăng nhập" />
 
                         <TextBlock
+                            Grid.Row="1"
+                            x:Name="userNameTextBlock"
                             Margin="40,10,0,0"
                             HorizontalAlignment="Left"
                             FontSize="20"
@@ -323,83 +352,88 @@
 
 
                         <TextBox
+                            Grid.Row="2"
                             x:Name="usernameTextBox"
-                            HorizontalAlignment="Stretch"
+                            HorizontalAlignment="Center"
                             FontSize="18"
                             Foreground="#000"
-                            d:Text="admin"
-                            Margin="50 10 50 0"
-                            Style="{StaticResource SpecialFocusTextBox}"
-                            Height="40" />
+                            Style="{DynamicResource SpecialFocusValidatingTextBox}"
+                            LostFocus="usernameTextBox_LostFocus"
+                            KeyDown="inputBox_KeyDown"
+                            Width="300"
+                            Height="40">
+                        </TextBox>
 
                         <TextBlock
+                            Grid.Row="3"
+                            x:Name="passwordTextBlock"
                             Margin="40,10,0,0"
                             HorizontalAlignment="Left"
                             FontSize="20"
                             Foreground="#20a8bb"
                             Text="Mật khẩu:" />
-                        
+
                         <PasswordBox
+                            Grid.Row="4"
                             x:Name="passwordPasswordBox"
                             HorizontalAlignment="Stretch"
                             FontSize="18"
                             Foreground="#000"
-                            Margin="50 10 50 0"                            
                             Height="40"
-                            Style="{StaticResource SpecialFocusPasswordBox}" />
+                            Width="300"
+                            LostFocus="passwordPasswordBox_LostFocus"
+                            KeyDown="inputBox_KeyDown"
+                            Style="{DynamicResource SpecialFocusValidatingPasswordBox}">
+                        </PasswordBox>
 
 
                         <CheckBox
+                            Visibility="Visible"
+                            Grid.Row="5"
+                            Grid.RowSpan="2"
                             x:Name="rememberCheckBox"
-                            Margin="50 20 50 0"
                             HorizontalAlignment="Center"
                             FontSize="20"
                             Foreground="#20a8bb"
                             VerticalContentAlignment="Center"
                             Content="Ghi nhớ tài khoản"
-                            
-                            Style="{StaticResource CustomCheckBox}"/>
+                            Height="32"
+                            Style="{StaticResource CustomCheckBox}" />
+
+
+                        <TextBlock
+                            Grid.Row="7"
+                            Grid.RowSpan="2"
+                            MaxWidth="300"
+                            x:Name="resultTextBlock"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            TextWrapping="Wrap"
+                            TextAlignment="Center"
+                            d:Text="Đănh nhập thất bại"
+                            Foreground="#ff0000"
+                            Visibility="Visible" />
 
                         <Button
-                            x:Name="forgotButton"
-                            Margin="50 0 50 0"
-                            HorizontalAlignment="Stretch"
-                            FontSize="20"
-                            Foreground="#fff"
-                            VerticalContentAlignment="Center"
-                            Content="Quên mật khẩu"
-                            Background="#20a8bb"
-                            Height="40"
-                            Click="loginButton_Click"
-                            Style="{StaticResource HyperlinkButton}" />
-                        <Button
-                            x:Name="signupButton"
-                            Margin="50 0 50 0"
-                            HorizontalAlignment="Stretch"
-                            FontSize="20"
-                            Foreground="#fff"
-                            VerticalContentAlignment="Center"
-                            Content="Tạo tài khoản mới"
-                            Background="#20a8bb"
-                            Height="40"
-                            Click="loginButton_Click"
-                            Style="{StaticResource HyperlinkButton}" />
-
-                        <Button
+                            Grid.Row="8"
+                            Grid.RowSpan="2"
                             x:Name="loginButton"
-                            Margin="50 15 50 0"
                             HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
                             FontSize="20"
                             Foreground="#fff"
                             VerticalContentAlignment="Center"
                             Content="Đăng nhập"
                             Background="#20a8bb"
                             Height="50"
+                            Width="300"
                             Click="loginButton_Click"
-                            Style="{StaticResource BorderButton}" />
+                            Style="{StaticResource BorderGradientButton}" />
 
-
-                    </StackPanel>
+                        
+                        
+                    </Grid>
 
                 </Border>
 
