@@ -34,7 +34,8 @@ namespace GUI_MyShop {
         public LoginWindow() {
             InitializeComponent();
             StateChanged += LoginWindow_StateChanged;
-
+            //BUS_User.Instance!.SaveUser("admin", "admin");
+            MessageBox.Show(BUS_User.Instance!.GetUsername() + " " + BUS_User.Instance!.GetPassword());
 
 
         }
