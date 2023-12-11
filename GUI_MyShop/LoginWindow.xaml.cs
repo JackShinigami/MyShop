@@ -35,9 +35,6 @@ namespace GUI_MyShop {
             InitializeComponent();
             StateChanged += LoginWindow_StateChanged;
             //BUS_User.Instance!.SaveUser("admin", "admin");
-            MessageBox.Show(BUS_User.Instance!.GetUsername() + " " + BUS_User.Instance!.GetPassword());
-
-
         }
 
         #region Title Bar Event Handler
