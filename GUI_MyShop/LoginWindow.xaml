@@ -9,12 +9,12 @@
     mc:Ignorable="d"
     WindowStyle="None"
     Background="Transparent"
-    Title="LoginWindow"
     AllowsTransparency="True"
     WindowStartupLocation="CenterScreen"
     ResizeMode="CanResize"
     Height="675"
     Width="1200"
+    Title="LoginWindow"
     Loaded="Window_Loaded">
 
     <Border

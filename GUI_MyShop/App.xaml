@@ -16,6 +16,10 @@
                     Source="Styles/CheckBoxStyles.xaml" />
                 <ResourceDictionary
                     Source="Styles/ButtonStyles.xaml" />
+
+                <ResourceDictionary
+                    Source="pack://application:,,,/Fluent;Component/Themes/Generic.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
