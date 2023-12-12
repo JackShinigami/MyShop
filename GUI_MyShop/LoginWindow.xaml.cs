@@ -16,6 +16,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BUS_MyShop;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Model;
 
 namespace GUI_MyShop {
     /// <summary>
@@ -27,14 +28,18 @@ namespace GUI_MyShop {
         Rect restoreSize = new Rect(0, 0, 0, 0);
         public string Username { get; set; }
         public string Password { get; set; }
+        public bool Remember { get; set; }
 
         private ValidationResult? usernameNotEmpty = null; 
         private ValidationResult? passwordNotEmpty = null; 
 
         public LoginWindow() {
             InitializeComponent();
+            Username = "";
+            Password = "";
             StateChanged += LoginWindow_StateChanged;
             //BUS_User.Instance!.SaveUser("admin", "admin");
+
         }
 
         #region Title Bar Event Handler
@@ -141,18 +146,31 @@ namespace GUI_MyShop {
             Username = usernameTextBox.Text;
             Password = passwordPasswordBox.Password;
 
+            var validation = new EmptyInputRule();
+
+            usernameNotEmpty = validation.Validate(usernameTextBox.Text, null);
             if(usernameNotEmpty == null || !usernameNotEmpty!.IsValid) {
                 resultTextBlock.Text = "Vui lòng nhập tên đăng nhập";
                 return;
             }
 
-            if(passwordNotEmpty == null || !passwordNotEmpty!.IsValid) {
+            passwordNotEmpty = validation.Validate(passwordPasswordBox.Password, null);
+            if (passwordNotEmpty == null || !passwordNotEmpty!.IsValid) {
                 resultTextBlock.Text = "Vui lòng nhập mật khẩu";
                 return;
             }
             
+            //BUS_MyShop.BUS_User.Instance!.SaveUser("admin", "admin");
+
             if (BUS_User.Instance!.CheckLogin(Username, Password)) {
                 resultTextBlock.Text = "";
+                if (rememberCheckBox.IsChecked == true)
+                {
+                    BUS_User.Instance!.SetRemember(true);
+                } else
+                {
+                    BUS_User.Instance!.SetRemember(false);
+                }
                 MainWindow mainWindow = new MainWindow();
                 mainWindow.Show();
                 this.Close();
@@ -160,14 +178,23 @@ namespace GUI_MyShop {
                 resultTextBlock.Text = "Tên đăng nhập hoặc mật khẩu không đúng";
             }
 
+
         }
 
 
 
         private void Window_Loaded(object sender, RoutedEventArgs e) {
-            Username = "";
-            Password = "";
             DataContext = this;
+            // load remember me
+            if (BUS_User.Instance!.GetRemember())
+            {
+                rememberCheckBox.IsChecked = true;
+                usernameTextBox.Text = BUS_User.Instance!.GetUsername();
+                passwordPasswordBox.Password = BUS_User.Instance!.GetPassword();
+            } else
+            {
+                rememberCheckBox.IsChecked = false;
+            }
         }
 
         private void passwordPasswordBox_LostFocus(object sender, RoutedEventArgs e) {

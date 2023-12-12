@@ -35,6 +35,23 @@ namespace DAL_MyShop
             ConfigurationManager.RefreshSection("appSettings");
         }
 
+        public void SetRemember(bool rememChecked)
+        {
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            if (rememChecked)
+                ConfigurationManager.AppSettings["Remember"] = "true";
+            else
+                ConfigurationManager.AppSettings["Remember"] = "false";
+
+            config.Save(ConfigurationSaveMode.Minimal);
+            ConfigurationManager.RefreshSection("appSettings");
+        }
+
+        public string? GetRemember()
+        {
+            return ConfigurationManager.AppSettings["Remember"];
+        }
+
         public string? GetUsername()
         {
             return ConfigurationManager.AppSettings["Username"];
@@ -49,5 +66,6 @@ namespace DAL_MyShop
         {
             return ConfigurationManager.AppSettings["Entropy"];
         }
+
     }
 }

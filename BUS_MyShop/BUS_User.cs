@@ -40,6 +40,8 @@ namespace BUS_MyShop
             dalUser.SaveUser(username, passwordIn64, entropyIn64);
         }
 
+
+
         public bool CheckLogin(string username, string password)
         {
             if(dalUser.GetUsername() == null || dalUser.GetPassword() == null || dalUser.GetEntropy() == null)
@@ -88,6 +90,21 @@ namespace BUS_MyShop
             var realPassword = Encoding.UTF8.GetString(passwordInBytes2);
             
             return realPassword;
+        }
+
+        public bool GetRemember()
+        {
+            if (dalUser.GetRemember() == null || dalUser.GetRemember() != "true")
+                return false;
+            return true;
+        }
+
+        public void SetRemember(bool rememChecked)
+        {
+            if(rememChecked)
+                dalUser.SetRemember(true);
+            else
+                dalUser.SetRemember(false);
         }
     }
 }
