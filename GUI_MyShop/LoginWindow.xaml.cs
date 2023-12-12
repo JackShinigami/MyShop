@@ -25,12 +25,16 @@ namespace GUI_MyShop {
         private Point startPoint;
         private bool isDragging = false;
         Rect restoreSize = new Rect(0, 0, 0, 0);
+        public string Username { get; set; }
+        public string Password { get; set; }
 
+        private ValidationResult? usernameNotEmpty = null; 
+        private ValidationResult? passwordNotEmpty = null; 
 
         public LoginWindow() {
             InitializeComponent();
             StateChanged += LoginWindow_StateChanged;
-
+            //BUS_User.Instance!.SaveUser("admin", "admin");
         }
 
         #region Title Bar Event Handler
@@ -134,6 +138,108 @@ namespace GUI_MyShop {
 
         private void loginButton_Click(object sender, RoutedEventArgs e) {
 
+            Username = usernameTextBox.Text;
+            Password = passwordPasswordBox.Password;
+
+            if(usernameNotEmpty == null || !usernameNotEmpty!.IsValid) {
+                resultTextBlock.Text = "Vui lòng nhập tên đăng nhập";
+                return;
+            }
+
+            if(passwordNotEmpty == null || !passwordNotEmpty!.IsValid) {
+                resultTextBlock.Text = "Vui lòng nhập mật khẩu";
+                return;
+            }
+            
+            if (BUS_User.Instance!.CheckLogin(Username, Password)) {
+                resultTextBlock.Text = "";
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                this.Close();
+            } else {
+                resultTextBlock.Text = "Tên đăng nhập hoặc mật khẩu không đúng";
+            }
+
+        }
+
+
+
+        private void Window_Loaded(object sender, RoutedEventArgs e) {
+            Username = "";
+            Password = "";
+            DataContext = this;
+        }
+
+        private void passwordPasswordBox_LostFocus(object sender, RoutedEventArgs e) {
+            // validate empty password
+            var validation = new EmptyInputRule();
+            passwordNotEmpty = validation.Validate(passwordPasswordBox.Password, null);
+
+            var dynamicTemplateResource = FindResource("SpecialFocusPasswordBoxTemplate") as ControlTemplate;
+            passwordPasswordBox.Template = dynamicTemplateResource;
+            passwordPasswordBox.ApplyTemplate();
+
+            var border = passwordPasswordBox!.Template!.FindName("ContainerBorder", passwordPasswordBox) as Border;
+            var borderBrush = new SolidColorBrush();
+            borderBrush.Color = ((SolidColorBrush)border!.BorderBrush).Color;
+            border.BorderBrush = borderBrush;
+
+            if (!passwordNotEmpty.IsValid) {
+
+                var animation = new ColorAnimation();
+                animation.From = new Color() { A = 0xff, R = 0x20, G = 0xa8, B = 0xbb };
+                animation.To = new Color() { A = 0xff, R = 0xff, G = 0x00, B = 0x00 };
+                animation.Duration = new Duration(TimeSpan.FromSeconds(0.5));
+                animation.AutoReverse = false;
+                animation.RepeatBehavior = new RepeatBehavior(5);
+                borderBrush.BeginAnimation(SolidColorBrush.ColorProperty, animation);
+
+            } else {
+
+                borderBrush.Color = new Color() { A = 0xff, R = 0x20, G = 0xa8, B = 0xbb };
+
+            }
+                
+        }
+
+        private void usernameTextBox_LostFocus(object sender, RoutedEventArgs e) {
+            var validation = new EmptyInputRule();
+            usernameNotEmpty = validation.Validate(usernameTextBox.Text, null);
+            var dynamicTemplateResource = FindResource("SpecialFocusTextBoxTemplate") as ControlTemplate;
+            usernameTextBox.Template = dynamicTemplateResource;
+            usernameTextBox.ApplyTemplate();
+
+            var border = usernameTextBox!.Template!.FindName("ContainerBorder", usernameTextBox) as Border;
+            var borderBrush = new SolidColorBrush();
+            borderBrush.Color = ((SolidColorBrush)border!.BorderBrush).Color;
+            border.BorderBrush = borderBrush;
+
+            if (!usernameNotEmpty.IsValid) {
+
+                var animation = new ColorAnimation();
+                animation.From = new Color() { A = 0xff, R = 0x20, G = 0xa8, B = 0xbb };
+                animation.To = new Color() { A = 0xff, R = 0xff, G = 0x00, B = 0x00 };
+                animation.Duration = new Duration(TimeSpan.FromSeconds(0.5));
+                animation.AutoReverse = false;
+                animation.RepeatBehavior = new RepeatBehavior(5);
+                borderBrush.BeginAnimation(SolidColorBrush.ColorProperty, animation);
+
+            } else {
+
+                borderBrush.Color = new Color() { A = 0xff, R = 0x20, G = 0xa8, B = 0xbb };
+
+            }
+        }
+
+
+        private void inputBox_KeyDown(object sender, KeyEventArgs e) {
+            if (e.Key == Key.Enter) {
+                // lost focus all input box
+                passwordPasswordBox.Focus();
+                usernameTextBox.Focus();
+                // click login button
+                loginButton_Click(sender, e);
+            }
         }
     }
 }

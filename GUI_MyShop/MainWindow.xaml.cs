@@ -21,19 +21,25 @@ namespace GUI_MyShop
     /// </summary>
     public partial class MainWindow : RibbonWindow
     {
+
+        public string Text { get; set; }
+        public string MyProperty { get; set; }
         public MainWindow()
         {
             InitializeComponent();
-            BUS_User.Instance!.SaveUser("admin", "admin");
 
-            if(BUS_User.Instance!.CheckLogin("admin", "admin"))
-            {
-                MessageBox.Show("Login successfully");
-            }
-            else
-            {
-                MessageBox.Show("Login failed");
-            }
+        }
+
+        private void testButton_Click(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e) {
+
+            Text = "Hello World";
+            MyProperty = "Hello World";
+            DataContext = this;
+
         }
     }
 }

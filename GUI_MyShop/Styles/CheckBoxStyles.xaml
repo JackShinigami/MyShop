@@ -13,7 +13,7 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition
-                                Width="32" />
+                                Width="34" />
                             <ColumnDefinition
                                 Width="*" />
                         </Grid.ColumnDefinitions>
@@ -25,6 +25,7 @@
                             BorderThickness="3"
                             CornerRadius="2"
                             Cursor="Hand"
+                            Height="30"
                             Margin="0,0,5,0">
                             <Grid
                                 x:Name="CheckMark"

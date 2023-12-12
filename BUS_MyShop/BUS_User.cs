@@ -66,5 +66,28 @@ namespace BUS_MyShop
             return false;
         }
 
+        public string? GetUsername()
+        {
+            if(dalUser.GetUsername() == null || dalUser.GetUsername()=="")
+                return null;
+            return dalUser.GetUsername();
+        }
+
+        public string? GetPassword()
+        {
+            var passwordIn64 = dalUser.GetPassword();
+            var entropyIn64 = dalUser.GetEntropy();
+            if (passwordIn64 == null || entropyIn64 == null || passwordIn64=="" ||passwordIn64=="")
+                return null;
+
+            var passwordInBytes = Convert.FromBase64String(passwordIn64);
+            var entropy = Convert.FromBase64String(entropyIn64);
+
+            var passwordInBytes2 = ProtectedData.Unprotect(passwordInBytes, entropy,
+                               DataProtectionScope.CurrentUser);
+            var realPassword = Encoding.UTF8.GetString(passwordInBytes2);
+            
+            return realPassword;
+        }
     }
 }

@@ -1,5 +1,6 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 
     <Style
@@ -33,16 +34,13 @@
         x:Key="BorderButton"
         TargetType="Button">
         <Setter
-            Property="Background"
-            Value="#20a8bb" />
-        <Setter
             Property="Template">
             <Setter.Value>
                 <ControlTemplate
                     TargetType="Button">
                     <Border
                         x:Name="Border"
-                        Background="#20a8bb"
+                        Background="#20abbb"
                         BorderThickness="1"
                         CornerRadius="10">
                         <TextBlock
@@ -62,6 +60,123 @@
                                 Property="Background"
                                 Value="#089" />
                         </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+
+
+    <Style
+        x:Key="BorderGradientButton"
+        TargetType="Button">
+
+        <Style.Resources>
+
+
+            <!--<GradientStopCollection
+                x:Key="PrimaryGradientStopCollection">
+                <GradientStop
+                    Color="#20a8bb"
+                    x:Name="gs0" />
+                <GradientStop
+                    Color="#22D09E"
+                    x:Name="gs1" />
+            </GradientStopCollection>
+
+            <LinearGradientBrush
+                x:Key="PrimaryLinearGradientBrush"
+                StartPoint="0,0"
+                EndPoint="1,0"
+                GradientStops="{DynamicResource PrimaryGradientStopCollection}" />-->
+
+
+
+
+        </Style.Resources>
+
+
+        <Setter
+            Property="Template">
+            <Setter.Value>
+                <ControlTemplate
+                    TargetType="Button">
+                    <Border
+                        x:Name="Border"
+                        BorderThickness="1"
+                        CornerRadius="10">
+
+                        <Border.Background>
+                            <LinearGradientBrush
+                                StartPoint="0,0"
+                                EndPoint="0,1">
+                                <GradientStop
+                                    Color="#20a8bb"
+                                    Offset="0.0"
+                                    x:Name="gs0" />
+                                <GradientStop
+                                    Color="#22D09E"
+                                    Offset="1.0"
+                                    x:Name="gs1" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+
+                        <TextBlock
+                            Text="{TemplateBinding Content}"
+                            Foreground="#fff"
+                            Cursor="Hand"
+                            TextAlignment="Center"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center" />
+
+                    </Border>
+
+
+                    <ControlTemplate.Triggers>
+                        <EventTrigger
+                            RoutedEvent="Button.MouseEnter">
+
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation
+                                        Storyboard.TargetName="gs0"
+                                        Storyboard.TargetProperty="Offset"
+                                        From="0.0"
+                                        To="1.0"
+                                        Duration="0:0:0.4" />
+                                    <DoubleAnimation
+                                        Storyboard.TargetName="gs1"
+                                        Storyboard.TargetProperty="Offset"
+                                        From="1.0"
+                                        To="0.0"
+                                        Duration="0:0:0.4" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+
+                        <EventTrigger
+                            RoutedEvent="Button.MouseLeave">
+
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation
+                                        Storyboard.TargetName="gs0"
+                                        Storyboard.TargetProperty="Offset"
+                                        From="1.0"
+                                        To="0.0"
+                                        Duration="0:0:0.4" />
+                                    <DoubleAnimation
+                                        Storyboard.TargetName="gs1"
+                                        Storyboard.TargetProperty="Offset"
+                                        From="0.0"
+                                        To="1.0"
+                                        Duration="0:0:0.4" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
