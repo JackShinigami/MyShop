@@ -42,7 +42,6 @@ namespace DAL_MyShop
                 config.AppSettings.Settings["Remember"].Value = "true";
             else
                 config.AppSettings.Settings["Remember"].Value = "false";
-
             config.Save(ConfigurationSaveMode.Minimal);
             ConfigurationManager.RefreshSection("appSettings");
         }
