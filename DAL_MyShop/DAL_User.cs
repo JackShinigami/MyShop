@@ -39,10 +39,9 @@ namespace DAL_MyShop
         {
             var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             if (rememChecked)
-                ConfigurationManager.AppSettings["Remember"] = "true";
+                config.AppSettings.Settings["Remember"].Value = "true";
             else
-                ConfigurationManager.AppSettings["Remember"] = "false";
-
+                config.AppSettings.Settings["Remember"].Value = "false";
             config.Save(ConfigurationSaveMode.Minimal);
             ConfigurationManager.RefreshSection("appSettings");
         }
