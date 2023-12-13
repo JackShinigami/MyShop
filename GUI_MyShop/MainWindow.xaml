@@ -1,4 +1,4 @@
-﻿<Fluent:RibbonWindow
+<Fluent:RibbonWindow
     x:Class="GUI_MyShop.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -13,6 +13,7 @@
     ResizeMode="CanResize"
     Background="Transparent"
     Loaded="Window_Loaded"
+
     Height="675"    
     BorderThickness="0"
     Width="1200">
@@ -57,4 +58,4 @@
         </Grid>
     </Border>
 
-</Window>
+</Fluent:RibbonWindow>

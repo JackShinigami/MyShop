@@ -108,8 +108,13 @@
 
                         <Border.Background>
                             <LinearGradientBrush
+                                x:Name="lgb"                                
                                 StartPoint="0,0"
                                 EndPoint="0,1">
+                                <GradientStop
+                                    Color="#22D09E"
+                                    Offset="-1.0"
+                                    x:Name="gsm1" />
                                 <GradientStop
                                     Color="#20a8bb"
                                     Offset="0.0"
@@ -142,18 +147,23 @@
                                         Storyboard.TargetName="gsm1"
                                         Storyboard.TargetProperty="Offset"
                                         To="0.0"
+
                                         Duration="0:0:0.2" />
+
                                     <DoubleAnimation
                                         Storyboard.TargetName="gs0"
                                         Storyboard.TargetProperty="Offset"
-                                        From="0.0"
                                         To="1.0"
+
                                         Duration="0:0:0.2" />
+
                                     <DoubleAnimation
                                         Storyboard.TargetName="gs1"
                                         Storyboard.TargetProperty="Offset"
                                         To="2"
+
                                         Duration="0:0:0.2" />
+
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
@@ -171,13 +181,11 @@
                                     <DoubleAnimation
                                         Storyboard.TargetName="gs0"
                                         Storyboard.TargetProperty="Offset"
-                                        From="1.0"
                                         To="0.0"
                                         Duration="0:0:0.2" />
                                     <DoubleAnimation
                                         Storyboard.TargetName="gs1"
                                         Storyboard.TargetProperty="Offset"
-                                        From="0.0"
                                         To="1.0"
                                         Duration="0:0:0.2" />
                                 </Storyboard>

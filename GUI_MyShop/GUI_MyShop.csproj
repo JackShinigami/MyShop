@@ -17,6 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Fluent.Ribbon" Version="10.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BUS_MyShop\BUS_MyShop.csproj" />
     <ProjectReference Include="..\DTO_MyShop\DTO_MyShop.csproj" />
   </ItemGroup>
