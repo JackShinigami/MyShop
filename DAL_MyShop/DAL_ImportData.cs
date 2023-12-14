@@ -9,7 +9,7 @@ using System.Windows;
 using DTO_MyShop;
 namespace DAL_MyShop
 {
-    class DAL_ImportData
+    public class DAL_ImportData
     {
         private static DAL_ImportData? instance;
         private BookshopContext context = new BookshopContext();

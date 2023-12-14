@@ -7,10 +7,11 @@ using DTO_MyShop;
 
 namespace DAL_MyShop
 {
-    class DAL_ListCustomers
+    public class DAL_ListCustomers
     {
         private static DAL_ListCustomers? instance;
         private BookshopContext context = new BookshopContext();
+
         public static DAL_ListCustomers? Instance
         {
             get
@@ -21,11 +22,7 @@ namespace DAL_MyShop
             }
         }
 
-        public enum SortType
-        {
-            Id,
-            CustomerName
-        }
+       
 
         public List<Customer> GetCustomers()
         {
@@ -34,42 +31,17 @@ namespace DAL_MyShop
             return customers;
         }
 
-        public List<Customer> GetCustomers(int skip, int take, SortType sortType = SortType.Id, bool ascending = true, string searchKey = "")
-        {
-            List<Customer> customers;
-            customers = context.Customers
-                .Where(c => c.CustomerName.ToLower().Contains(searchKey.ToLower())).ToList();
-            switch (sortType)
-            {
-                case SortType.Id:
-                    if (ascending)
-                        customers = customers.OrderBy(c => c.Id).ToList();
-                    else
-                        customers = customers.OrderByDescending(c => c.Id).ToList();
-                    break;
-                case SortType.CustomerName:
-                    if (ascending)
-                        customers = customers.OrderBy(c => c.CustomerName).ToList();
-                    else
-                        customers = customers.OrderByDescending(c => c.CustomerName).ToList();
-                    break;
-            }
-
-            customers = customers.Skip(skip).Take(take).ToList();
-
-            return customers;
-        }
-
+        
         public void AddCustomer(Customer customer)
         {
             if (customer.Id == null || customer.Id == "")
             {
-                throw new Exception("Customer ID cannot be empty");
+                throw new Exception("Id không thể trống");
             }
 
             if (context.Customers.Find(customer.Id) != null)
             {
-                throw new Exception("Customer ID already exists");
+                throw new Exception("Id đã tồn tại");
             }
             context.Customers.Add(customer);
             context.SaveChanges();
@@ -80,12 +52,12 @@ namespace DAL_MyShop
             Customer customer = context.Customers.Find(id);
             if (customer == null)
             {
-                throw new Exception("Customer ID does not exist");
+                throw new Exception("Id không tồn tại");
             }
 
             if (context.Orders.Where(o => o.CustomerId == id).Count() > 0)
             {
-                throw new Exception("Customer ID is being used by an order");
+                throw new Exception("Vui lòng xoá các đơn hàng của khách hàng này trước");
             }
 
             context.Customers.Remove(customer);
@@ -96,12 +68,12 @@ namespace DAL_MyShop
         {
             if (context.Customers.Find(id) == null)
             {
-                throw new Exception("Customer ID does not exist");
+                throw new Exception("Id không tồn tại");
             }
 
             if (id != customer.Id)
             {
-                throw new Exception("Customer ID cannot be changed");
+                throw new Exception("Id không thể thay đổi");
             }
 
             Customer c = context.Customers.Find(id);
@@ -117,7 +89,7 @@ namespace DAL_MyShop
             Customer customer = context.Customers.Find(id);
             if (customer == null)
             {
-                throw new Exception("Customer ID does not exist");
+                throw new Exception("Id không tồn tại");
             }
 
             return customer;

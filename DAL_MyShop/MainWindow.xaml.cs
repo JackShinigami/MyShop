@@ -47,8 +47,6 @@ namespace DAL_MyShop
             ///
             //var a = daoOrderDetail.GetRevenueAndProfit(new DateTime(2023, 1, 1), new DateTime(2023, 12, 3));
             //MessageBox.Show(a.Revenue.ToString() + " " + a.Profit.ToString());
-
-            dataGrid.ItemsSource = daoOrderDetail.GetSalesOfProducts(new DateTime(2023, 1, 1), new DateTime(2023, 12, 3));
            
         }
 
@@ -108,7 +106,7 @@ namespace DAL_MyShop
         private void click_Order(object sender, RoutedEventArgs e)
         {
             
-            dataGrid.ItemsSource = daoOrder.GetOrders(0, 10, DAL_ListOrders.SortType.OrderDate, false, new DateTime(2023, 1, 1), new DateTime(2023, 1, 3));
+            //dataGrid.ItemsSource = daoOrder.GetOrders(0, 10, DAL_ListOrders.SortType.OrderDate, false, new DateTime(2023, 1, 1), new DateTime(2023, 1, 3));
         }
 
         private void click_OrderDetail(object sender, RoutedEventArgs e)
@@ -118,7 +116,7 @@ namespace DAL_MyShop
 
         private void click_LoadCustomer(object sender, RoutedEventArgs e)
         {
-            dataGrid.ItemsSource = daoCustomer.GetCustomers(0, 10, DAL_ListCustomers.SortType.CustomerName, false, "");
+            //dataGrid.ItemsSource = daoCustomer.GetCustomers(0, 10, DAL_ListCustomers.SortType.CustomerName, false, "");
         }
 
         //-------------------------------------------------------------------------------------------------------------
