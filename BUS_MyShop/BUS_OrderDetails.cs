@@ -62,13 +62,19 @@ namespace BUS_MyShop
             {
                 throw new Exception("Số lượng phải lớn hơn 0");
             }
+
+            Product product = DAL_ListProducts.Instance.GetProductById(ProductId);
+            if(product.Quantity < Quantity)
+            {
+                throw new Exception("Số lượng sản phẩm trong kho không đủ");
+            }
+
             OrderDetail orderDetail = new OrderDetail()
             {
                 OrderId = OrderId,
                 ProductId = ProductId,
                 Quantity = Quantity
             };
-
             dal.AddOrderDetail(orderDetail);
         }
 
@@ -88,7 +94,8 @@ namespace BUS_MyShop
 
         public void UpdateOrderDetail(string orderId, string productId, int Quantity)
         {
-            if (dal.GetOrderDetailById(orderId, productId) == null)
+            OrderDetail oldOrderDetail = dal.GetOrderDetailById(orderId, productId);
+            if (oldOrderDetail == null)
             {
                 throw new Exception("Id thông tin đơn hàng không tồn tại");
             }
@@ -96,6 +103,12 @@ namespace BUS_MyShop
             if (Quantity <= 0)
             {
                 throw new Exception("Số lượng phải lớn hơn 0");
+            }
+
+            Product product = DAL_ListProducts.Instance.GetProductById(productId);
+            if(product.Quantity + oldOrderDetail.Quantity < Quantity)
+            {
+                throw new Exception("Số lượng sản phẩm trong kho không đủ");
             }
 
             OrderDetail orderDetail = new OrderDetail()
@@ -150,6 +163,29 @@ namespace BUS_MyShop
                 return new { Revenue = 0, Profit = 0 };
 
             return res[0];
+        }
+
+        public Tuple<List<DateTime>,List<int>, List<int>> GetRevenueAndProfitByDay(DateTime beginDate, DateTime endDate)
+        {
+            var Dates = new List<DateTime>();
+            var Revenues = new List<int>();
+            var Profits = new List<int>();
+
+            var temp = from od in dal.GetOrderDetails()
+                       from o in DAL_ListOrders.Instance.GetOrders()
+                       from p in DAL_ListProducts.Instance.GetProducts()
+                       where od.OrderId == o.Id && od.ProductId == p.Id && o.OrderDate >= beginDate && o.OrderDate <= endDate
+                       select new { o.OrderDate, Revenue = od.Quantity * p.SellingPrice, Profit = od.Quantity * (p.SellingPrice - p.CostPrice) };
+            var group = (from t in temp
+                         group t by t.OrderDate into g
+                         select new { OrderDate = g.Key, Revenue = g.Sum(t => t.Revenue), Profit = g.Sum(t => t.Profit) }).ToList();
+            foreach (var item in group)
+            {
+                Dates.Add((DateTime)item.OrderDate);
+                Revenues.Add((int)item.Revenue);
+                Profits.Add((int)item.Profit);
+            }
+            return new Tuple<List<DateTime>, List<int>, List<int>>(Dates, Revenues, Profits);
         }
 
         public BindingList<dynamic> GetSalesOfProducts(DateTime beginDate, DateTime endDate)
