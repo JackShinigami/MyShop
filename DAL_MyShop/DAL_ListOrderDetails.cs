@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using DocumentFormat.OpenXml.Wordprocessing;
 using DTO_MyShop;
+
 namespace DAL_MyShop
 {
-    class DAL_ListOrderDetails
+    public class DAL_ListOrderDetails
     {
         private static DAL_ListOrderDetails? instance;
         private BookshopContext context = new BookshopContext();
@@ -40,19 +41,19 @@ namespace DAL_MyShop
         {
             if (orderDetail.OrderId == null || orderDetail.OrderId == "")
             {
-                throw new Exception("Order ID cannot be empty");
+                throw new Exception("Id đơn hàng không được để trống");
             }
 
             if (orderDetail.ProductId == null || orderDetail.ProductId == "")
             {
-                throw new Exception("Product ID cannot be empty");
+                throw new Exception("Id sản phẩm không được để trống");
             }
 
             if (context.OrderDetails.Find(orderDetail.OrderId, orderDetail.ProductId) != null)
             {
-                throw new Exception("Order detail already exists");
+                throw new Exception("Thông tin đơn hàng đã tồn tại");
             }
-
+            context.Products.Find(orderDetail.ProductId).Quantity -= orderDetail.Quantity;
             context.OrderDetails.Add(orderDetail);
             context.SaveChanges();
         }
@@ -60,10 +61,12 @@ namespace DAL_MyShop
         public void DeleteOrderDetail(string orderId, string productId)
         {
             OrderDetail orderDetail = context.OrderDetails.Find(orderId, productId);
+            Product product = context.Products.Find(productId);
             if (orderDetail == null)
             {
-                throw new Exception("Order detail does not exist");
+                throw new Exception("Thông tin đơn hàng không tồn tồn tại");
             }
+            product.Quantity += orderDetail.Quantity;
             context.OrderDetails.Remove(orderDetail);
             context.SaveChanges();
         }
@@ -72,86 +75,36 @@ namespace DAL_MyShop
         {
             if(context.OrderDetails.Find(orderId, productId) == null)
             {
-                throw new Exception("Order detail does not exist");
+                throw new Exception("Thông tin đơn hàng không tồn tại");
             }
 
             if(orderId != orderDetail.OrderId)
             {
-                throw new Exception("Order ID cannot be changed");
+                throw new Exception("Id đơn hàng không được thay đổi");
             }
             
             if(productId != orderDetail.ProductId)
             {
-                throw new Exception("Product ID cannot be changed");
+                throw new Exception("Id sản phẩm không được thay đổi");
             }
 
             OrderDetail od = context.OrderDetails.Find(orderId, productId);
+            Product product = context.Products.Find(productId);
+            product.Quantity += od.Quantity;
             od.Quantity = orderDetail.Quantity;
+            product.Quantity -= od.Quantity;
             context.SaveChanges();
         }    
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="top"></param>
-        /// <returns>object chứa 3 thuộc tính là ProductId, tổng số lượng, ProductName</returns>
-        public List<dynamic> GetBestSellingProducts(int top)
+        public OrderDetail GetOrderDetailById(string orderId, string productId)
         {
-            List<dynamic> bestSellingProducts = new List<dynamic>();
-            var groupProducts = context.OrderDetails
-                .GroupBy(od => od.ProductId)
-                .Select(g => new { ProductId = g.Key, Quantity = g.Sum(od => od.Quantity) })
-                .OrderByDescending(g => g.Quantity)
-                .Take(top)
-                .ToList();
-
-            var newGroupProducts = groupProducts.Join(context.Products, g => g.ProductId, p => p.Id, (g, p) => (g, p))
-                .Select(t => new { t.g.ProductId, t.g.Quantity, t.p.ProductName }).ToList();
-               
-
-            foreach (var item in newGroupProducts)
+            OrderDetail orderDetail = context.OrderDetails.Find(orderId, productId);
+            if (orderDetail == null)
             {
-                bestSellingProducts.Add(item);
+                throw new Exception("Thông tin đơn hàng không tồn tại");
             }
-
-            return bestSellingProducts;
-        }
-
-        public dynamic GetRevenueAndProfit(DateTime beginDate, DateTime endDate)
-        {
-            var temp = from od in context.OrderDetails
-                       from o in context.Orders
-                       from p in context.Products
-                       where od.OrderId == o.Id && od.ProductId == p.Id && o.OrderDate >= beginDate && o.OrderDate <= endDate
-                       select new { Revenue = od.Quantity * p.SellingPrice, Profit = od.Quantity * (p.SellingPrice - p.CostPrice) };
-            var res = (from r in temp
-                       group r by 1 into g
-                       select new { Revenue = g.Sum(r => r.Revenue), Profit = g.Sum(r => r.Profit) }).ToList();
-
-            if (res.Count == 0)
-                return new { Revenue = 0, Profit = 0 };
-
-            return res[0];
-        }
-
-        public List<dynamic> GetSalesOfProducts(DateTime beginDate, DateTime endDate)
-        {
-            var res = new List<dynamic>();
-            
-            var temp = from od in context.OrderDetails
-                       from o in context.Orders
-                       from p in context.Products
-                       where od.OrderId == o.Id && od.ProductId == p.Id && o.OrderDate >= beginDate && o.OrderDate <= endDate
-                       select new { ProductId = p.Id, ProductName = p.ProductName, od.Quantity};
-            var group = (from t in temp
-                        group t by t.ProductId into g
-                        select new { ProductId = g.Key, ProductName = g.First().ProductName, Quantity = g.Sum(t => t.Quantity) }).ToList();
-            foreach (var item in group)
-            {
-                res.Add(item);
-            }
-            return res;
-        }
+            return orderDetail;
+        }   
     }
 
 }

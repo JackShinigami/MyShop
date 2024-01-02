@@ -7,21 +7,11 @@ using System.Threading.Tasks;
 using DTO_MyShop;
 namespace DAL_MyShop
 {
-    class DAL_ListProducts
+    public class DAL_ListProducts
     {
         private static DAL_ListProducts? instance;
         private BookshopContext context = new BookshopContext();
-        public enum SortType
-        {
-            Id,
-            ProductName,
-            Author,
-            PublishYear,
-            Publisher,
-            CostPrice,
-            SellingPrice,
-            Quantity
-        }
+        
 
         public static DAL_ListProducts Instance
         {
@@ -40,145 +30,12 @@ namespace DAL_MyShop
             return products;
         }
 
-        public List<Product> GetLowQuantityProduct(int lowQuantity)
-        {
-            List<Product> products;
-            products = context.Products.Where(p => p.Quantity < lowQuantity).OrderBy(p => p.Quantity).ToList();
-            return products;
-        }
-
-        public List<Product> GetProducts(int skip , int take,  SortType sortType = SortType.Id, bool ascending = true, string searchKey="", int beginPrice=0, int endPrice= int.MaxValue)
-        {
-            List<Product> products;
-            products = context.Products
-                .Where(p => p.ProductName.ToLower().Contains(searchKey.ToLower()) && p.SellingPrice >= beginPrice && p.SellingPrice <= endPrice).ToList();
-            switch (sortType)
-            {
-                case SortType.Id:
-                    if(ascending)
-                        products = products.OrderBy(p => p.Id).ToList();
-                    else
-                        products = products.OrderByDescending(p => p.Id).ToList();
-                    break;
-                case SortType.ProductName:
-                    if (ascending)
-                        products = products.OrderBy(p => p.ProductName).ToList();
-                    else
-                        products = products.OrderByDescending(p => p.ProductName).ToList();
-                    break;
-                case SortType.Author:
-                    if (ascending)
-                        products = products.OrderBy(p => p.Author).ToList();
-                    else
-                        products = products.OrderByDescending(p => p.Author).ToList();
-                    break;
-                case SortType.PublishYear:
-                    if (ascending)
-                        products = products.OrderBy(p => p.PublishYear).ToList();
-                    else
-                        products = products.OrderByDescending(p => p.PublishYear).ToList();
-                    break;
-                case SortType.Publisher:
-                    if (ascending)
-                        products = products.OrderBy(p => p.Publisher).ToList();
-                    else
-                        products = products.OrderByDescending(p => p.Publisher).ToList();
-                    break;
-                case SortType.CostPrice:
-                    if (ascending)
-                        products = products.OrderBy(p => p.CostPrice).ToList();
-                    else
-                        products = products.OrderByDescending(p => p.CostPrice).ToList();
-                    break;
-                case SortType.SellingPrice:
-                    if (ascending)
-                        products = products.OrderBy(p => p.SellingPrice).ToList();
-                    else
-                        products = products.OrderByDescending(p => p.SellingPrice).ToList();
-                    break;
-                case SortType.Quantity:
-                    if (ascending)
-                        products = products.OrderBy(p => p.Quantity).ToList();
-                    else
-                        products = products.OrderByDescending(p => p.Quantity).ToList();
-                    break;
-                default:
-                    break;
-            }   
-            products = products.Skip(skip).Take(take).ToList();
-            return products;
-        }
-        
-        public List<Product> GetProductsWithCategory(string categoryId, int skip, int take, SortType sortType = SortType.Id, bool ascending = true, string searchKey = "", int beginPrice = 0, int endPrice = int.MaxValue)
-        {
-            List<Product> products;
-            products = context.Products
-                .Where(p => p.CategoryId.Equals(categoryId) 
-                && p.ProductName.ToLower().Contains(searchKey.ToLower())
-                && p.SellingPrice >= beginPrice && p.SellingPrice <= endPrice).ToList();
-            switch (sortType)
-            {
-                case SortType.Id:
-                    if (ascending)
-                        products = products.OrderBy(p => p.Id).ToList();
-                    else
-                        products = products.OrderByDescending(p => p.Id).ToList();
-                    break;
-                case SortType.ProductName:
-                    if (ascending)
-                        products = products.OrderBy(p => p.ProductName).ToList();
-                    else
-                        products = products.OrderByDescending(p => p.ProductName).ToList();
-                    break;
-                case SortType.Author:
-                    if (ascending)
-                        products = products.OrderBy(p => p.Author).ToList();
-                    else
-                        products = products.OrderByDescending(p => p.Author).ToList();
-                    break;
-                case SortType.PublishYear:
-                    if (ascending)
-                        products = products.OrderBy(p => p.PublishYear).ToList();
-                    else
-                        products = products.OrderByDescending(p => p.PublishYear).ToList();
-                    break;
-                case SortType.Publisher:
-                    if (ascending)
-                        products = products.OrderBy(p => p.Publisher).ToList();
-                    else
-                        products = products.OrderByDescending(p => p.Publisher).ToList();
-                    break;
-                case SortType.CostPrice:
-                    if (ascending)
-                        products = products.OrderBy(p => p.CostPrice).ToList();
-                    else
-                        products = products.OrderByDescending(p => p.CostPrice).ToList();
-                    break;
-                case SortType.SellingPrice:
-                    if (ascending)
-                        products = products.OrderBy(p => p.SellingPrice).ToList();
-                    else
-                        products = products.OrderByDescending(p => p.SellingPrice).ToList();
-                    break;
-                case SortType.Quantity:
-                    if (ascending)
-                        products = products.OrderBy(p => p.Quantity).ToList();
-                    else
-                        products = products.OrderByDescending(p => p.Quantity).ToList();
-                    break;
-                default:
-                    break;
-            }
-            products = products.Skip(skip).Take(take).ToList();
-            return products;
-        }
-
         public void AddProduct(Product product)
         {
             if (product.Id == null || product.Id == "")
-                throw new Exception("Id is null"); 
+                throw new Exception("Id không thể trống"); 
             if (context.Products.Find(product.Id) != null)
-                throw new Exception("Id is existed");
+                throw new Exception("Id đã tồn tại");
             
             context.Products.Add(product);
             context.SaveChanges();
@@ -188,7 +45,7 @@ namespace DAL_MyShop
         {
             Product product = context.Products.Find(id);
             if (product == null)
-                throw new Exception("Id is not existed");
+                throw new Exception("Id không tồn tại");
 
             context.Products.Remove(product);
             context.SaveChanges();
@@ -197,9 +54,9 @@ namespace DAL_MyShop
         public void UpdateProduct(string id, Product updatedProduct)
         {
             if(context.Products.Find(id) == null)
-                throw new Exception("Id is not existed");
+                throw new Exception("Id không tồn tại");
             if(id != updatedProduct.Id)
-                throw new Exception("Id cannot be change");
+                throw new Exception("Id không thể bị thay đổi");
             
             var product = context.Products.FirstOrDefault(p => p.Id == id);
             product!.ProductName = updatedProduct.ProductName;
@@ -219,7 +76,7 @@ namespace DAL_MyShop
         {
             Product product = context.Products.Find(id);
             if (product == null)
-                throw new Exception("Id is not existed");
+                throw new Exception("Id không tồn tại");
             return product;
         }
     }
