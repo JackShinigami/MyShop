@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:bus="clr-namespace:BUS_MyShop;assembly=BUS_MyShop"
+                    xmlns:gui="clr-namespace:GUI_MyShop">
+    
+    
+    
+    
+</ResourceDictionary>

@@ -74,9 +74,6 @@ namespace GUI_MyShop {
         private void maximizeButton_Click(object sender, RoutedEventArgs e) {
             // maximize the window with animation 
 
-            // fade out the window
-            DoubleAnimation animation = new DoubleAnimation(0.0, (Duration)TimeSpan.FromSeconds(0.1));
-            this.BeginAnimation(OpacityProperty, animation);
 
             Task.Delay(200).ContinueWith(_ => {
                 Dispatcher.Invoke(() => {
@@ -93,6 +90,10 @@ namespace GUI_MyShop {
 
         private void minimizeButton_Click(object sender, RoutedEventArgs e) {
            
+            // fade out the window
+            DoubleAnimation animation = new DoubleAnimation(0.0, (Duration)TimeSpan.FromSeconds(0.1));
+            this.BeginAnimation(OpacityProperty, animation);
+
             Task.Delay(300).ContinueWith(_ => {
                 Dispatcher.Invoke(() => {
                     WindowState = WindowState.Minimized;

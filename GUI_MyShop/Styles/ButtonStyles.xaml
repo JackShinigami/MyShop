@@ -108,7 +108,7 @@
 
                         <Border.Background>
                             <LinearGradientBrush
-                                x:Name="lgb"                                
+                                x:Name="lgb"
                                 StartPoint="0,0"
                                 EndPoint="0,1">
                                 <GradientStop
@@ -147,21 +147,18 @@
                                         Storyboard.TargetName="gsm1"
                                         Storyboard.TargetProperty="Offset"
                                         To="0.0"
-
                                         Duration="0:0:0.2" />
 
                                     <DoubleAnimation
                                         Storyboard.TargetName="gs0"
                                         Storyboard.TargetProperty="Offset"
                                         To="1.0"
-
                                         Duration="0:0:0.2" />
 
                                     <DoubleAnimation
                                         Storyboard.TargetName="gs1"
                                         Storyboard.TargetProperty="Offset"
                                         To="2"
-
                                         Duration="0:0:0.2" />
 
                                 </Storyboard>
@@ -196,5 +193,77 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style
+        x:Key="BorderThickHoverButton"
+        TargetType="Button">
+
+        <Setter
+            Property="Template">
+
+            <Setter.Value>
+
+                <ControlTemplate
+                    TargetType="Button">
+                    <Border
+                        x:Name="Border"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        BorderBrush="#8ff"
+                        CornerRadius="5">
+
+                        <ContentPresenter
+                            x:Name="contentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center" />
+
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger
+                            Property="IsMouseOver"
+                            Value="True">
+                            <Setter
+                                TargetName="Border"
+                                Property="BorderThickness"
+                                Value="2" />
+                        </Trigger>
+                        <Trigger
+                            Property="IsEnabled"
+                            Value="False">
+                            <Setter
+                                TargetName="Border"
+                                Property="Background"
+                                Value="#3333" />
+                            <Setter
+                                TargetName="Border"
+                                Property="BorderBrush"
+                                Value="#aaa" />
+                        </Trigger>
+
+                        <Trigger
+                            Property="IsEnabled"
+                            Value="True">
+                            <Setter
+                                TargetName="Border"
+                                Property="Background"
+                                Value="Transparent" />
+                            <Setter
+                                TargetName="Border"
+                                Property="BorderBrush"
+                                Value="#8ff" />
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+
+            </Setter.Value>
+
+        </Setter>
+
+    </Style>
+
 
 </ResourceDictionary>
