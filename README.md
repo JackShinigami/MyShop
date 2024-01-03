@@ -9,12 +9,12 @@
 - Báo cáo các sản phẩm bán chạy trong tuần, trong tháng, trong năm 
 - Bổ sung khuyến mãi giảm giá 
 - Quản lí khách hàng
-- Tổ chức theo mô hình 3 lớp 
+- Tổ chức theo mô hình 3 lớp
+- Backup / restore database
 - Tự động thay đổi sắp xếp hợp lí các thành phần theo độ rộng màn hình
 ## Các chức năng chưa thực hiện
 - Làm rối mã nguồn (obfuscator) chống dịch ngược 
-- Thêm chế độ dùng thử - cho phép xài full phần mềm trong 15 ngày. Hết 15 ngày bắt đăng kí (mã code hay cách kích hoạt nào đó) 
-- Backup / restore database 
+- Thêm chế độ dùng thử - cho phép xài full phần mềm trong 15 ngày. Hết 15 ngày bắt đăng kí (mã code hay cách kích hoạt nào đó)  
 - Chương trình có khả năng mở rộng động theo kiến trúc plugin (1 điểm)
 - Sử dụng mô hình MVVM 
 - Sử dụng Dependency injection 
