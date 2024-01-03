@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BUS_MyShop;
+using LiveCharts;
+using LiveCharts.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -11,20 +14,15 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using DTO_MyShop;
-using LiveCharts;
-using LiveCharts.Wpf;
 
-namespace BUS_MyShop
+namespace GUI_MyShop
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ChartWindow.xaml
     /// </summary>
-    /// 
-    public partial class MainWindow : Window
+    public partial class ChartWindow : Window
     {
         public SeriesCollection SeriesCollection { get; set; }
         public string[] Labels { get; set; }
@@ -33,10 +31,10 @@ namespace BUS_MyShop
         public SeriesCollection SeriesCollection2 { get; set; }
         public string[] Labels2 { get; set; }
         public Func<double, string> Formatter2 { get; set; }
-        public MainWindow()
+        public ChartWindow()
         {
             InitializeComponent();
-            var Data =  BUS_OrderDetails.Instance.GetRevenueAndProfitByDay(new DateTime(2020, 1, 1), new DateTime(2030, 1, 1));
+            var Data = BUS_OrderDetails.Instance.GetRevenueAndProfitByDay(new DateTime(2020, 1, 1), new DateTime(2030, 1, 1));
             SeriesCollection = new SeriesCollection
             {
                 new LineSeries
@@ -53,7 +51,7 @@ namespace BUS_MyShop
             };
 
             Labels = new string[Data.Item1.Count];
-            for(int i = 0; i < Data.Item1.Count; i++)
+            for (int i = 0; i < Data.Item1.Count; i++)
             {
                 Labels[i] = Data.Item1[i].ToString("dd/MM/yyyy");
             }
@@ -67,14 +65,14 @@ namespace BUS_MyShop
                 new ColumnSeries
                 {
                     Title = "Số lượng",
-                    Values = new ChartValues<int> ((IEnumerable<int>) data2.Select(x => (int)x.Quantity))
+                    Values = new ChartValues<int> ((IEnumerable<int>) data2.Select(x => (int)x.Item2))
                 }
             };
 
             Labels2 = new string[data2.Count];
             for (int i = 0; i < data2.Count; i++)
             {
-                Labels2[i] = data2[i].ProductName;
+                Labels2[i] = data2[i].Item1;
             }
 
             Formatter2 = value => value.ToString("N");

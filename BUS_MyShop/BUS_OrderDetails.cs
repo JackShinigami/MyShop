@@ -188,9 +188,9 @@ namespace BUS_MyShop
             return new Tuple<List<DateTime>, List<int>, List<int>>(Dates, Revenues, Profits);
         }
 
-        public BindingList<dynamic> GetSalesOfProducts(DateTime beginDate, DateTime endDate)
+        public List<Tuple<string, int>> GetSalesOfProducts(DateTime beginDate, DateTime endDate)
         {
-            var res = new List<dynamic>();
+            var res = new List<Tuple<string, int>>();
 
             var temp = from od in dal.GetOrderDetails()
                        from o in DAL_ListOrders.Instance.GetOrders()
@@ -202,9 +202,9 @@ namespace BUS_MyShop
                          select new { ProductId = g.Key, ProductName = g.First().ProductName, Quantity = g.Sum(t => t.Quantity) }).ToList();
             foreach (var item in group)
             {
-                res.Add(item);
+                res.Add(new Tuple<string, int>(item.ProductName, (int)item.Quantity));
             }
-            return new BindingList<dynamic>(res);
+            return res;
         }
     }
 }
