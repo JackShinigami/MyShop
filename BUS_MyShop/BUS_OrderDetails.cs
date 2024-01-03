@@ -206,5 +206,28 @@ namespace BUS_MyShop
             }
             return res;
         }
+
+        public Tuple<int, double> TotalPriceAndDiscount(List<OrderDetail> orderDetails)
+        {
+            int sum = 0;
+            double discount = 0;
+            foreach (var item in orderDetails)
+            {
+                Product product = DAL_ListProducts.Instance.GetProductById(item.ProductId);
+                sum += (int)item.Quantity * (int)product.SellingPrice;
+            }
+
+            if(sum >= 1000000)
+            {
+                discount = 0.1;
+            }
+            else if(sum >= 500000)
+            {
+                discount = 0.05;
+            }
+
+            sum = (int)(sum * (1 - discount));
+            return new Tuple<int, double>(sum, discount);
+        }
     }
 }
