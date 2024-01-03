@@ -45,10 +45,12 @@ namespace GUI_MyShop {
             {
                 MessageBox.Show(e.Message);
             }
-            CategoriesWindow categoriesWindow = new CategoriesWindow();
-            categoriesWindow.Show();
-            ChartWindow chartWindow = new ChartWindow();
-            chartWindow.Show();
+            //CategoriesWindow categoriesWindow = new CategoriesWindow();
+            //categoriesWindow.Show();
+            //ChartWindow chartWindow = new ChartWindow();
+            //chartWindow.Show();
+            CustomersWindow customersWindow = new CustomersWindow();
+            customersWindow.Show();
         }
 
         #region Title Bar Event Handler
