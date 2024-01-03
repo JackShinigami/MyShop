@@ -47,12 +47,12 @@ namespace GUI_MyShop {
             }
             //CategoriesWindow categoriesWindow = new CategoriesWindow();
             //categoriesWindow.Show();
-            //ChartWindow chartWindow = new ChartWindow();
-            //chartWindow.Show();
+            ChartWindow chartWindow = new ChartWindow();
+            chartWindow.Show();
             //CustomersWindow customersWindow = new CustomersWindow();
             //customersWindow.Show();
-            OrdersWindow ordersWindow = new OrdersWindow();
-            ordersWindow.Show();
+            //OrdersWindow ordersWindow = new OrdersWindow();
+            //ordersWindow.Show();
         }
 
         #region Title Bar Event Handler

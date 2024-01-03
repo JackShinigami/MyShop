@@ -21,13 +21,16 @@
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
 
-        <lvc:CartesianChart Series="{Binding SeriesCollection2}" LegendLocation="Right"  Grid.Row="1" >
-            <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Số lượng" LabelFormatter="{Binding Formatter2}"></lvc:Axis>
-            </lvc:CartesianChart.AxisY>
+        <lvc:CartesianChart Series="{Binding SeriesCollection2}" LegendLocation="Bottom" Grid.Row="1">
             <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="Sản phẩm" Labels="{Binding Labels2}"></lvc:Axis>
+                <lvc:Axis Title="Số lượng" LabelFormatter="{Binding Formatter2}"></lvc:Axis>
             </lvc:CartesianChart.AxisX>
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="Sản phẩm" Labels="{Binding Labels2}"></lvc:Axis>
+            </lvc:CartesianChart.AxisY>
+            <lvc:CartesianChart.DataTooltip>
+                <lvc:DefaultTooltip SelectionMode="SharedYValues"></lvc:DefaultTooltip>
+            </lvc:CartesianChart.DataTooltip>
         </lvc:CartesianChart>
     </Grid>
 </Window>

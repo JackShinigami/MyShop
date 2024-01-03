@@ -62,7 +62,7 @@ namespace GUI_MyShop
             var data2 = BUS_OrderDetails.Instance.GetSalesOfProducts(new DateTime(2020, 1, 1), new DateTime(2030, 1, 1));
             SeriesCollection2 = new SeriesCollection
             {
-                new ColumnSeries
+                new RowSeries
                 {
                     Title = "Số lượng",
                     Values = new ChartValues<int> ((IEnumerable<int>) data2.Select(x => (int)x.Item2))
@@ -75,7 +75,7 @@ namespace GUI_MyShop
                 Labels2[i] = data2[i].Item1;
             }
 
-            Formatter2 = value => value.ToString("N");
+            Formatter2 = value => value.ToString("0");
 
             DataContext = this;
         }
