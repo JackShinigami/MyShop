@@ -49,8 +49,10 @@ namespace GUI_MyShop {
             //categoriesWindow.Show();
             //ChartWindow chartWindow = new ChartWindow();
             //chartWindow.Show();
-            CustomersWindow customersWindow = new CustomersWindow();
-            customersWindow.Show();
+            //CustomersWindow customersWindow = new CustomersWindow();
+            //customersWindow.Show();
+            OrdersWindow ordersWindow = new OrdersWindow();
+            ordersWindow.Show();
         }
 
         #region Title Bar Event Handler

@@ -93,6 +93,7 @@ namespace BUS_MyShop
                     break;
             }
 
+            orders = orders.Skip(skip).Take(take).ToList();
             return new BindingList<Order>(orders);
         }
 
@@ -134,6 +135,18 @@ namespace BUS_MyShop
             };
 
             dal.UpdateOrder(id, order);
+        }
+
+        public int GetCount()
+        {
+            return dal.GetOrders().Count;
+        }
+
+        public int GetCount(DateTime beginDate, DateTime endDate)
+        {
+            return dal.GetOrders()
+                .Where(o => o.OrderDate >= beginDate && o.OrderDate <= endDate)
+                .Count();
         }
     }
 
