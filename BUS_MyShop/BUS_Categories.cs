@@ -28,6 +28,11 @@ namespace BUS_MyShop
             }
         }
 
+        public int GetCount()
+        {
+            return dal.GetCount();
+        }
+
         public BindingList<Category> GetAllCategories()
         {
             var categories = new BindingList<Category>(dal.GetCategories());
@@ -39,7 +44,8 @@ namespace BUS_MyShop
             List<Category> categories;
 
             categories = dal.GetCategories()
-                .Where(c => c.CategoryName.ToLower().Contains(searchKey.ToLower())).ToList();
+                .Where(c => c.CategoryName.ToLower().Contains(searchKey.ToLower())).
+                Skip(skip).Take(take).ToList();
             categories = categories.OrderBy(c => c.Id).ToList();
 
             return new BindingList<Category>(categories);

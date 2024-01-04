@@ -38,8 +38,23 @@ namespace GUI_MyShop {
             Username = "";
             Password = "";
             StateChanged += LoginWindow_StateChanged;
-            //BUS_User.Instance!.SaveUser("admin", "admin");
-
+            try { 
+            if(BUS_User.Instance!.GetUsername() == null)
+                BUS_User.Instance!.SaveUser("admin", "admin");
+            } catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            //CategoriesWindow categoriesWindow = new CategoriesWindow();
+            //categoriesWindow.Show();
+            //ChartWindow chartWindow = new ChartWindow();
+            //chartWindow.Show();
+            //CustomersWindow customersWindow = new CustomersWindow();
+            //customersWindow.Show();
+            //OrdersWindow ordersWindow = new OrdersWindow();
+            //ordersWindow.Show();
+            //Backup_RestoreWindow backup_RestoreWindow = new Backup_RestoreWindow();
+            //backup_RestoreWindow.Show();
         }
 
         #region Title Bar Event Handler

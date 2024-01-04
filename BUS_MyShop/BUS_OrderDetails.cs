@@ -188,9 +188,9 @@ namespace BUS_MyShop
             return new Tuple<List<DateTime>, List<int>, List<int>>(Dates, Revenues, Profits);
         }
 
-        public BindingList<dynamic> GetSalesOfProducts(DateTime beginDate, DateTime endDate)
+        public List<Tuple<string, int>> GetSalesOfProducts(DateTime beginDate, DateTime endDate)
         {
-            var res = new List<dynamic>();
+            var res = new List<Tuple<string, int>>();
 
             var temp = from od in dal.GetOrderDetails()
                        from o in DAL_ListOrders.Instance.GetOrders()
@@ -202,9 +202,32 @@ namespace BUS_MyShop
                          select new { ProductId = g.Key, ProductName = g.First().ProductName, Quantity = g.Sum(t => t.Quantity) }).ToList();
             foreach (var item in group)
             {
-                res.Add(item);
+                res.Add(new Tuple<string, int>(item.ProductName, (int)item.Quantity));
             }
-            return new BindingList<dynamic>(res);
+            return res;
+        }
+
+        public Tuple<int, double> TotalPriceAndDiscount(List<OrderDetail> orderDetails)
+        {
+            int sum = 0;
+            double discount = 0;
+            foreach (var item in orderDetails)
+            {
+                Product product = DAL_ListProducts.Instance.GetProductById(item.ProductId);
+                sum += (int)item.Quantity * (int)product.SellingPrice;
+            }
+
+            if(sum >= 1000000)
+            {
+                discount = 0.1;
+            }
+            else if(sum >= 500000)
+            {
+                discount = 0.05;
+            }
+
+            sum = (int)(sum * (1 - discount));
+            return new Tuple<int, double>(sum, discount);
         }
     }
 }

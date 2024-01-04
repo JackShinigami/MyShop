@@ -96,5 +96,10 @@ namespace BUS_MyShop
 
             dal.UpdateCustomer(id, updatedCustomer);
         }
+
+        public int GetCount()
+        {
+            return dal.GetCustomers().Count;
+        }
     }
 }

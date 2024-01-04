@@ -86,5 +86,10 @@ namespace DAL_MyShop
             }
             return category;
         }
+
+        public int GetCount()
+        {
+            return context.Categories.Count();
+        }
     }
 }
