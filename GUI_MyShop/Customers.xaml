@@ -4,9 +4,222 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GUI_MyShop"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+             mc:Ignorable="d"
+             Style="{StaticResource FragmentStyle}"
+             d:Background="#9AFFDE"
+             d:DesignHeight="450"
+             d:DesignWidth="800">
+
+
+    <Border>
+        <Grid>
+
+            <TextBlock Text="Khách hàng"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Foreground="#146A76"
+                       Margin="20 10 0 0" />
+
+
+            <!--#region Thanh command-->
+            <Border Background="#bfff"
+                    CornerRadius="10"
+                    VerticalAlignment="Top"
+                    Height="80"
+                    Margin="20,50,20,0">
+
+                <StackPanel Margin="5 5 0 5"
+                            Orientation="Horizontal">
+
+                    <!--#region Nút thêm-->
+                    <Button x:Name="addButton"
+                            Width="60"
+                            Height="70"
+                            Foreground="#146A76"
+                            Style="{DynamicResource BorderThickHoverButton}"
+                            Click="addButton_Click">
+
+                        <Grid HorizontalAlignment="Center"
+                              VerticalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0"
+                                    CornerRadius="100"
+                                    Margin="5"
+                                    Opacity="0.5">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="Assets/add_bg.png" />
+                                </Border.Background>
+                                <Image Grid.Row="0"
+                                       Source="Assets/add.png"
+                                       Stretch="Uniform"
+                                       Width="30"
+                                       Height="30"
+                                       Margin="5"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                            </Border>
+
+                            <TextBlock Grid.Row="1"
+                                       Text="Thêm"
+                                       FontSize="12"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                        </Grid>
+
+
+                    </Button>
+                    <!--#endregion-->
+
+                    <!--#region Nút xóa-->
+                    <Button x:Name="deleteButton"
+                            Width="60"
+                            Height="70"
+                            Foreground="#146A76"
+                            Style="{DynamicResource BorderThickHoverButton}"
+                            Click="deleteButton_Click">
+
+                        <Grid HorizontalAlignment="Center"
+                              VerticalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0"
+                                    CornerRadius="100"
+                                    Margin="5"
+                                    Opacity="0.5">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="Assets/remove_bg.png" />
+                                </Border.Background>
+                                <Image Grid.Row="0"
+                                       Source="Assets/remove.png"
+                                       Width="30"
+                                       Height="30"
+                                       Margin="5"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                            </Border>
+
+                            <TextBlock Grid.Row="1"
+                                       Text="Xóa"
+                                       FontSize="12"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                        </Grid>
+
+                    </Button>
+
+                    <!--#endregion-->
+
+                    <!--#region Nút sửa-->
+
+                    <Button x:Name="editButton"
+                            Width="60"
+                            Height="70"
+                            Foreground="#146A76"
+                            Style="{DynamicResource BorderThickHoverButton}"
+                            Click="editButton_Click">
+
+                        <Grid HorizontalAlignment="Center"
+                              VerticalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0"
+                                    CornerRadius="100"
+                                    Margin="5"
+                                    Opacity="0.5">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="Assets/edit_bg.png" />
+                                </Border.Background>
+                                <Image Grid.Row="0"
+                                       Source="Assets/edit.png"
+                                       Width="28"
+                                       Height="28"
+                                       Margin="7"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                            </Border>
+
+                            <TextBlock Grid.Row="1"
+                                       Text="Sửa"
+                                       FontSize="12"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                        </Grid>
+
+                    </Button>
+                    <!--#endregion-->
+
+                    <!--#region Nút tìm kiếm-->
+                    <Button x:Name="searchButton"
+                            Width="60"
+                            Height="70"
+                            Foreground="#146A76"
+                            Style="{DynamicResource BorderThickHoverButton}"
+                            Click="searchButton_Click">
+
+                        <Grid HorizontalAlignment="Center"
+                              VerticalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0"
+                                    CornerRadius="100"
+                                    Margin="5"
+                                    Opacity="0.5">
+
+                                <Border.Background>
+                                    <ImageBrush ImageSource="Assets/search_bg.png" />
+                                </Border.Background>
+                                <Image Grid.Row="0"
+                                       Source="Assets/search.png"
+                                       Width="28"
+                                       Height="28"
+                                       Margin="7"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                            </Border>
+
+                            <TextBlock Grid.Row="1"
+                                       Text="Tìm kiếm"
+                                       FontSize="12"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                        </Grid>
+
+                    </Button>
+
+                    <!--#endregion-->
+
+                </StackPanel>
+
+            </Border>
+
+            <!--#endregion-->
+
+            <!--#region Danh sách sách-->
+
+            <Border Background="#bfff"
+                    CornerRadius="10"
+                    Margin="20,140,20,20">
+
+
+            </Border>
+            <!--#endregion -->
+
+        </Grid>
+    </Border>
+
 </UserControl>

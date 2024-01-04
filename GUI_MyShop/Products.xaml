@@ -5,14 +5,15 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:GUI_MyShop"
-    mc:Ignorable="d"
-    d:DesignHeight="450"
+             mc:Ignorable="d"
+             Style="{StaticResource FragmentStyle}"
+             d:Background="#9AFFDE"
+             d:DesignHeight="450"
     d:DesignWidth="800">
-    
-    
-    
+
+
     <Border
-        Background="#e8ff"
+        Background="Transparent"
         CornerRadius="10"
         Margin="0">
         <Grid>
@@ -255,9 +256,8 @@
                 Margin="20,140,20,20">                
                 
 
-            </Border>
-            
-            <!--#region -->
+            </Border>            
+            <!--#endregion -->
 
         </Grid>
     </Border>

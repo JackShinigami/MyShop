@@ -8,19 +8,17 @@
             <ResourceDictionary.MergedDictionaries>
                 <!--<ResourceDictionary
                     Source="Styles/ButtonStyles.xaml" />-->
-                <ResourceDictionary
-                    Source="Styles/TextBoxStyles.xaml" />
-                <ResourceDictionary
-                    Source="Styles/PasswordBoxStyles.xaml" />
-                <ResourceDictionary
-                    Source="Styles/CheckBoxStyles.xaml" />
-                <ResourceDictionary
-                    Source="Styles/ButtonStyles.xaml" />
-                <ResourceDictionary
-                    Source="Utilities/DataTemplate.xaml" />
+                <ResourceDictionary Source="Styles/TextBoxStyles.xaml" />
+                <ResourceDictionary Source="Styles/PasswordBoxStyles.xaml" />
+                <ResourceDictionary Source="Styles/CheckBoxStyles.xaml" />
+                <ResourceDictionary Source="Styles/ButtonStyles.xaml" />
+                <ResourceDictionary Source="Styles/ImageStyles.xaml" />
+                <ResourceDictionary Source="Styles/TextBlockStyles.xaml" />
+                <ResourceDictionary Source="Styles/FragmentStyles.xaml" />
 
-                <ResourceDictionary
-                    Source="pack://application:,,,/Fluent;Component/Themes/Generic.xaml" />
+                <ResourceDictionary Source="Utilities/DataTemplate.xaml" />
+
+                <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Generic.xaml" />
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

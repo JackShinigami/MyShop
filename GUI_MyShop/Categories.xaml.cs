@@ -24,5 +24,25 @@ namespace GUI_MyShop
         {
             InitializeComponent();
         }
+
+        private void addButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void editButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void searchButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

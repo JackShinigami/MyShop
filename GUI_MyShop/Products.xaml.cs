@@ -1,5 +1,7 @@
-﻿using System;
+﻿using GUI_MyShop.Utilities;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +25,27 @@ namespace GUI_MyShop
         public Products()
         {
             InitializeComponent();
+        }
+
+
+        private void addButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void editButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void searchButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

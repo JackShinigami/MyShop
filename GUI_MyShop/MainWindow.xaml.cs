@@ -135,5 +135,10 @@ namespace GUI_MyShop
         {
 
         }
+
+        private void logoutButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

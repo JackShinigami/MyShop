@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace GUI_MyShop.Utilities
 {
-    internal class NavButton: RadioButton
+    public class NavButton: RadioButton
     {
         static NavButton()
         {
