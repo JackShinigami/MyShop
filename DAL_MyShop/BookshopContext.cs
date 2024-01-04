@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using DTO_MyShop;
+
 namespace DAL_MyShop;
 
 public partial class BookshopContext : DbContext
@@ -38,7 +39,7 @@ public partial class BookshopContext : DbContext
 
             entity.Property(e => e.Id)
                 .HasMaxLength(10)
-                .IsFixedLength()
+                .IsUnicode(false)
                 .HasColumnName("ID");
             entity.Property(e => e.CategoryName).HasMaxLength(100);
         });
@@ -49,7 +50,7 @@ public partial class BookshopContext : DbContext
 
             entity.Property(e => e.Id)
                 .HasMaxLength(10)
-                .IsFixedLength()
+                .IsUnicode(false)
                 .HasColumnName("ID");
             entity.Property(e => e.Address).HasMaxLength(200);
             entity.Property(e => e.CustomerName).HasMaxLength(100);
@@ -64,11 +65,11 @@ public partial class BookshopContext : DbContext
 
             entity.Property(e => e.Id)
                 .HasMaxLength(10)
-                .IsFixedLength()
+                .IsUnicode(false)
                 .HasColumnName("ID");
             entity.Property(e => e.CustomerId)
                 .HasMaxLength(10)
-                .IsFixedLength()
+                .IsUnicode(false)
                 .HasColumnName("CustomerID");
             entity.Property(e => e.OrderDate).HasColumnType("date");
 
@@ -85,11 +86,11 @@ public partial class BookshopContext : DbContext
 
             entity.Property(e => e.OrderId)
                 .HasMaxLength(10)
-                .IsFixedLength()
+                .IsUnicode(false)
                 .HasColumnName("OrderID");
             entity.Property(e => e.ProductId)
                 .HasMaxLength(10)
-                .IsFixedLength()
+                .IsUnicode(false)
                 .HasColumnName("ProductID");
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderDetails)
@@ -109,12 +110,12 @@ public partial class BookshopContext : DbContext
 
             entity.Property(e => e.Id)
                 .HasMaxLength(10)
-                .IsFixedLength()
+                .IsUnicode(false)
                 .HasColumnName("ID");
             entity.Property(e => e.Author).HasMaxLength(100);
             entity.Property(e => e.CategoryId)
                 .HasMaxLength(10)
-                .IsFixedLength()
+                .IsUnicode(false)
                 .HasColumnName("CategoryID");
             entity.Property(e => e.ImagePath).HasMaxLength(100);
             entity.Property(e => e.ProductName).HasMaxLength(100);
