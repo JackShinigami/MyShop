@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,13 @@ namespace GUI_MyShop
     /// </summary>
     public partial class Dashboard : UserControl
     {
+        public string Username { get; set; }
+
         public Dashboard()
         {
             InitializeComponent();
+            Username = "klE";
+            this.DataContext = this;
         }
     }
 }
