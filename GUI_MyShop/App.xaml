@@ -17,6 +17,7 @@
                 <ResourceDictionary Source="Styles/FragmentStyles.xaml" />
                 <ResourceDictionary Source="Styles/ComboBoxStyles.xaml" />
                 <ResourceDictionary Source="Styles/ToggleButtonStyles.xaml" />
+                <ResourceDictionary Source="Styles/DatePickerStyles.xaml" />
 
 
                 <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Generic.xaml" />
