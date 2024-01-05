@@ -96,7 +96,12 @@ namespace GUI_MyShop
                 try
                 {
 
-                    BUS_MyShop.BUS_OrderDetails.Instance.DeleteOrderDetailsByOrderId(editOrderWindow.ReturnOrder.Id);
+                    //BUS_MyShop.BUS_OrderDetails.Instance.DeleteOrderDetailsByOrderId(editOrderWindow.ReturnOrder.Id);
+                    foreach(OrderDetail orderDetail in editOrderWindow.orderDetailDataGrid.Items)
+                    {
+                        BUS_MyShop.BUS_OrderDetails.Instance.DeleteOrderDetail(editOrderWindow.ReturnOrder.Id, orderDetail.ProductId);
+                    }
+
                     foreach (OrderDetail orderDetail in editOrderWindow.orderDetailDataGrid.Items)
                     {
                         int quantity = orderDetail.Quantity!.Value;
