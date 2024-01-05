@@ -22,7 +22,7 @@ namespace GUI_MyShop
     public partial class EditOrderWindow : Window
     {
 
-        Order ReturnOrder = new Order();
+        public Order ReturnOrder = new Order();
         BindingList<OrderDetail> OrderDetails = new BindingList<OrderDetail>();
         BindingList<Customer> Customers = new BindingList<Customer>();
         BindingList<Product> Products = new BindingList<Product>();
@@ -81,31 +81,7 @@ namespace GUI_MyShop
             ReturnOrder.OrderDate = DateTime.Now;
 
 
-            try
-            {
-
-                // xoá các order detail cũ
-                if (EditMode)
-                {
-                    BUS_MyShop.BUS_OrderDetails.Instance.DeleteOrderDetailsByOrderId(ReturnOrder.Id);
-                } else // thêm order mới
-                {
-                    BUS_MyShop.BUS_Orders.Instance.AddOrder(ReturnOrder.Id, ReturnOrder.CustomerId, ReturnOrder.OrderDate.Value);
-                }
-                // thêm các order detail mới
-                foreach (OrderDetail orderDetail in orderDetailDataGrid.Items)
-                {
-                    int quantity = orderDetail.Quantity!.Value;
-                    BUS_MyShop.BUS_OrderDetails.Instance.AddOrderDetail(ReturnOrder.Id, orderDetail.ProductId, quantity);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                MessageWindow.Show(ex.Message, "Lỗi");
-                return;
-            }
-
+            DialogResult = true;
             this.Close();
         }
 
@@ -137,7 +113,7 @@ namespace GUI_MyShop
             {
                 ProductId = product.Id,
                 Product = product,
-                Quantity = 1
+                Quantity = quantity
             });
         }
 
@@ -149,11 +125,13 @@ namespace GUI_MyShop
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
+            DialogResult = false;
             this.Close();
         }
 
         private void closeButton_Click(object sender, RoutedEventArgs e)
         {
+            DialogResult = false;
             this.Close();
         }
 

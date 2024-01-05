@@ -36,18 +36,18 @@ namespace GUI_MyShop
         public string[] Labels2 { get; set; }
         public Func<double, string> Formatter2 { get; set; }
 
-        public List<string> Type = new List<string> { "Theo ngày","Theo tháng", "Theo năm" };
+        public List<string> Type = new List<string> { "Theo ngày", "Theo tháng", "Theo năm" };
         public DateTime beginDate;
         public DateTime endDate;
 
         public Dashboard()
         {
             InitializeComponent();
-            Username = "klE";
+            Username = BUS_User.Instance.GetUsername();
             this.DataContext = this;
             beginDate = (DateTime)BUS_Orders.Instance.GetAllOrders().Min(o => o.OrderDate);
             endDate = (DateTime)BUS_Orders.Instance.GetAllOrders().Max(o => o.OrderDate);
-            
+
             cbx_chooseType.ItemsSource = Type;
             cbx_chooseType.SelectedIndex = 0;
         }
@@ -90,7 +90,7 @@ namespace GUI_MyShop
                 new RowSeries
                 {
                     Title = "Số lượng",
-                    Values = new ChartValues<int> ( data2.Select(x => (int)x.Item2))
+                    Values = new ChartValues<int> ( data2.Select(x => (int)x.Item2)),
                 }
             };
 
@@ -108,6 +108,10 @@ namespace GUI_MyShop
             productChart.Series = SeriesCollection2;
             productChartFormatter.LabelFormatter = Formatter2;
             productChartLabel.Labels = Labels2;
+
+            // wrap productChartLabel
+            productChartLabel.Width = 50;
+
         }
 
         private void beginDatePicker_CalendarOpened(object sender, RoutedEventArgs e)
@@ -117,9 +121,8 @@ namespace GUI_MyShop
             var calendar = popup?.Child as System.Windows.Controls.Calendar;
             if (cbx_chooseType.SelectedIndex == 0)
             {
-               
-            }
-            else if (cbx_chooseType.SelectedIndex == 1)
+
+            } else if (cbx_chooseType.SelectedIndex == 1)
             {
                 if (calendar != null)
                 {
@@ -137,19 +140,17 @@ namespace GUI_MyShop
                                 beginDatePicker.IsDropDownOpen = false;
                             }
                             catch (Exception ex) { }
-                        }
-                        else
+                        } else
                         {
                             beginDatePicker.IsDropDownOpen = true;
                         }
                     };
                 }
-                
-            }
-            else
+
+            } else
             {
-               
-                
+
+
                 if (calendar != null)
                 {
                     calendar.DisplayMode = CalendarMode.Decade;
@@ -166,15 +167,14 @@ namespace GUI_MyShop
                                 beginDatePicker.IsDropDownOpen = false;
                             }
                             catch (Exception ex) { }
-                        }
-                        else
+                        } else
                         {
                             beginDatePicker.IsDropDownOpen = true;
                         }
                     };
                 }
-            } 
-                
+            }
+
         }
 
         private void endDatePicker_CalendarOpened(object sender, RoutedEventArgs e)
@@ -185,8 +185,7 @@ namespace GUI_MyShop
             if (cbx_chooseType.SelectedIndex == 0)
             {
 
-            }
-            else if (cbx_chooseType.SelectedIndex == 1)
+            } else if (cbx_chooseType.SelectedIndex == 1)
             {
                 if (calendar != null)
                 {
@@ -204,15 +203,13 @@ namespace GUI_MyShop
                                 endDatePicker.IsDropDownOpen = false;
                             }
                             catch (Exception ex) { }
-                        }
-                        else
+                        } else
                         {
                             endDatePicker.IsDropDownOpen = true;
                         }
                     };
                 }
-            }
-            else
+            } else
             {
                 if (calendar != null)
                 {
@@ -230,8 +227,7 @@ namespace GUI_MyShop
                                 endDatePicker.IsDropDownOpen = false;
                             }
                             catch (Exception ex) { }
-                        }
-                        else
+                        } else
                         {
                             endDatePicker.IsDropDownOpen = true;
                         }
@@ -243,34 +239,32 @@ namespace GUI_MyShop
         private void beginDatePicker_changed(object sender, SelectionChangedEventArgs e)
         {
             beginDate = (DateTime)beginDatePicker.SelectedDate;
-            if(endDate != null)
+            if (endDate != null)
                 LoadData();
         }
 
         private void endDatePicker_changed(object sender, SelectionChangedEventArgs e)
         {
             endDate = (DateTime)endDatePicker.SelectedDate;
-            if(beginDate != null)
+            if (beginDate != null)
                 LoadData();
         }
 
         private void cbx_chooseType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(cbx_chooseType.SelectedIndex == 0)
+            if (cbx_chooseType.SelectedIndex == 0)
             {
                 CultureInfo cultureInfo = new CultureInfo("vi-VN");
                 cultureInfo.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
                 cultureInfo.DateTimeFormat.DateSeparator = "/";
                 Thread.CurrentThread.CurrentCulture = cultureInfo;
-            }
-            else if(cbx_chooseType.SelectedIndex == 1)
+            } else if (cbx_chooseType.SelectedIndex == 1)
             {
                 CultureInfo cultureInfo = new CultureInfo("vi-VN");
                 cultureInfo.DateTimeFormat.ShortDatePattern = "MM/yyyy";
                 cultureInfo.DateTimeFormat.DateSeparator = "/";
                 Thread.CurrentThread.CurrentCulture = cultureInfo;
-            }
-            else
+            } else
             {
                 CultureInfo cultureInfo = new CultureInfo("vi-VN");
                 cultureInfo.DateTimeFormat.ShortDatePattern = "yyyy";

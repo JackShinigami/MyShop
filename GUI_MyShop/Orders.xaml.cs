@@ -54,6 +54,26 @@ namespace GUI_MyShop
         {
             EditOrderWindow editOrderWindow = new EditOrderWindow(new Order(), false);
             editOrderWindow.ShowDialog();
+
+            if (editOrderWindow.DialogResult == true)
+            {
+                try
+                {
+                    BUS_MyShop.BUS_Orders.Instance.AddOrder(editOrderWindow.ReturnOrder.Id, editOrderWindow.ReturnOrder.CustomerId, editOrderWindow.ReturnOrder.OrderDate.Value);
+                    foreach (OrderDetail orderDetail in editOrderWindow.orderDetailDataGrid.Items)
+                    {
+                        int quantity = orderDetail.Quantity!.Value;
+                        BUS_MyShop.BUS_OrderDetails.Instance.AddOrderDetail(editOrderWindow.ReturnOrder.Id, orderDetail.ProductId, quantity);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageWindow.Show(ex.Message, "Lỗi");
+                    return;
+                }
+            }
+
             LoadData();
 
         }
@@ -63,6 +83,25 @@ namespace GUI_MyShop
             var order = dataGrid_Orders.SelectedItem as Order;
             EditOrderWindow editOrderWindow = new EditOrderWindow(order, true);
             editOrderWindow.ShowDialog();
+            if (editOrderWindow.DialogResult == true)
+            {
+                try
+                {
+
+                    BUS_MyShop.BUS_OrderDetails.Instance.DeleteOrderDetailsByOrderId(editOrderWindow.ReturnOrder.Id);
+                    foreach (OrderDetail orderDetail in editOrderWindow.orderDetailDataGrid.Items)
+                    {
+                        int quantity = orderDetail.Quantity!.Value;
+                        BUS_MyShop.BUS_OrderDetails.Instance.AddOrderDetail(editOrderWindow.ReturnOrder.Id, orderDetail.ProductId, quantity);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageWindow.Show(ex.Message, "Lỗi");
+                    return;
+                }
+            }
             LoadData();
         }
 
@@ -70,7 +109,8 @@ namespace GUI_MyShop
         {
 
             bus.DeleteOrder((dataGrid_Orders.SelectedItem as Order).Id);
-               
+            LoadData();
+
         }
 
 
@@ -165,8 +205,7 @@ namespace GUI_MyShop
             {
                 _currentPage = 1;
                 currentPageTextBox.Text = _currentPage.ToString();
-            }
-            else if (oldCurrentPage != _currentPage)
+            } else if (oldCurrentPage != _currentPage)
             {
                 currentPageTextBox.Text = _currentPage.ToString();
             }
@@ -200,7 +239,7 @@ namespace GUI_MyShop
             Thread.CurrentThread.CurrentCulture = cultureInfo;
             beginDate = beginDatePicker.SelectedDate!.Value.ToShortDateString();
             beginDatePicker.Text = beginDate;
-            if(endDatePicker.SelectedDate != null)
+            if (endDatePicker.SelectedDate != null)
                 LoadData();
         }
 
