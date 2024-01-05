@@ -1,4 +1,4 @@
-﻿<Window x:Class="GUI_MyShop.AddProductWindow"
+﻿<Window x:Class="GUI_MyShop.EditProductWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -11,7 +11,8 @@
         AllowsTransparency="True"
         Background="Transparent"
         WindowStyle="None"
-        Title="Thêm sản phẩm"
+        Title="Chỉnh sửa thông tin"
+        Loaded="Window_Loaded"
         Height="500"
         Width="800">
 
@@ -34,10 +35,9 @@
 
 
     </Window.Triggers>
-    
-    <Border 
-        Margin="20"
-        MouseLeftButtonDown="Border_MouseLeftButtonDown"
+
+    <Border Margin="20"
+            MouseLeftButtonDown="Border_MouseLeftButtonDown"
             Background="#9fd"
             CornerRadius="20">
 
@@ -123,7 +123,7 @@
 
             <Label Grid.Column="0"
                    Grid.ColumnSpan="3"
-                   Content="Thêm sảm phẩm"
+                   Content="Chỉnh sửa thông tin"
                    FontSize="16"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Top"
@@ -222,9 +222,11 @@
 
                     <TextBox Grid.Row="0"
                              Grid.Column="0"
+                             x:Name="idTextBox"
                              FontSize="16"
                              TextWrapping="Wrap"
                              Margin="100 0 10 0"
+                             IsEnabled="False"
                              Style="{StaticResource SpecialFocusTextBox}"
                              Text="{Binding Id}" />
 

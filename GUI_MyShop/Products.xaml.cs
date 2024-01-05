@@ -326,7 +326,7 @@ namespace GUI_MyShop
                 }
                 catch (Exception ex)
                 {
-                    System.Windows.MessageBox.Show(ex.Message);
+                    MessageWindow.Show(ex.Message, "Lỗi");
                 }
             }
 
@@ -334,12 +334,46 @@ namespace GUI_MyShop
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Product product = (Product)booksListView.SelectedItem!;
+            try
+            {
+                bus.DeleteProduct(product.Id);
+                LoadBooks();
+            }
+            catch (Exception ex)
+            {
+                MessageWindow.Show(ex.Message, "Lỗi");
+            }
         }
 
         private void editButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Product product = (Product)booksListView.SelectedItem!;
+            EditProductWindow addProductWindow = new EditProductWindow(product);
+            if (addProductWindow.ShowDialog() == true)
+            {
+                product = addProductWindow.ReturnProduct;
+                try
+                {
+                    bus.UpdateProduct(
+                        product.Id,
+                        product.ProductName?? "",
+                        product.Author?? "",
+                        product.PublishYear?? 0,
+                        product.Publisher?? "",
+                        product.CostPrice?? 0,
+                        product.SellingPrice?? 0,
+                        product.CategoryId?? "",
+                        product.Quantity?? 0,
+                        product.ImagePath?? ""
+                    );
+                    LoadBooks();
+                }
+                catch (Exception ex)
+                {
+                    MessageWindow.Show(ex.Message, "Lỗi");
+                }
+            }
         }
 
         private void changeCurrentPage_KeyDowm(object sender, KeyEventArgs e)
@@ -362,6 +396,12 @@ namespace GUI_MyShop
                 }
                 currentPageTextBox.Text = _currentPage.ToString();
             }
+        }
+
+        private void booksListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ProductDetailWindow productDetailWindow = new ProductDetailWindow((Product)booksListView.SelectedItem!);
+            productDetailWindow.ShowDialog();
         }
     }
 }
