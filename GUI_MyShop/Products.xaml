@@ -312,11 +312,13 @@
 
                         <DataTemplate>
                             <StackPanel Orientation="Vertical">
-                                <Image Height="180"
-                                       Width="170"
-                                       Margin="5,5,5,0"
-                                       RenderOptions.BitmapScalingMode="HighQuality"
-                                       Source="{Binding ImagePath, Converter={StaticResource RelativePathToAbsolutePathConverter}}" />
+                                <Grid>
+                                    <Image Height="180"
+                                           Width="170"
+                                           Margin="5,5,5,0"
+                                           RenderOptions.BitmapScalingMode="HighQuality"
+                                           Source="{Binding ImagePath, Converter={StaticResource RelativePathToAbsolutePathConverter}}" />
+                                </Grid>
                                 <StackPanel Margin="10,0,10,0"
                                             VerticalAlignment="Center"
                                             Height="70"
