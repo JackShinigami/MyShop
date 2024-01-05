@@ -205,6 +205,7 @@ namespace BUS_MyShop
                        from o in DAL_ListOrders.Instance.GetOrders()
                        from p in DAL_ListProducts.Instance.GetProducts()
                        where od.OrderId == o.Id && od.ProductId == p.Id && o.OrderDate >= beginDate && o.OrderDate <= endDate
+                       orderby o.OrderDate
                        select new { o.OrderDate, Revenue = od.Quantity * p.SellingPrice, Profit = od.Quantity * (p.SellingPrice - p.CostPrice) };
             var group = (from t in temp
                          group t by t.OrderDate into g

@@ -161,48 +161,7 @@
                     </Button>
                     <!--#endregion-->
 
-                    <!--#region Nút tìm kiếm-->
-                    <Button x:Name="searchButton"
-                            Width="60"
-                            Height="70"
-                            Foreground="#146A76"
-                            Style="{DynamicResource BorderThickHoverButton}"
-                            Click="searchButton_Click">
-
-                        <Grid HorizontalAlignment="Center"
-                              VerticalAlignment="Center">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="50" />
-                                <RowDefinition Height="20" />
-                            </Grid.RowDefinitions>
-
-                            <Border Grid.Row="0"
-                                    CornerRadius="100"
-                                    Margin="5"
-                                    Opacity="0.5">
-
-                                <Border.Background>
-                                    <ImageBrush ImageSource="Assets/search_bg.png" />
-                                </Border.Background>
-                                <Image Grid.Row="0"
-                                       Source="Assets/search.png"
-                                       Width="28"
-                                       Height="28"
-                                       Margin="7"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center" />
-                            </Border>
-
-                            <TextBlock Grid.Row="1"
-                                       Text="Tìm kiếm"
-                                       FontSize="12"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center" />
-                        </Grid>
-
-                    </Button>
-
-                    <!--#endregion-->
+                    
 
                 </StackPanel>
 
