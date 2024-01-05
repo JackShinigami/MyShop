@@ -366,6 +366,23 @@
                             </Nav:NavButton>
 
                             <!--#endregion-->
+                            
+                            <!--#region Tab Backup and Restore-->
+
+                            <Nav:NavButton Style="{StaticResource NavRadioButtonStyle}"
+                                           Command="{Binding BackupRestoreCommand}"
+                                           IsChecked="False">
+                                <Grid>
+
+                                    <Image Source="Assets/BackupRestore_nm.png"
+                                           Style="{StaticResource NavIconStyle}" />
+
+                                    <TextBlock Text="Sao lưu và phục hồi"
+                                               Style="{StaticResource NavTextBlockStyle}" />
+
+                                </Grid>
+
+                            </Nav:NavButton>
 
                         </StackPanel>
 

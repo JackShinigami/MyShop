@@ -341,7 +341,7 @@
                                             Height="70"
                                             Orientation="Vertical">
                                     <TextBlock TextTrimming="CharacterEllipsis"
-                                               MaxWidth="180"
+                                               MaxWidth="170"
                                                MaxHeight="50"
                                                TextWrapping="WrapWithOverflow"
                                                FontSize="16"
@@ -351,7 +351,7 @@
                                                Text="{Binding Author}"
                                                FontStyle="Italic"
                                                TextTrimming="CharacterEllipsis"
-                                               MaxWidth="180"
+                                               MaxWidth="170"
                                                MaxHeight="20"
                                                TextWrapping="WrapWithOverflow" />
                                 </StackPanel>

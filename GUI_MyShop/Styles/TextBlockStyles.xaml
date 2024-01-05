@@ -6,7 +6,7 @@
         <Setter Property="Foreground"
                 Value="#146A76" />
         <Setter Property="FontSize"
-                Value="20" />
+                Value="18" />
         <Setter Property="Margin"
                 Value="70 0 0 0" />
         <Setter Property="TextAlignment"

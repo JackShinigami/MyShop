@@ -11,7 +11,7 @@
         AllowsTransparency="True"
         Background="Transparent"
         WindowStyle="None"
-        Title="Chỉnh sửa thông tin"
+        Title="Thông tin sản phẩm"
         Height="500"
         Width="800">
 
@@ -123,7 +123,7 @@
 
             <Label Grid.Column="0"
                    Grid.ColumnSpan="3"
-                   Content="Chỉnh sửa thông tin"
+                   Content="Thông tin sản phẩm"
                    FontSize="16"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Top"

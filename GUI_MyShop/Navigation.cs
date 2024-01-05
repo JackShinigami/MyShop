@@ -28,6 +28,7 @@ namespace GUI_MyShop
         public ICommand CategoriesCommand { get; set; }
         public ICommand OrdersCommand { get; set; }
         public ICommand CustomersCommand { get; set; }
+        public ICommand BackupRestoreCommand { get; set; }
 
         public Navigation()
         {
@@ -36,6 +37,7 @@ namespace GUI_MyShop
             CategoriesCommand = new RelayCommand(o => CurrentView = new Categories());
             OrdersCommand = new RelayCommand(o => CurrentView = new Orders());
             CustomersCommand = new RelayCommand(o => CurrentView = new Customers());
+            BackupRestoreCommand = new RelayCommand(o => CurrentView = new BackupRestore());
 
             CurrentView = new Dashboard();
         }

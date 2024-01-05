@@ -27,9 +27,8 @@ namespace BUS_MyShop {
             if (absolutePath == null)
                 return "";
 
-            string relativePath = Path.Combine("Images", Path.GetFileName(absolutePath));
+            string relativePath = Path.Combine("Assets", Path.GetFileName(absolutePath));
             // copy image to 'Images' folder
-            Debug.WriteLine(relativePath);
             // check if exist already, do nothing
             if (File.Exists(relativePath))
                 return relativePath;

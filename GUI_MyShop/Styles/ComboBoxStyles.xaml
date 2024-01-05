@@ -98,8 +98,6 @@
                 <ControlTemplate TargetType="{x:Type ComboBox}">
 
                     <Border x:Name="containerBorder"
-                            BorderBrush="White"
-                            BorderThickness="1"
                             CornerRadius="7"
                             Background="White">
 
@@ -136,7 +134,7 @@
                             <ToggleButton x:Name="ToggleButton"
                                           Template="{StaticResource ComboBoxToggleButton}"
                                           Grid.Column="2"
-                                          Margin="0 0 8 0"
+                                          Margin="0 0 0 0"
                                           Focusable="false"
                                           IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                           ClickMode="Press" />
