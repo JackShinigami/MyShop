@@ -43,8 +43,16 @@ namespace GUI_MyShop
         {
             deleteButton.IsEnabled = false;
             editButton.IsEnabled = false;
-            beginDatePicker.SelectedDate = bus.GetAllOrders().Min(o => o.OrderDate);
-            endDatePicker.SelectedDate = bus.GetAllOrders().Max(o => o.OrderDate);
+            try
+            {
+                beginDatePicker.SelectedDate = bus.GetAllOrders().Min(o => o.OrderDate);
+                endDatePicker.SelectedDate = bus.GetAllOrders().Max(o => o.OrderDate);
+            }
+            catch (Exception ex)
+            {
+                beginDatePicker.SelectedDate = DateTime.Now;
+                endDatePicker.SelectedDate = DateTime.Now;
+            }
             LoadData();
 
             this.DataContext = this;
@@ -210,9 +218,18 @@ namespace GUI_MyShop
                 currentPageTextBox.Text = _currentPage.ToString();
             }
 
-
-            int count = bus.GetCount(beginDatePicker.SelectedDate!.Value, endDatePicker.SelectedDate!.Value);
-            orders = bus.GetOrders((_currentPage - 1) * _pageSize, _pageSize, BUS_Orders.SortType.OrderDate, false, beginDatePicker.SelectedDate!.Value, endDatePicker.SelectedDate!.Value);
+            int count;
+            try
+            {
+                count = bus.GetCount(beginDatePicker.SelectedDate!.Value, endDatePicker.SelectedDate!.Value);
+                orders = bus.GetOrders((_currentPage - 1) * _pageSize, _pageSize, BUS_Orders.SortType.OrderDate, false, beginDatePicker.SelectedDate!.Value, endDatePicker.SelectedDate!.Value);
+            }
+            catch(Exception ex)
+            {
+                count = 0;
+                orders = new BindingList<Order>();
+            }
+            
             dataGrid_Orders.ItemsSource = orders;
 
             if (count != _totalRecord)

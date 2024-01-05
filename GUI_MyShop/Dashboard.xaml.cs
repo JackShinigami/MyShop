@@ -45,9 +45,16 @@ namespace GUI_MyShop
             InitializeComponent();
             Username = BUS_User.Instance.GetUsername();
             this.DataContext = this;
-            beginDate = (DateTime)BUS_Orders.Instance.GetAllOrders().Min(o => o.OrderDate);
-            endDate = (DateTime)BUS_Orders.Instance.GetAllOrders().Max(o => o.OrderDate);
-
+            try
+            {
+                beginDate = (DateTime)BUS_Orders.Instance.GetAllOrders().Min(o => o.OrderDate);
+                endDate = (DateTime)BUS_Orders.Instance.GetAllOrders().Max(o => o.OrderDate);
+            }
+            catch (Exception ex)
+            {
+                beginDate = DateTime.Now;
+                endDate = DateTime.Now;
+            }
             cbx_chooseType.ItemsSource = Type;
             cbx_chooseType.SelectedIndex = 0;
         }

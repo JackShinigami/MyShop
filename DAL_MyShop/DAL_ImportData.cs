@@ -152,13 +152,18 @@ namespace DAL_MyShop
                     } while (idCell?.InnerText.Length > 0);
 
                     //add to database
-                    context.Categories.AddRange(Catlist);
-                    context.Products.AddRange(Prodlist);
-                    context.SaveChanges();
+                    foreach (var item in Catlist)
+                    {
+                        DAL_ListCategories.Instance.AddCategory(item);
+                    }
+                    foreach (var item in Prodlist)
+                    {
+                        DAL_ListProducts.Instance.AddProduct(item);
+                    }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    throw;
                 }
             }
         }

@@ -36,7 +36,14 @@
             </StackPanel>
 
             <!--#endregion-->
-
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <Button x:Name="btnImport" Content="Import from Excel File" Style="{DynamicResource ButtonStyles}"
+                         Margin="20,20,20,350" Click="btnImport_Click"/>
+                <Button x:Name="btnBackup" Content="Backup Database" Style="{DynamicResource ButtonStyles}"
+                Margin="20,20,20,350" Click="btnBackup_Click"/>
+                <Button x:Name="btnRestore" Content="Restore Database" Style="{DynamicResource ButtonStyles}"
+                        Margin="20,20,20,350" Click="btnRestore_Click"/>
+            </StackPanel>
 
         </Grid>
     </Border>

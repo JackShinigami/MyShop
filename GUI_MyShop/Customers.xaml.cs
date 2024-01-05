@@ -66,7 +66,7 @@ namespace GUI_MyShop
                 }
                 catch (Exception ex)
                 {
-                    System.Windows.MessageBox.Show(ex.Message);
+                    MessageWindow.Show(ex.Message);
                 }
             }
         }
@@ -93,7 +93,7 @@ namespace GUI_MyShop
                 }
                 catch (Exception ex)
                 {
-                    System.Windows.MessageBox.Show(ex.Message);
+                    MessageWindow.Show(ex.Message);
                 }
             }
 
@@ -113,7 +113,7 @@ namespace GUI_MyShop
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show(ex.Message);
+                MessageWindow.Show(ex.Message);
             }
         }
 
