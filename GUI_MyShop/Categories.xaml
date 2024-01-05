@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GUI_MyShop"
              mc:Ignorable="d"
+             Loaded="UserControl_Loaded"
              Style="{StaticResource FragmentStyle}"
              d:Background="#9AFFDE"
              d:DesignHeight="450"
@@ -211,10 +212,134 @@
 
             <!--#region Danh sách sách-->
 
-            <Border Background="#bfff"
-                    CornerRadius="10"
-                    Margin="20,140,20,20">
+            <!--#region Danh sách sách-->
 
+            <Border Background="#bfff"
+            CornerRadius="10"
+            Margin="20,140,20,50">
+                <DataGrid x:Name="dataGrid_Categories"
+                Margin="10"
+                AutoGenerateColumns="False"
+                FontSize="16"
+                CanUserAddRows="False"
+                CanUserDeleteRows="False"
+                CanUserResizeRows="False"
+                CanUserSortColumns="False"
+                IsReadOnly="True"
+                RowHeight="50"
+                SelectionMode="Single"
+                SelectionUnit="FullRow"
+                VerticalScrollBarVisibility="Auto"
+                HorizontalScrollBarVisibility="Auto"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                BorderThickness="0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Mã thể loại" Binding="{Binding Id}"/>
+                        <DataGridTextColumn Header="Tên thể loại" Width="*" Binding="{Binding CategoryName}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </Border>
+            <!--#endregion -->
+
+            <!--#region Phân trang-->
+
+            <Border CornerRadius="10"
+                Grid.Column="1"
+                Grid.Row="1"
+                Margin="20,0,20,5"
+                Height="35"
+                VerticalAlignment="Bottom"
+                Background="#fff">
+
+                <Grid>
+
+                    <Label Content="Hiển thị"
+       HorizontalAlignment="Left"
+       VerticalAlignment="Center"
+       Foreground="#146A76"
+       FontSize="14" />
+
+                    <TextBox x:Name="pageSizeTextBox"
+         Height="30"
+         Width="50"
+         Text="10"
+         FontSize="16"
+         BorderThickness="0 0 0 2"
+         HorizontalAlignment="Left"
+         Padding="0"
+         Margin="60 0 0 0"
+         TextAlignment="Center"
+         KeyDown="changePageSize_KeyDowm"
+         Style="{StaticResource TransparentFocusTextBox}" />
+
+                    <Button x:Name="reloadButton"
+        Width="30"
+        Height="30"
+        Content="⟳"
+        FontSize="20"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Center"
+        HorizontalContentAlignment="Center"
+        Margin="110 0 10 0"
+        Click="reloadButton_Click"
+        ToolTip="Hiển thị lại"
+        Style="{StaticResource PageOperatingButton}"/>
+
+
+                    <StackPanel Orientation="Horizontal"
+            HorizontalAlignment="Center">
+
+                        <Button x:Name="previousPageButton"
+            Margin="5,1,5,1"
+            Height="30"
+            Width="30"
+            Content="◀"
+            FontSize="20"
+            Click="previousPageButton_Click"
+            Style="{StaticResource PageOperatingButton}" />
+
+                        <TextBox x:Name="currentPageTextBox"
+             Margin="5,1,5,1"
+             Height="30"
+             Width="50"
+             Text="1"
+             FontSize="16"
+             BorderThickness="0 0 0 2"
+             TextAlignment="Center"
+             KeyDown="changeCurrentPage_KeyDowm"
+             Style="{StaticResource TransparentFocusTextBox}" />
+
+                        <TextBlock Margin="5,1,5,1"
+               Height="30"
+               Width="10"
+               Text="/"
+               FontSize="20"
+               TextAlignment="Center" />
+
+                        <Label x:Name="totalPageLabel"
+           Margin="5,1,5,1"
+           Height="30"
+           Width="50"
+           d:Content="1"
+           FontSize="16"
+           HorizontalContentAlignment="Center"
+           VerticalContentAlignment="Center"
+           BorderThickness="1" />
+
+                        <Button x:Name="nextPageButton"
+            Margin="5,1,5,1"
+            Height="30"
+            Width="30"
+            Content="▶"
+            FontSize="20"
+            Click="nextPageButton_Click"
+            Style="{StaticResource PageOperatingButton}" />
+
+                    </StackPanel>
+
+                </Grid>
 
             </Border>
             <!--#endregion -->
