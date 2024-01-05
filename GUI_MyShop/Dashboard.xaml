@@ -3,24 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:local="clr-namespace:GUI_MyShop"
              mc:Ignorable="d"
              Style="{StaticResource FragmentStyle}"
+             Loaded="UserControl_Loaded"
              d:Background="#9AFFDE"
              d:DesignHeight="450"
              d:DesignWidth="800">
 
     <Border>
         <Grid>
-
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-
             <!--#region Hello-->
-            <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal" Grid.Row="0">
                 <TextBlock FontSize="20"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
@@ -30,12 +31,119 @@
                 <Run Text="Xin chào," />
                 <Run FontWeight="Bold" Text="{Binding Username}"
                      d:Text="klE" />
-                    
+
                 </TextBlock>
+
             </StackPanel>
 
             <!--#endregion-->
 
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border Background="#bfff"
+         CornerRadius="10"
+         Margin="20,20,20,20">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <lvc:CartesianChart Name="salesChart"  LegendLocation="Right" >
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Name="salesChartFormatter" Title="Doanh số" ></lvc:Axis>
+                            </lvc:CartesianChart.AxisY>
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Name="salesChartLabels" Title="Ngày" ></lvc:Axis>
+                            </lvc:CartesianChart.AxisX>
+                        </lvc:CartesianChart>
+
+                        <TextBlock FontSize="20" Grid.Row="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="#146A76"
+                    Margin="20 10 0 0">
+             <Run Text="Doanh thu và lợi nhuận" />
+                        </TextBlock>
+                    </Grid>
+                </Border>
+
+                <Border Background="#bfff"
+                CornerRadius="10"
+                 Margin="20,20,20,20" Grid.Column="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <lvc:CartesianChart Name="productChart"  LegendLocation="Bottom" >
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Name="productChartFormatter" Title="Số lượng" ></lvc:Axis>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Name="productChartLabel" Title="Sản phẩm" ></lvc:Axis>
+                            </lvc:CartesianChart.AxisY>
+                            <lvc:CartesianChart.DataTooltip>
+                                <lvc:DefaultTooltip SelectionMode="SharedYValues"></lvc:DefaultTooltip>
+                            </lvc:CartesianChart.DataTooltip>
+                        </lvc:CartesianChart>
+
+
+                        <TextBlock FontSize="20" Grid.Row="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="#146A76"
+                    Margin="20 10 0 0">
+             <Run Text="Số lượng sản phẩm" />
+                        </TextBlock>
+                    </Grid>
+                </Border>
+
+
+            </Grid>
+
+            <Border Background="#bfff"
+                CornerRadius="10"
+                VerticalAlignment="Top"
+                Height="39"
+                Margin="20,0,20,10" Grid.Row="2">
+                <StackPanel  Orientation="Horizontal">
+                    <DatePicker
+                    x:Name="beginDatePicker"
+                    Width="240"
+                    Margin="5"
+                    FontSize="20"
+                    Background="White"
+                    BorderThickness="0"
+                    d:SelectedDate="1/15/2023"
+                    Text="{Binding beginDate, StringFormat=dd/MM/yyyy}"
+                    SelectedDateChanged="beginDatePicker_changed"
+                    CalendarOpened="beginDatePicker_CalendarOpened"
+                    ToolTip="Chọn ngày bắt đầu"
+                    Style="{DynamicResource DatePickerStyle}"/>
+
+                    <DatePicker
+                    x:Name="endDatePicker"
+                    Width="240"
+                    Margin="5"
+                    FontSize="20"
+                    Background="White"
+                    BorderThickness="0"
+                    d:SelectedDate="1/15/2023"
+                    Text="{Binding endDate, StringFormat=dd/MM/yyyy}"
+                    SelectedDateChanged="endDatePicker_changed"
+                    CalendarOpened="endDatePicker_CalendarOpened"
+                    ToolTip="Chọn ngày kết thúc"
+                    Style="{DynamicResource DatePickerStyle}"
+                    />
+                    <ComboBox Name="cbx_chooseType" SelectionChanged="cbx_chooseType_SelectionChanged" Style="{DynamicResource ComboBoxStyles}">
+                        
+                    </ComboBox>
+                </StackPanel>
+            </Border>
 
         </Grid>
     </Border>
