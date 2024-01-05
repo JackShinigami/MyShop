@@ -303,6 +303,32 @@ namespace GUI_MyShop
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
+            Product product = new Product();
+            AddProductWindow addProductWindow = new AddProductWindow(product);
+
+            if (addProductWindow.ShowDialog() == true)
+            {
+                product = addProductWindow.ReturnProduct;
+                try
+                {
+                    bus.AddProduct(
+                        product.Id,
+                        product.ProductName?? "", 
+                        product.Author?? "",
+                        product.PublishYear?? 0,
+                        product.Publisher?? "",
+                        product.CostPrice?? 0, 
+                        product.SellingPrice?? 0, 
+                        product.CategoryId?? "",
+                        product.Quantity?? 0, 
+                        product.ImagePath?? "");
+                    LoadBooks();
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show(ex.Message);
+                }
+            }
 
         }
 
