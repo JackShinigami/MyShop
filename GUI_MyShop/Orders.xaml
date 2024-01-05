@@ -124,6 +124,7 @@
                     <!--#region Nút sửa-->
 
                     <Button x:Name="editButton"
+                            Visibility="Collapsed"
                             Width="60"
                             Height="70"
                             Foreground="#146A76"
@@ -164,8 +165,16 @@
                     <!--#endregion-->
 
                     <StackPanel  Orientation="Horizontal">
+                        
+                        <Label Content="Từ ngày"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Foreground="#146A76"
+                               FontSize="16" />
+                                            
+                        
                         <DatePicker x:Name="beginDatePicker"
-                                    Width="240"
+                                    Width="200"
                                     Margin="5 15 5 15"
                                     FontSize="20"
                                     Background="White"
@@ -176,8 +185,14 @@
                                     ToolTip="Chọn ngày bắt đầu"
                                     Style="{DynamicResource DatePickerStyle}" />
 
+                        <Label Content="Đến ngày"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Foreground="#146A76"
+                               FontSize="16" />
+
                         <DatePicker x:Name="endDatePicker"
-                                    Width="240"
+                                    Width="200"
                                     Margin="5 15 5 15"
                                     FontSize="20"
                                     Background="White"
@@ -216,6 +231,7 @@
                           HorizontalScrollBarVisibility="Auto"
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center"
+                          MouseDoubleClick="dataGrid_Orders_MouseDoubleClick"
                           SelectedCellsChanged="dataGrid_Orders_SelectedCellsChanged"
                           BorderThickness="0">
                     <DataGrid.Columns>
