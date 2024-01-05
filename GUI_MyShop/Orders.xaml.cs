@@ -277,5 +277,12 @@ namespace GUI_MyShop
             deleteButton.IsEnabled = true;
             editButton.IsEnabled = true;
         }
+
+        private void dataGrid_Orders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            OrderDetailWindow orderDetailWindow = new OrderDetailWindow(dataGrid_Orders.SelectedItem as Order);
+            orderDetailWindow.ShowDialog();
+
+        }
     }
 }

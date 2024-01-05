@@ -119,6 +119,15 @@ namespace GUI_MyShop
                 Product = product,
                 Quantity = quantity
             });
+
+            UpdateTotal();
+        }
+
+        private void UpdateTotal()
+        {
+            var res = BUS_MyShop.BUS_OrderDetails.Instance.TotalPriceAndDiscount(OrderDetails.ToList());
+            totalPriceLabel.Content = res.Item1.ToString();
+            discountLabel.Content = res.Item2.ToString("P2");
         }
 
         private void removeProductButton_Click(object sender, RoutedEventArgs e)
