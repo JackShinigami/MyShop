@@ -218,12 +218,15 @@ namespace GUI_MyShop
 
         private void reloadButton_Click(object sender, RoutedEventArgs e)
         {
-
+            logicTransmitPageSizeToLoadBooks();
         }
 
         private void changePageSize_KeyDowm(object sender, KeyEventArgs e)
         {
-
+            if (e.Key == Key.Enter)
+            {
+                logicTransmitPageSizeToLoadBooks();
+            }
         }
 
         private void isAscendingToggleButton_Click(object sender, RoutedEventArgs e)
@@ -259,10 +262,6 @@ namespace GUI_MyShop
             }
         }
 
-        private void displayButton_Click(object sender, RoutedEventArgs e)
-        {
-            logicTransmitPageSizeToLoadBooks();
-        }
 
         private void previousPageButton_Click(object sender, RoutedEventArgs e)
         {
