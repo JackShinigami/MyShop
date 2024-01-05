@@ -1,4 +1,4 @@
-﻿using BUS_MyShop;
+﻿using GUI_MyShop;
 using LiveCharts;
 using LiveCharts.Wpf;
 using System;
@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BUS_MyShop;
 
 
 namespace GUI_MyShop

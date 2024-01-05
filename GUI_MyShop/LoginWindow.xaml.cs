@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using GUI_MyShop;
 using BUS_MyShop;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Model;
 

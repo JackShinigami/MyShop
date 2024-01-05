@@ -125,4 +125,27 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="TransparentFocusTextBox"
+           TargetType="{x:Type TextBox}">
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="BorderBrush"
+                Value="#8820a8bb" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+        <Setter Property="Padding"
+                Value="0,5,0,0" />
+        <Style.Triggers>
+            <Trigger Property="IsFocused"
+                     Value="True">
+                <Setter Property="BorderThickness"
+                        Value="0,0,0,2" />
+                <Setter Property="BorderBrush"
+                        Value="#146A76" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>

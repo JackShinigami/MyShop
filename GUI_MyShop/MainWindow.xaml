@@ -4,7 +4,7 @@
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      xmlns:local="clr-namespace:GUI_MyShop"
-                     xmlns:conv="clr-namespace:BUS_MyShop;assembly=BUS_MyShop"
+                     xmlns:conv="clr-namespace:GUI_MyShop;assembly=BUS_MyShop"
                      xmlns:Nav="clr-namespace:GUI_MyShop.Utilities"
                      xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
                      mc:Ignorable="d"

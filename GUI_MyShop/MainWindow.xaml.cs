@@ -15,7 +15,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using BUS_MyShop;
+using GUI_MyShop;
 using DocumentFormat.OpenXml.Drawing.Wordprocessing;
 using Fluent;
 using RibbonWindow = Fluent.RibbonWindow;
@@ -138,7 +138,9 @@ namespace GUI_MyShop
 
         private void logoutButton_Click(object sender, RoutedEventArgs e)
         {
-
+            LoginWindow loginWindow = new LoginWindow();
+            loginWindow.Show();
+            this.Close();
         }
     }
 }

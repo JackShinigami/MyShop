@@ -111,6 +111,10 @@ namespace BUS_MyShop
                 default:
                     break;
             }
+            if (skip + take > products.Count)
+            {
+                take = products.Count - (skip);
+            }
             products = products.Skip(skip).Take(take).ToList();
             return new BindingList<Product>(products);
         }
@@ -175,23 +179,28 @@ namespace BUS_MyShop
                 default:
                     break;
             }
+
+            if (skip + take > products.Count)
+            {
+                take = products.Count - (skip);
+            }
             products = products.Skip(skip).Take(take).ToList();
-            return new BindingList<Product>(products);  
+            return new BindingList<Product>(products);
         }
 
         public Product GetProductById(string id)
         {
-           return dal.GetProductById(id);
+            return dal.GetProductById(id);
         }
 
-        public void AddProduct(string id, string ProductName, string Author, int PublishYear, string Publisher, 
+        public void AddProduct(string id, string ProductName, string Author, int PublishYear, string Publisher,
             int CostPrice, int SellingPrice, string CategoryID, int Quantity, string ImagePath)
         {
-            if(CostPrice > SellingPrice)
+            if (CostPrice > SellingPrice)
                 throw new Exception("Giá bán phải lớn hơn giá nhập");
             if (Quantity < 0)
                 throw new Exception("Số lượng phải lớn hơn 0");
-            if(DAL_ListCategories.Instance.GetCategoryById(CategoryID) == null)
+            if (DAL_ListCategories.Instance.GetCategoryById(CategoryID) == null)
                 throw new Exception("Loại sản phẩm không tồn tại");
 
             Product product = new Product()

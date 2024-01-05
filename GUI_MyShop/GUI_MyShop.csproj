@@ -71,4 +71,10 @@
     <Resource Include="Assets\upgrade.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Assets\BookCoverPlaceholder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

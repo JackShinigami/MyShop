@@ -30,7 +30,7 @@
                 <Run Text="Xin chào," />
                 <Run FontWeight="Bold" Text="{Binding Username}"
                      d:Text="klE" />
-
+                    
                 </TextBlock>
             </StackPanel>
 

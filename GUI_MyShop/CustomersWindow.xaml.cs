@@ -1,4 +1,4 @@
-﻿using BUS_MyShop;
+﻿using GUI_MyShop;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BUS_MyShop;
 using DTO_MyShop;
 
 namespace GUI_MyShop
