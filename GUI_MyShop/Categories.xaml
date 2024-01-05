@@ -212,8 +212,6 @@
 
             <!--#region Danh sách sách-->
 
-            <!--#region Danh sách sách-->
-
             <Border Background="#bfff"
             CornerRadius="10"
             Margin="20,140,20,50">
