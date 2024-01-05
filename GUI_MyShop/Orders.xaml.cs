@@ -120,9 +120,15 @@ namespace GUI_MyShop
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
-
-            bus.DeleteOrder((dataGrid_Orders.SelectedItem as Order).Id);
-            LoadData();
+            try
+            {
+                bus.DeleteOrder((dataGrid_Orders.SelectedItem as Order).Id);
+                LoadData();
+            }
+            catch (Exception ex)
+            {
+                
+            }
 
         }
 

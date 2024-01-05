@@ -70,17 +70,17 @@ namespace BUS_MyShop
                 throw new Exception("Số lượng sản phẩm trong kho không đủ");
             }
             
-            Product newProduct = new Product()
-            {
-                Id = product.Id,
-                ProductName = product.ProductName,
-                Author = product.Author,
-                PublishYear = product.PublishYear,
-                Publisher = product.Publisher,
-                CostPrice = product.CostPrice,
-                SellingPrice = product.SellingPrice,
-                Quantity = product.Quantity - Quantity
-            };
+            //Product newProduct = new Product()
+            //{
+            //    Id = product.Id,
+            //    ProductName = product.ProductName,
+            //    Author = product.Author,
+            //    PublishYear = product.PublishYear,
+            //    Publisher = product.Publisher,
+            //    CostPrice = product.CostPrice,
+            //    SellingPrice = product.SellingPrice,
+            //    Quantity = product.Quantity - Quantity
+            //};
 
             OrderDetail orderDetail = new OrderDetail()
             {
@@ -89,7 +89,7 @@ namespace BUS_MyShop
                 Quantity = Quantity
             };
             dal.AddOrderDetail(orderDetail);
-            DAL_ListProducts.Instance.UpdateProduct(ProductId, newProduct);
+            //DAL_ListProducts.Instance.UpdateProduct(ProductId, newProduct);
         }
 
         public void DeleteOrderDetail(string orderId, string productId)
