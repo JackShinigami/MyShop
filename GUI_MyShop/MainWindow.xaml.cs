@@ -15,7 +15,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using BUS_MyShop;
+using GUI_MyShop;
 using DocumentFormat.OpenXml.Drawing.Wordprocessing;
 using Fluent;
 using RibbonWindow = Fluent.RibbonWindow;
@@ -46,18 +46,13 @@ namespace GUI_MyShop
         {
             if (WindowState == WindowState.Normal)
             {
-
             } else if (WindowState == WindowState.Maximized)
             {
-
             } else if (WindowState == WindowState.Minimized)
             {
 
             }
 
-            // fade in the window
-            DoubleAnimation animation = new DoubleAnimation(1, (Duration)TimeSpan.FromSeconds(0.1));
-            this.BeginAnimation(OpacityProperty, animation);
 
 
             Debug.WriteLine(WindowState);
@@ -65,43 +60,25 @@ namespace GUI_MyShop
 
         private void closeButton_Click(object sender, RoutedEventArgs e)
         {
-            // fade out the window
-            DoubleAnimation animation = new DoubleAnimation(0, (Duration)TimeSpan.FromSeconds(0.2));
-            animation.Completed += (s, _) => this.Close();
-            this.BeginAnimation(TopProperty, new DoubleAnimation(500, (Duration)TimeSpan.FromSeconds(0.2)));
-            this.BeginAnimation(OpacityProperty, animation);
+            this.Close();
         }
 
         private void maximizeButton_Click(object sender, RoutedEventArgs e)
         {
-            // maximize the window with animation 
 
-            // fade out the window
-            DoubleAnimation animation = new DoubleAnimation(0.0, (Duration)TimeSpan.FromSeconds(0.1));
-            this.BeginAnimation(OpacityProperty, animation);
-
-            Task.Delay(500).ContinueWith(_ => {
-                Dispatcher.Invoke(() => {
-                    if (WindowState == WindowState.Maximized)
-                    {
-                        WindowState = WindowState.Normal;
-                    } else
-                    {
-                        WindowState = WindowState.Maximized;
-                    }
-                });
-            });
+            if (WindowState == WindowState.Maximized)
+            {
+                WindowState = WindowState.Normal;
+            } else
+            {
+                WindowState = WindowState.Maximized;
+            }
         }
 
         private void minimizeButton_Click(object sender, RoutedEventArgs e)
         {
 
-            Task.Delay(300).ContinueWith(_ => {
-                Dispatcher.Invoke(() => {
-                    WindowState = WindowState.Minimized;
-                });
-            });
-
+            WindowState = WindowState.Minimized;
         }
 
         private void titleBarBorder_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -153,13 +130,17 @@ namespace GUI_MyShop
 
         #endregion
 
-        private void Window_Loaded(object sender, RoutedEventArgs e) {
-
-        }
 
         private void RibbonWindow_Loaded(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void logoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            LoginWindow loginWindow = new LoginWindow();
+            loginWindow.Show();
+            this.Close();
         }
     }
 }

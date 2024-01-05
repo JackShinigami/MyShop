@@ -8,12 +8,32 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Add.png" />
+    <None Remove="Assets\add_bg.png" />
+    <None Remove="Assets\BackupRestore_nm.png" />
+    <None Remove="Assets\calendar.png" />
+    <None Remove="Assets\category_nm.png" />
     <None Remove="Assets\close.png" />
     <None Remove="Assets\close_mouseover.png" />
+    <None Remove="Assets\customers.png" />
+    <None Remove="Assets\customer_nm.png" />
+    <None Remove="Assets\dashboard.png" />
+    <None Remove="Assets\dashboard_nm.png" />
+    <None Remove="Assets\edit.png" />
+    <None Remove="Assets\edit_bg.png" />
     <None Remove="Assets\maximize.png" />
     <None Remove="Assets\maximize_mouseover.png" />
     <None Remove="Assets\minimize.png" />
     <None Remove="Assets\minimize_mouseover.png" />
+    <None Remove="Assets\orders.png" />
+    <None Remove="Assets\order_nm.png" />
+    <None Remove="Assets\product.png" />
+    <None Remove="Assets\product_nm.png" />
+    <None Remove="Assets\remove.png" />
+    <None Remove="Assets\remove_bg.png" />
+    <None Remove="Assets\search.png" />
+    <None Remove="Assets\search_bg.png" />
+    <None Remove="Assets\upgrade.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,12 +47,38 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Add.png" />
+    <Resource Include="Assets\add_bg.png" />
+    <Resource Include="Assets\BackupRestore_nm.png" />
+    <Resource Include="Assets\calendar.png" />
+    <Resource Include="Assets\category_nm.png" />
     <Resource Include="Assets\close.png" />
     <Resource Include="Assets\close_mouseover.png" />
+    <Resource Include="Assets\customers.png" />
+    <Resource Include="Assets\customer_nm.png" />
+    <Resource Include="Assets\dashboard.png" />
+    <Resource Include="Assets\dashboard_nm.png" />
+    <Resource Include="Assets\edit.png" />
+    <Resource Include="Assets\edit_bg.png" />
     <Resource Include="Assets\maximize.png" />
     <Resource Include="Assets\maximize_mouseover.png" />
     <Resource Include="Assets\minimize.png" />
     <Resource Include="Assets\minimize_mouseover.png" />
+    <Resource Include="Assets\orders.png" />
+    <Resource Include="Assets\order_nm.png" />
+    <Resource Include="Assets\product.png" />
+    <Resource Include="Assets\product_nm.png" />
+    <Resource Include="Assets\remove.png" />
+    <Resource Include="Assets\remove_bg.png" />
+    <Resource Include="Assets\search.png" />
+    <Resource Include="Assets\search_bg.png" />
+    <Resource Include="Assets\upgrade.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Assets\BookCoverPlaceholder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

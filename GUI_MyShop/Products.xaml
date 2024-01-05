@@ -1,0 +1,665 @@
+﻿<UserControl x:Class="GUI_MyShop.Products"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:GUI_MyShop"
+             xmlns:bus="clr-namespace:BUS_MyShop;assembly=BUS_MyShop"
+             mc:Ignorable="d"
+             Loaded="UserControl_Loaded"
+             Style="{StaticResource FragmentStyle}"
+             d:Background="#9AFFDE"
+             d:DesignHeight="450"
+             d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <bus:RelativePathToAbsolutePathConverter x:Key="RelativePathToAbsolutePathConverter" />
+        <bus:NumberToVndConverter x:Key="NumberToVndConverter" />
+    </UserControl.Resources>
+
+
+    <Border Background="Transparent"
+            CornerRadius="10"
+            Margin="0">
+        <Grid>
+
+            <TextBlock Text="Sản phẩm"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Foreground="#146A76"
+                       Margin="20 10 0 0" />
+
+
+            <!--#region Thanh command-->
+            <Border Background="#efff"
+                    CornerRadius="10"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Left"
+                    Height="80"
+                    Width="210"
+                    Margin="20,50,0,0">
+
+                <StackPanel Margin="5 5 0 5"
+                            Orientation="Horizontal">
+
+                    <!--#region Nút thêm-->
+                    <Button x:Name="addButton"
+                            Width="60"
+                            Height="70"
+                            Foreground="#146A76"
+                            Style="{DynamicResource BorderThickHoverButton}"
+                            Click="addButton_Click">
+
+                        <Grid HorizontalAlignment="Center"
+                              VerticalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0"
+                                    CornerRadius="100"
+                                    Margin="5"
+                                    Opacity="0.5">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="Assets/add_bg.png" />
+                                </Border.Background>
+                                <Image Grid.Row="0"
+                                       Source="Assets/add.png"
+                                       Stretch="Uniform"
+                                       Width="30"
+                                       Height="30"
+                                       Margin="5"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                            </Border>
+
+                            <TextBlock Grid.Row="1"
+                                       Text="Thêm"
+                                       FontSize="12"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                        </Grid>
+
+
+                    </Button>
+                    <!--#endregion-->
+
+                    <!--#region Nút xóa-->
+                    <Button x:Name="deleteButton"
+                            Width="60"
+                            Height="70"
+                            Foreground="#146A76"
+                            Style="{DynamicResource BorderThickHoverButton}"
+                            Click="deleteButton_Click">
+
+                        <Grid HorizontalAlignment="Center"
+                              VerticalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0"
+                                    CornerRadius="100"
+                                    Margin="5"
+                                    Opacity="0.5">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="Assets/remove_bg.png" />
+                                </Border.Background>
+                                <Image Grid.Row="0"
+                                       Source="Assets/remove.png"
+                                       Width="30"
+                                       Height="30"
+                                       Margin="5"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                            </Border>
+
+                            <TextBlock Grid.Row="1"
+                                       Text="Xóa"
+                                       FontSize="12"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                        </Grid>
+
+                    </Button>
+
+                    <!--#endregion-->
+
+                    <!--#region Nút sửa-->
+
+                    <Button x:Name="editButton"
+                            Width="60"
+                            Height="70"
+                            Foreground="#146A76"
+                            Style="{DynamicResource BorderThickHoverButton}"
+                            Click="editButton_Click">
+
+                        <Grid HorizontalAlignment="Center"
+                              VerticalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0"
+                                    CornerRadius="100"
+                                    Margin="5"
+                                    Opacity="0.5">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="Assets/edit_bg.png" />
+                                </Border.Background>
+                                <Image Grid.Row="0"
+                                       Source="Assets/edit.png"
+                                       Width="28"
+                                       Height="28"
+                                       Margin="7"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                            </Border>
+
+                            <TextBlock Grid.Row="1"
+                                       Text="Sửa"
+                                       FontSize="12"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                        </Grid>
+
+                    </Button>
+                    <!--#endregion-->
+
+                    <!--#region Nút tìm kiếm-->
+                    <!--
+                    <Button x:Name="searchButton"
+                            Width="60"
+                            Height="70"
+                            Foreground="#146A76"
+                            Style="{DynamicResource BorderThickHoverButton}"
+                            Click="searchButton_Click">
+
+                        <Grid HorizontalAlignment="Center"
+                              VerticalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0"
+                                    CornerRadius="100"
+                                    Margin="5"
+                                    Opacity="0.5">
+
+                                <Border.Background>
+                                    <ImageBrush ImageSource="Assets/search_bg.png" />
+                                </Border.Background>
+                                <Image Grid.Row="0"
+                                       Source="Assets/search.png"
+                                       Width="28"
+                                       Height="28"
+                                       Margin="7"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                            </Border>
+
+                            <TextBlock Grid.Row="1"
+                                       Text="Tìm kiếm"
+                                       FontSize="12"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                        </Grid>
+
+                    </Button>
+
+                    -->
+                    <!--#endregion-->
+
+                </StackPanel>
+
+            </Border>
+
+            <!--#endregion-->
+
+            <!--#region Danh sách sách-->
+
+            <Border Background="#6fc"
+                    CornerRadius="10"
+                    Margin="20,140,20,50">
+
+                <ListView x:Name="booksListView"
+                          Background="Transparent"
+                          Margin="5,5,5,5"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          SelectionChanged="booksListView_SelectionChanged"
+                          MouseDoubleClick="booksListView_MouseDoubleClick"
+                          BorderBrush="Transparent">
+
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Margin"
+                                    Value="2" />
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListViewItem">
+                                        <Border x:Name="itemBorder"
+                                                BorderBrush="White"
+                                                BorderThickness="5"
+                                                CornerRadius="10"
+                                                Background="White">
+                                            <ContentPresenter />
+                                        </Border>
+
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver"
+                                                     Value="True">
+
+                                                <Setter TargetName="itemBorder"
+                                                        Property="Effect">
+
+                                                    <Setter.Value>
+                                                        <DropShadowEffect BlurRadius="10"
+                                                                          Color="#146A76"
+                                                                          Direction="315"
+                                                                          Opacity="0.5"
+                                                                          ShadowDepth="5" />
+                                                    </Setter.Value>
+
+                                                </Setter>
+
+
+                                            </Trigger>
+
+                                            <Trigger Property="IsSelected"
+                                                     Value="True">
+
+
+                                                <Setter TargetName="itemBorder"
+                                                        Property="Effect">
+
+                                                    <Setter.Value>
+                                                        <DropShadowEffect BlurRadius="10"
+                                                                          Color="#146A76"
+                                                                          Direction="315"
+                                                                          Opacity="0.5"
+                                                                          ShadowDepth="5" />
+                                                    </Setter.Value>
+
+                                                </Setter>
+
+                                                <Setter TargetName="itemBorder"
+                                                        Property="BorderBrush"
+                                                        Value="#1ac" />
+
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+
+                        </Style>
+                    </ListView.ItemContainerStyle>
+
+                    <ListView.ItemTemplate>
+
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <Grid Margin="5,5,5,0">
+                                    <Image Height="180"
+                                           Width="170"
+                                           Margin="0"
+                                           RenderOptions.BitmapScalingMode="HighQuality"
+                                           Source="{Binding ImagePath, Converter={StaticResource RelativePathToAbsolutePathConverter}}" />
+
+                                    <Border Background="Orange"
+                                            CornerRadius="3"
+                                            VerticalAlignment="Top"
+                                            HorizontalAlignment="Right"
+                                            Margin="0 10 10 0">
+
+                                        <TextBlock Text="{Binding Quantity}"
+                                                   Margin="4"
+                                                   FontSize="16"
+                                                   Foreground="White"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center" />
+
+                                    </Border>
+
+                                </Grid>
+                                <StackPanel Margin="10,0,10,0"
+                                            VerticalAlignment="Center"
+                                            Height="70"
+                                            Orientation="Vertical">
+                                    <TextBlock TextTrimming="CharacterEllipsis"
+                                               MaxWidth="170"
+                                               MaxHeight="50"
+                                               TextWrapping="WrapWithOverflow"
+                                               FontSize="16"
+                                               Text="{Binding ProductName}"
+                                               FontWeight="Bold" />
+                                    <TextBlock FontSize="14"
+                                               Text="{Binding Author}"
+                                               FontStyle="Italic"
+                                               TextTrimming="CharacterEllipsis"
+                                               MaxWidth="170"
+                                               MaxHeight="20"
+                                               TextWrapping="WrapWithOverflow" />
+                                </StackPanel>
+                                <Grid>
+                                    <TextBlock FontSize="16"
+                                               Text="{Binding CostPrice, Converter={StaticResource NumberToVndConverter}}"
+                                               FontWeight="Bold"
+                                               Foreground="Red"
+                                               TextTrimming="CharacterEllipsis"
+                                               HorizontalAlignment="Left"
+                                               Margin="10,10,10,10"
+                                               TextWrapping="WrapWithOverflow" />
+
+                                    <TextBlock FontSize="16"
+                                               Text="{Binding SellingPrice, Converter={StaticResource NumberToVndConverter}}"
+                                               FontWeight="Bold"
+                                               Foreground="Green"
+                                               TextTrimming="CharacterEllipsis"
+                                               HorizontalAlignment="Right"
+                                               Margin="10,10,10,10"
+                                               TextWrapping="WrapWithOverflow" />
+
+
+                                </Grid>
+                            </StackPanel>
+
+
+                        </DataTemplate>
+
+                    </ListView.ItemTemplate>
+
+
+                </ListView>
+
+            </Border>
+
+            <!--#endregion -->
+
+            <!--#region Phân trang-->
+
+            <Border CornerRadius="10"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Margin="20,0,20,5"
+                    Height="35"
+                    VerticalAlignment="Bottom"
+                    Background="#fff">
+
+                <Grid>
+
+                    <Label Content="Hiển thị"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Foreground="#146A76"
+                           FontSize="14" />
+
+                    <TextBox x:Name="pageSizeTextBox"
+                             Height="30"
+                             Width="50"
+                             Text="10"
+                             FontSize="16"
+                             BorderThickness="0 0 0 2"
+                             HorizontalAlignment="Left"
+                             Padding="0"
+                             Margin="60 0 0 0"
+                             TextAlignment="Center"
+                             KeyDown="changePageSize_KeyDowm"
+                             Style="{StaticResource TransparentFocusTextBox}" />
+
+                    <Button x:Name="reloadButton"
+                            Width="30"
+                            Height="30"
+                            Content="⟳"
+                            FontSize="20"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            Margin="110 0 10 0"
+                            Click="reloadButton_Click"
+                            ToolTip="Hiển thị lại"
+                            Style="{StaticResource PageOperatingButton}"/>
+                    
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center">
+
+                        <Button x:Name="previousPageButton"
+                                Margin="5,1,5,1"
+                                Height="30"
+                                Width="30"
+                                Content="◀"
+                                FontSize="20"
+                                Click="previousPageButton_Click"
+                                Style="{StaticResource PageOperatingButton}" />
+
+                        <TextBox x:Name="currentPageTextBox"
+                                 Margin="5,1,5,1"
+                                 Height="30"
+                                 Width="50"
+                                 Text="1"
+                                 FontSize="16"
+                                 BorderThickness="0 0 0 2"
+                                 TextAlignment="Center"
+                                 KeyDown="changeCurrentPage_KeyDowm"
+                                 Style="{StaticResource TransparentFocusTextBox}" />
+
+                        <TextBlock Margin="5,1,5,1"
+                                   Height="30"
+                                   Width="10"
+                                   Text="/"
+                                   FontSize="20"
+                                   TextAlignment="Center" />
+
+                        <Label x:Name="totalPageLabel"
+                               Margin="5,1,5,1"
+                               Height="30"
+                               Width="50"
+                               d:Content="1"
+                               FontSize="16"
+                               HorizontalContentAlignment="Center"
+                               VerticalContentAlignment="Center"
+                               BorderThickness="1" />
+
+                        <Button x:Name="nextPageButton"
+                                Margin="5,1,5,1"
+                                Height="30"
+                                Width="30"
+                                Content="▶"
+                                FontSize="20"
+                                Click="nextPageButton_Click"
+                                Style="{StaticResource PageOperatingButton}" />
+
+                    </StackPanel>
+
+                </Grid>
+
+            </Border>
+
+            <!--#endregion-->
+
+            <!--#region Công cụ-->
+            <Border Background="#efff"
+                    CornerRadius="10"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Stretch"
+                    Margin="240 50 20 0"
+                    Height="80">
+                <StackPanel Orientation="Vertical">
+
+                    <!--#region Tìm kiếm -->
+                    <Border Background="White"
+                            Height="30"
+                            Margin="15,5,15,5"
+                            CornerRadius="5">
+
+                        <Border CornerRadius="6 5 5 6"
+                                BorderThickness="1"
+                                BorderBrush="#146A76"
+                                Background="#0000">
+                            <DockPanel>
+
+                                <Border Background="#146A76"
+                                        CornerRadius="5 0 0 5">
+                                    <Image Source="Assets/search.png"
+                                           RenderOptions.BitmapScalingMode="HighQuality"
+                                           Height="20"
+                                           Width="20"
+                                           Margin="5,0,5,0" />
+                                </Border>
+
+
+                                <Button x:Name="searchButton"
+                                        DockPanel.Dock="Right"
+                                        Width="70"
+                                        Content="Tìm kiếm"
+                                        HorizontalAlignment="Right"
+                                        BorderThickness="0"
+                                        Margin="0 2 2 2"
+                                        Click="searchButton_Click"
+                                        Background="White"
+                                        Style="{StaticResource PageOperatingButton}">
+
+                                </Button>
+
+                                <TextBox x:Name="searchTextBox"
+                                         FontSize="16"
+                                         KeyDown="searchTextBox_KeyDown"
+                                         Style="{StaticResource TransparentFocusTextBox}">
+                                </TextBox>
+
+                            </DockPanel>
+                        </Border>
+                    </Border>
+                    <!--#endregion-->
+
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="3*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!--#region Sắp xếp-->
+
+                        <Grid>
+
+                            <Label Content="Sắp xếp"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Foreground="#146A76"
+                                   FontSize="14" />
+
+                            <ComboBox x:Name="sortComboBox"
+                                      Height="30"
+                                      Margin="60 0 30 0"
+                                      HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Center"
+                                      SelectionChanged="sortComboBox_SelectionChanged"
+                                      SelectedIndex="0"
+                                      Style="{StaticResource ComboBoxStyle}">
+
+                                <ComboBoxItem Content="Mã sách" />
+                                <ComboBoxItem Content="Tên" />
+                                <ComboBoxItem Content="Giá bán" />
+                                <ComboBoxItem Content="Giá nhập" />
+                                <ComboBoxItem Content="Số lượng" />
+                            </ComboBox>
+
+                            <ToggleButton x:Name="isAscendingToggleButton"
+                                          Width="30"
+                                          Margin="5 0 5 0"
+                                          HorizontalAlignment="Right"
+                                          VerticalAlignment="Stretch"
+                                          IsChecked="{Binding IsAscending}"
+                                          Click="isAscendingToggleButton_Click"
+                                          Style="{StaticResource AscedingToggleButtonStyle}">
+                            </ToggleButton>
+                        </Grid>
+
+                        <!--#endregion-->
+
+                        <!--#region Lọc theo giá-->
+
+                        <Grid Grid.Column="1">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="50" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label Content="Giá từ"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Foreground="#146A76"
+                                   FontSize="14" />
+                            <TextBlock Text="đến"
+                                       Grid.Column="1"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Foreground="#146A76"
+                                       FontSize="14" />
+
+                            <TextBox x:Name="minPriceTextBox"
+                                     Height="30"
+                                     Margin="45 0 5 0"
+                                     BorderThickness="0 0 0 2"
+                                     d:Text="50000"
+                                     HorizontalAlignment="Stretch"
+                                     VerticalAlignment="Center"
+                                     Style="{StaticResource TransparentFocusTextBox}" />
+
+                            <TextBox x:Name="maxPriceTextBox"
+                                     Grid.Column="1"
+                                     Height="30"
+                                     Margin="25 0 15 0"
+                                     BorderThickness="0 0 0 2"
+                                     d:Text="1000000"
+                                     HorizontalAlignment="Stretch"
+                                     VerticalAlignment="Center"
+                                     Style="{StaticResource TransparentFocusTextBox}" />
+
+                            <Button x:Name="filterButton"
+                                    Grid.Column="2"
+                                    Content="Lọc"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    BorderThickness="0"
+                                    Margin="0 2 2 2"
+                                    Click="filterButton_Click"
+                                    Background="White"
+                                    Style="{StaticResource BorderButton}" />
+
+                        </Grid>
+
+                        <!--#endregion-->
+
+
+                    </Grid>
+
+                </StackPanel>
+
+            </Border>
+
+            <!--#endregion-->
+
+        </Grid>
+    </Border>
+
+</UserControl>

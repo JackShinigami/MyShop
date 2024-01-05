@@ -7,12 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Data;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BUS_MyShop {
     public class RelativePathToAbsolutePathConverter : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             string? relativePath = value as string;
-            if (relativePath == null)
+            if (relativePath.IsNullOrEmpty())
                 return "";
             // check if it is already an absolute path
             if (Path.IsPathRooted(relativePath))
@@ -26,9 +27,8 @@ namespace BUS_MyShop {
             if (absolutePath == null)
                 return "";
 
-            string relativePath = Path.Combine("Images", Path.GetFileName(absolutePath));
+            string relativePath = Path.Combine("Assets", Path.GetFileName(absolutePath));
             // copy image to 'Images' folder
-            Debug.WriteLine(relativePath);
             // check if exist already, do nothing
             if (File.Exists(relativePath))
                 return relativePath;

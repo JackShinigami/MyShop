@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using DTO_MyShop;
 using DAL_MyShop;
 using DocumentFormat.OpenXml.InkML;
+
 namespace BUS_MyShop
 {
     public class BUS_OrderDetails
@@ -68,6 +69,18 @@ namespace BUS_MyShop
             {
                 throw new Exception("Số lượng sản phẩm trong kho không đủ");
             }
+            
+            //Product newProduct = new Product()
+            //{
+            //    Id = product.Id,
+            //    ProductName = product.ProductName,
+            //    Author = product.Author,
+            //    PublishYear = product.PublishYear,
+            //    Publisher = product.Publisher,
+            //    CostPrice = product.CostPrice,
+            //    SellingPrice = product.SellingPrice,
+            //    Quantity = product.Quantity - Quantity
+            //};
 
             OrderDetail orderDetail = new OrderDetail()
             {
@@ -76,11 +89,28 @@ namespace BUS_MyShop
                 Quantity = Quantity
             };
             dal.AddOrderDetail(orderDetail);
+            //DAL_ListProducts.Instance.UpdateProduct(ProductId, newProduct);
         }
 
         public void DeleteOrderDetail(string orderId, string productId)
         {
+            
+            Product product = DAL_ListProducts.Instance.GetProductById(productId);
+            Product newProduct = new Product()
+            {
+                Id = product.Id,
+                ProductName = product.ProductName,
+                Author = product.Author,
+                PublishYear = product.PublishYear,
+                Publisher = product.Publisher,
+                CostPrice = product.CostPrice,
+                SellingPrice = product.SellingPrice,
+                Quantity = product.Quantity + dal.GetOrderDetailById(orderId, productId).Quantity
+            };
+
+            
             dal.DeleteOrderDetail(orderId, productId);
+            DAL_ListProducts.Instance.UpdateProduct(productId, newProduct);
         }
 
         public void DeleteOrderDetailsByOrderId(string orderId)
@@ -88,7 +118,7 @@ namespace BUS_MyShop
             List<OrderDetail> orderDetails = dal.GetOrderDetailsByOrderId(orderId);
             foreach(OrderDetail orderDetail in orderDetails)
             {
-                dal.DeleteOrderDetail(orderDetail.OrderId, orderDetail.ProductId);
+                DeleteOrderDetail(orderId, orderDetail.ProductId);
             }
         }
 
@@ -175,6 +205,7 @@ namespace BUS_MyShop
                        from o in DAL_ListOrders.Instance.GetOrders()
                        from p in DAL_ListProducts.Instance.GetProducts()
                        where od.OrderId == o.Id && od.ProductId == p.Id && o.OrderDate >= beginDate && o.OrderDate <= endDate
+                       orderby o.OrderDate
                        select new { o.OrderDate, Revenue = od.Quantity * p.SellingPrice, Profit = od.Quantity * (p.SellingPrice - p.CostPrice) };
             var group = (from t in temp
                          group t by t.OrderDate into g

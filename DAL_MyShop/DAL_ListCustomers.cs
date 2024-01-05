@@ -89,7 +89,7 @@ namespace DAL_MyShop
             Customer customer = context.Customers.Find(id);
             if (customer == null)
             {
-                throw new Exception("Id không tồn tại");
+                throw new Exception("Id khách hàng không tồn tại");
             }
 
             return customer;

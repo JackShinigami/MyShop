@@ -53,7 +53,6 @@ namespace DAL_MyShop
             {
                 throw new Exception("Thông tin đơn hàng đã tồn tại");
             }
-            context.Products.Find(orderDetail.ProductId).Quantity -= orderDetail.Quantity;
             context.OrderDetails.Add(orderDetail);
             context.SaveChanges();
         }
@@ -61,12 +60,10 @@ namespace DAL_MyShop
         public void DeleteOrderDetail(string orderId, string productId)
         {
             OrderDetail orderDetail = context.OrderDetails.Find(orderId, productId);
-            Product product = context.Products.Find(productId);
             if (orderDetail == null)
             {
-                throw new Exception("Thông tin đơn hàng không tồn tồn tại");
+                throw new Exception("Thông tin đơn hàng không tồn tại");
             }
-            product.Quantity += orderDetail.Quantity;
             context.OrderDetails.Remove(orderDetail);
             context.SaveChanges();
         }
@@ -89,10 +86,8 @@ namespace DAL_MyShop
             }
 
             OrderDetail od = context.OrderDetails.Find(orderId, productId);
-            Product product = context.Products.Find(productId);
-            product.Quantity += od.Quantity;
             od.Quantity = orderDetail.Quantity;
-            product.Quantity -= od.Quantity;
+           
             context.SaveChanges();
         }    
 

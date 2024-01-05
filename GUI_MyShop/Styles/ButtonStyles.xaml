@@ -1,64 +1,58 @@
-﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 
-    <Style
-        x:Key="HyperlinkButton"
-        TargetType="Button">
+    <Style x:Key="HyperlinkButton"
+           TargetType="Button">
 
-        <Setter
-            Property="Background"
-            Value="Transparent" />
+        <Setter Property="Background"
+                Value="Transparent" />
 
-        <Setter
-            Property="Template">
+        <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate
-                    TargetType="Button">
-                    <TextBlock
-                        Text="{TemplateBinding Content}"
-                        TextDecorations="Underline"
-                        Foreground="#20a8bb"
-                        Cursor="Hand"
-                        TextAlignment="Center"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Center" />
+                <ControlTemplate TargetType="Button">
+                    <TextBlock Text="{TemplateBinding Content}"
+                               TextDecorations="Underline"
+                               Foreground="#20a8bb"
+                               Cursor="Hand"
+                               TextAlignment="Center"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center" />
                 </ControlTemplate>
             </Setter.Value>
 
         </Setter>
     </Style>
 
-    <Style
-        x:Key="BorderButton"
-        TargetType="Button">
-        <Setter
-            Property="Template">
+    <Style x:Key="BorderButton"
+           TargetType="Button">
+        <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate
-                    TargetType="Button">
-                    <Border
-                        x:Name="Border"
-                        Background="#20abbb"
-                        BorderThickness="1"
-                        CornerRadius="10">
-                        <TextBlock
-                            Text="{TemplateBinding Content}"
-                            Foreground="#fff"
-                            Cursor="Hand"
-                            TextAlignment="Center"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center" />
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Border"
+                            Background="#20abbb"
+                            BorderThickness="1"
+                            CornerRadius="10">
+                        <TextBlock Text="{TemplateBinding Content}"
+                                   Foreground="#fff"
+                                   Cursor="Hand"
+                                   TextAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center" />
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger
-                            Property="IsMouseOver"
-                            Value="True">
-                            <Setter
-                                TargetName="Border"
-                                Property="Background"
-                                Value="#089" />
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Setter TargetName="Border"
+                                    Property="Background"
+                                    Value="#089" />
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled"
+                                 Value="False">
+                            <Setter TargetName="Border"
+                                    Property="Background"
+                                    Value="#5167" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -66,128 +60,82 @@
         </Setter>
     </Style>
 
+    <Style x:Key="BorderGradientButton"
+           TargetType="Button">
 
-    <Style
-        x:Key="BorderGradientButton"
-        TargetType="Button">
-
-        <Style.Resources>
-
-
-            <!--<GradientStopCollection
-                x:Key="PrimaryGradientStopCollection">
-                <GradientStop
-                    Color="#20a8bb"
-                    x:Name="gs0" />
-                <GradientStop
-                    Color="#22D09E"
-                    x:Name="gs1" />
-            </GradientStopCollection>
-
-            <LinearGradientBrush
-                x:Key="PrimaryLinearGradientBrush"
-                StartPoint="0,0"
-                EndPoint="1,0"
-                GradientStops="{DynamicResource PrimaryGradientStopCollection}" />-->
-
-
-
-
-        </Style.Resources>
-
-
-        <Setter
-            Property="Template">
+        <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate
-                    TargetType="Button">
-                    <Border
-                        x:Name="Border"
-                        BorderThickness="1"
-                        CornerRadius="10">
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Border"
+                            BorderThickness="1"
+                            CornerRadius="10">
 
                         <Border.Background>
-                            <LinearGradientBrush
-                                x:Name="lgb"                                
-                                StartPoint="0,0"
-                                EndPoint="0,1">
-                                <GradientStop
-                                    Color="#22D09E"
-                                    Offset="-1.0"
-                                    x:Name="gsm1" />
-                                <GradientStop
-                                    Color="#20a8bb"
-                                    Offset="0.0"
-                                    x:Name="gs0" />
-                                <GradientStop
-                                    Color="#22D09E"
-                                    Offset="1.0"
-                                    x:Name="gs1" />
+                            <LinearGradientBrush x:Name="lgb"
+                                                 StartPoint="0,0"
+                                                 EndPoint="0,1">
+                                <GradientStop Color="#22D09E"
+                                              Offset="-1.0"
+                                              x:Name="gsm1" />
+                                <GradientStop Color="#20a8bb"
+                                              Offset="0.0"
+                                              x:Name="gs0" />
+                                <GradientStop Color="#22D09E"
+                                              Offset="1.0"
+                                              x:Name="gs1" />
                             </LinearGradientBrush>
                         </Border.Background>
 
-                        <TextBlock
-                            Text="{TemplateBinding Content}"
-                            Foreground="#fff"
-                            Cursor="Hand"
-                            TextAlignment="Center"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center" />
+                        <TextBlock Text="{TemplateBinding Content}"
+                                   Foreground="#fff"
+                                   Cursor="Hand"
+                                   TextAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center" />
 
                     </Border>
 
 
                     <ControlTemplate.Triggers>
-                        <EventTrigger
-                            RoutedEvent="Button.MouseEnter">
+                        <EventTrigger RoutedEvent="Button.MouseEnter">
 
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <DoubleAnimation
-                                        Storyboard.TargetName="gsm1"
-                                        Storyboard.TargetProperty="Offset"
-                                        To="0.0"
+                                    <DoubleAnimation Storyboard.TargetName="gsm1"
+                                                     Storyboard.TargetProperty="Offset"
+                                                     To="0.0"
+                                                     Duration="0:0:0.2" />
 
-                                        Duration="0:0:0.2" />
+                                    <DoubleAnimation Storyboard.TargetName="gs0"
+                                                     Storyboard.TargetProperty="Offset"
+                                                     To="1.0"
+                                                     Duration="0:0:0.2" />
 
-                                    <DoubleAnimation
-                                        Storyboard.TargetName="gs0"
-                                        Storyboard.TargetProperty="Offset"
-                                        To="1.0"
-
-                                        Duration="0:0:0.2" />
-
-                                    <DoubleAnimation
-                                        Storyboard.TargetName="gs1"
-                                        Storyboard.TargetProperty="Offset"
-                                        To="2"
-
-                                        Duration="0:0:0.2" />
+                                    <DoubleAnimation Storyboard.TargetName="gs1"
+                                                     Storyboard.TargetProperty="Offset"
+                                                     To="2"
+                                                     Duration="0:0:0.2" />
 
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
 
-                        <EventTrigger
-                            RoutedEvent="Button.MouseLeave">
+                        <EventTrigger RoutedEvent="Button.MouseLeave">
 
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <DoubleAnimation
-                                        Storyboard.TargetName="gsm1"
-                                        Storyboard.TargetProperty="Offset"
-                                        To="-1.0"
-                                        Duration="0:0:0.2" />
-                                    <DoubleAnimation
-                                        Storyboard.TargetName="gs0"
-                                        Storyboard.TargetProperty="Offset"
-                                        To="0.0"
-                                        Duration="0:0:0.2" />
-                                    <DoubleAnimation
-                                        Storyboard.TargetName="gs1"
-                                        Storyboard.TargetProperty="Offset"
-                                        To="1.0"
-                                        Duration="0:0:0.2" />
+                                    <DoubleAnimation Storyboard.TargetName="gsm1"
+                                                     Storyboard.TargetProperty="Offset"
+                                                     To="-1.0"
+                                                     Duration="0:0:0.2" />
+                                    <DoubleAnimation Storyboard.TargetName="gs0"
+                                                     Storyboard.TargetProperty="Offset"
+                                                     To="0.0"
+                                                     Duration="0:0:0.2" />
+                                    <DoubleAnimation Storyboard.TargetName="gs1"
+                                                     Storyboard.TargetProperty="Offset"
+                                                     To="1.0"
+                                                     Duration="0:0:0.2" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
@@ -195,6 +143,214 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style x:Key="BorderThickHoverButton"
+           TargetType="Button">
+
+        <Setter Property="Margin"
+                Value="5 0 0 0" />
+
+        <Setter Property="Template">
+
+            <Setter.Value>
+
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Border"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            BorderBrush="#9fd"
+                            CornerRadius="5">
+
+                        <ContentPresenter x:Name="contentPresenter"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Center" />
+
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Setter TargetName="Border"
+                                    Property="BorderThickness"
+                                    Value="2" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled"
+                                 Value="False">
+                            <Setter TargetName="Border"
+                                    Property="Background"
+                                    Value="#3333" />
+                            <Setter TargetName="Border"
+                                    Property="BorderBrush"
+                                    Value="#aaa" />
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled"
+                                 Value="True">
+                            <Setter TargetName="Border"
+                                    Property="Background"
+                                    Value="Transparent" />
+                            <Setter TargetName="Border"
+                                    Property="BorderBrush"
+                                    Value="#8ff" />
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+
+            </Setter.Value>
+
+        </Setter>
+
+    </Style>
+
+    <Style x:Key="NavRadioButtonStyle"
+           TargetType="RadioButton">
+
+        <Setter Property="HorizontalAlignment"
+                Value="Left" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Setter Property="Margin"
+                Value="10 10 0 0" />
+
+        <Setter Property="Template">
+
+            <Setter.Value>
+
+                <ControlTemplate TargetType="RadioButton">
+
+                    <Border x:Name="containerBorder"
+                            BorderThickness="0"
+                            Width="260"
+                            Height="40"
+                            Background="#dfe"
+                            CornerRadius="5">
+
+                        <Grid>
+                            <Border x:Name="indicatorCheckedBorder"
+                                    Height="40"
+                                    Width="260"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Visibility="Hidden"
+                                    CornerRadius="5"
+                                    Background="#9affde" />
+
+                            <Border x:Name="indicatorHoverBorder"
+                                    Height="0"
+                                    Width="5"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Visibility="Visible"
+                                    CornerRadius="5"
+                                    Background="#9affde" />
+
+
+                            <ContentPresenter />
+                        </Grid>
+
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsChecked"
+                                 Value="True">
+                            <Setter TargetName="indicatorCheckedBorder"
+                                    Property="Visibility"
+                                    Value="Visible" />
+
+                        </Trigger>
+
+                        <EventTrigger RoutedEvent="Border.MouseEnter"
+                                      SourceName="containerBorder">
+
+
+                            <BeginStoryboard>
+
+                                <Storyboard>
+
+                                    <DoubleAnimation Storyboard.TargetName="indicatorHoverBorder"
+                                                     Storyboard.TargetProperty="Height"
+                                                     To="50"
+                                                     Duration="0:0:0.1" />
+
+                                </Storyboard>
+
+                            </BeginStoryboard>
+
+                        </EventTrigger>
+
+                        <EventTrigger RoutedEvent="Border.MouseLeave"
+                                      SourceName="containerBorder">
+
+                            <BeginStoryboard>
+
+                                <Storyboard>
+
+                                    <DoubleAnimation Storyboard.TargetName="indicatorHoverBorder"
+                                                     Storyboard.TargetProperty="Height"
+                                                     To="0"
+                                                     Duration="0:0:0.1" />
+
+                                </Storyboard>
+
+                            </BeginStoryboard>
+                        </EventTrigger>
+
+
+                    </ControlTemplate.Triggers>
+                    
+
+                </ControlTemplate>
+
+            </Setter.Value>
+
+        </Setter>
+
+
+    </Style>
+
+    <Style x:Key="PageOperatingButton"
+           TargetType="{x:Type Button}">
+
+        <Setter Property="Cursor"
+                Value="Hand" />
+        <Setter Property="Foreground"
+                Value="#146A76" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border"
+                            BorderThickness="0"
+                            Background="#FFF"
+                            CornerRadius="5">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" />
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="#6fc" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled"
+                                 Value="False">
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="#4A79" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+
     </Style>
 
 </ResourceDictionary>

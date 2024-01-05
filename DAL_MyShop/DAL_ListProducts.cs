@@ -76,7 +76,7 @@ namespace DAL_MyShop
         {
             Product product = context.Products.Find(id);
             if (product == null)
-                throw new Exception("Id không tồn tại");
+                throw new Exception("Id sản phẩm không tồn tại");
             return product;
         }
     }

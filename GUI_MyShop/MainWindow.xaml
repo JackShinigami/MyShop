@@ -1,59 +1,443 @@
-<Fluent:RibbonWindow
-    x:Class="GUI_MyShop.MainWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:local="clr-namespace:GUI_MyShop"
-    xmlns:conv="clr-namespace:BUS_MyShop;assembly=BUS_MyShop"
-    xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
-    mc:Ignorable="d"
-    Title=""
-    WindowStartupLocation="CenterScreen"
-    ResizeMode="CanResize"
-    Background="Transparent"
-    Loaded="Window_Loaded"
+﻿<Fluent:RibbonWindow x:Class="GUI_MyShop.MainWindow"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:local="clr-namespace:GUI_MyShop"
+                     xmlns:Nav="clr-namespace:GUI_MyShop.Utilities"
+                     xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
+                     mc:Ignorable="d"
+                     Title=""
+                     WindowStartupLocation="CenterScreen"
+                     ResizeMode="CanResize"
+                     Background="Transparent"
+                     Loaded="RibbonWindow_Loaded"
+                     TitleBarHeight="0"
+                     Height="675"
+                     BorderThickness="0"
+                     Width="1200">
 
-    Height="675"    
-    BorderThickness="0"
-    Width="1200">
+    <Fluent:RibbonWindow.DataContext>
+        <local:Navigation />
+    </Fluent:RibbonWindow.DataContext>
 
 
-    <Fluent:RibbonWindow.TitleBackground>
-        <LinearGradientBrush>
-            <GradientStop
-                Color="#9AFFDE"
-                Offset="0" />
-            <GradientStop
-                Color="#C0F8F3"
-                Offset="0.5" />
-            <GradientStop
-                Color="#9AFFDE"
-                Offset="1" />
-        </LinearGradientBrush>
-    </Fluent:RibbonWindow.TitleBackground>
+    <Border x:Name="mainBorder"
+            CornerRadius="7"
+            Background="#9AFFDE"
+            Margin="0">
 
-        <Border
-        x:Name="mainBorder"
-        Margin="0">
-
-        <Border.Background>
-
-            <LinearGradientBrush>
-                <GradientStop
-                    Color="#9AFFDE"
-                    Offset="0" />
-                <GradientStop
-                    Color="#C0F8F3"
-                    Offset="0.5" />
-                <GradientStop
-                    Color="#9AFFDE"
-                    Offset="1" />
-            </LinearGradientBrush>
-
-        </Border.Background>
 
         <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--#region Định nghĩa thanh tiêu đề-->
+            <Grid x:Name="gridTitle"
+                  Grid.Row="0"
+                  Margin="0,0,0,0">
+
+
+                <!--#region Định nghĩa vị trí các nút trên tiêu đề-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <!--#endregion-->
+                <Border x:Name="titleBarBorder"
+                        MouseLeftButtonDown="titleBarBorder_MouseLeftButtonDown"
+                        MouseLeftButtonUp="titleBarBorder_MouseLeftButtonUp"
+                        MouseMove="titleBarBorder_MouseMove"
+                        MouseLeave="titleBarBorder_MouseLeave"
+                        Background="#0000" />
+
+                <Border x:Name="rightTopBorder"
+                        CornerRadius="0 7 0 0"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="3"
+                        Background="#8888" />
+
+                <!--#region Định nghĩa nút thoát-->
+                <Button x:Name="closeButton"
+                        Grid.Column="3"
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Width="30"
+                        Height="30"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        FontSize="20"
+                        FontWeight="Bold"
+                        IsTabStop="False"
+                        Click="closeButton_Click">
+
+                    <Button.Style>
+
+                        <Style TargetType="Button">
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border x:Name="border"
+                                                CornerRadius="10"
+                                                Background="Transparent">
+                                            <Grid>
+
+                                                <Image Visibility="Hidden"
+                                                       x:Name="closeMouseOverEffect"
+                                                       Source="Assets/close_mouseover.png" />
+                                                <Image Height="15"
+                                                       Width="15"
+                                                       Source="Assets/close.png" />
+                                            </Grid>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver"
+                                                     Value="True">
+                                                <Setter TargetName="closeMouseOverEffect"
+                                                        Property="Visibility"
+                                                        Value="Visible" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+
+                </Button>
+                <!--#endregion-->
+
+                <!--#region Định nghĩa nút phóng to/thu nhỏ-->
+                <Button x:Name="maximizeButton"
+                        Grid.Column="2"
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Width="30"
+                        Height="30"
+                        BorderThickness="0"
+                        Foreground="Black"
+                        Background="Transparent"
+                        IsTabStop="False"
+                        Click="maximizeButton_Click">
+
+                    <Button.Style>
+
+                        <Style TargetType="Button">
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border x:Name="border"
+                                                CornerRadius="10"
+                                                Background="Transparent">
+                                            <Grid>
+
+                                                <Image Visibility="Hidden"
+                                                       x:Name="maximizeMouseOverEffect"
+                                                       Source="Assets/maximize_mouseover.png" />
+                                                <Image Height="10"
+                                                       Width="10"
+                                                       Source="Assets/maximize.png" />
+                                            </Grid>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver"
+                                                     Value="True">
+                                                <Setter TargetName="maximizeMouseOverEffect"
+                                                        Property="Visibility"
+                                                        Value="Visible" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+
+                </Button>
+                <!--#endregion-->
+
+                <!--#region Định nghĩa nút thu gọn-->
+                <Button x:Name="minimizeButton"
+                        Grid.Column="1"
+                        Margin="5,0,5,0"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Width="30"
+                        Height="30"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        IsTabStop="False"
+                        Click="minimizeButton_Click">
+
+                    <Button.Style>
+
+                        <Style TargetType="Button">
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border x:Name="border"
+                                                CornerRadius="10"
+                                                Background="Transparent">
+                                            <Grid>
+
+                                                <Image Visibility="Hidden"
+                                                       x:Name="maximizeMouseOverEffect"
+                                                       Source="Assets/minimize_mouseover.png" />
+                                                <Image Height="10"
+                                                       Width="10"
+                                                       Source="Assets/minimize.png" />
+                                            </Grid>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver"
+                                                     Value="True">
+                                                <Setter TargetName="maximizeMouseOverEffect"
+                                                        Property="Visibility"
+                                                        Value="Visible" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+
+                </Button>
+                <!--#endregion-->
+
+
+            </Grid>
+
+            <!--#endregion-->
+
+            <Grid x:Name="mainGrid"
+                  HorizontalAlignment="Stretch"
+                  Margin="0"
+                  Grid.RowSpan="2"
+                  Grid.Row="0">
+
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="280" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!--#region Left navigation bar-->
+
+                <Border Background="#dfe"
+                        CornerRadius="7 0 0 7"
+                        Width="280">
+
+                    <Grid>
+
+                        <!--#region Grid 3x1-->
+
+                        <Grid.RowDefinitions>
+
+                            <RowDefinition Height="150" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="100" />
+
+                        </Grid.RowDefinitions>
+
+                        <!--#endregion-->
+
+                        <!--#region Dock trái-->
+
+                        <!--#region Title-->
+                        <Label x:Name="title"
+                               Grid.Row="0"
+                               Content="MyShop"
+                               FontSize="30"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Foreground="#13AEC0" />
+                        <!--#endregion-->
+
+                        <!--#region Navigation bar-->
+
+                        <StackPanel x:Name="navigationPanel"
+                                    Orientation="Vertical"
+                                    Grid.Row="1"
+                                    Margin="0,0,0,0">
+
+                            <!--#region Tab DashBoard-->
+
+                            <Nav:NavButton Style="{StaticResource NavRadioButtonStyle}"
+                                           Command="{Binding DashboardCommand}"
+                                           IsChecked="True">
+                                <Grid>
+
+                                    <Image Source="Assets/Dashboard_nm.png"
+                                           Style="{StaticResource NavIconStyle}" />
+
+                                    <TextBlock Text="Dashboard"
+                                               Style="{StaticResource NavTextBlockStyle}" />
+
+                                </Grid>
+
+                            </Nav:NavButton>
+
+                            <!--#endregion-->
+
+                            <!--#region Tab Products-->
+
+                            <Nav:NavButton Style="{StaticResource NavRadioButtonStyle}"
+                                           Command="{Binding ProductsCommand}"
+                                           IsChecked="False">
+                                <Grid>
+
+                                    <Image Source="Assets/Product_nm.png"
+                                           Style="{StaticResource NavIconStyle}" />
+
+                                    <TextBlock Text="Sản phẩm"
+                                               Style="{StaticResource NavTextBlockStyle}" />
+
+                                </Grid>
+
+                            </Nav:NavButton>
+
+                            <!--#endregion-->
+
+                            <!--#region Tab Categories-->
+
+                            <Nav:NavButton Style="{StaticResource NavRadioButtonStyle}"
+                                           Command="{Binding CategoriesCommand}"
+                                           IsChecked="False">
+                                <Grid>
+
+                                    <Image Source="Assets/Category_nm.png"
+                                           Style="{StaticResource NavIconStyle}" />
+
+                                    <TextBlock Text="Thể loại"
+                                               Style="{StaticResource NavTextBlockStyle}" />
+
+                                </Grid>
+
+                            </Nav:NavButton>
+
+                            <!--#endregion-->
+
+                            <!--#region Tab Orders-->
+
+                            <Nav:NavButton Style="{StaticResource NavRadioButtonStyle}"
+                                           Command="{Binding OrdersCommand}"
+                                           IsChecked="False">
+                                <Grid>
+
+                                    <Image Source="Assets/Order_nm.png"
+                                           Style="{StaticResource NavIconStyle}" />
+
+                                    <TextBlock Text="Đơn hàng"
+                                               Style="{StaticResource NavTextBlockStyle}" />
+
+                                </Grid>
+
+                            </Nav:NavButton>
+
+                            <!--#endregion-->
+
+                            <!--#region Tab Customers-->
+
+                            <Nav:NavButton Style="{StaticResource NavRadioButtonStyle}"
+                                           Command="{Binding CustomersCommand}"
+                                           IsChecked="False">
+                                <Grid>
+
+                                    <Image Source="Assets/Customer_nm.png"
+                                           Style="{StaticResource NavIconStyle}" />
+
+                                    <TextBlock Text="Khách hàng"
+                                               Style="{StaticResource NavTextBlockStyle}" />
+
+                                </Grid>
+
+                            </Nav:NavButton>
+
+                            <!--#endregion-->
+                            
+                            <!--#region Tab Backup and Restore-->
+
+                            <Nav:NavButton Style="{StaticResource NavRadioButtonStyle}"
+                                           Command="{Binding BackupRestoreCommand}"
+                                           IsChecked="False">
+                                <Grid>
+
+                                    <Image Source="Assets/BackupRestore_nm.png"
+                                           Style="{StaticResource NavIconStyle}" />
+
+                                    <TextBlock Text="Sao lưu và phục hồi"
+                                               Style="{StaticResource NavTextBlockStyle}" />
+
+                                </Grid>
+
+                            </Nav:NavButton>
+
+                        </StackPanel>
+
+                        <!--#endregion-->
+
+                        <!--#region Logout-->
+
+                        <Button x:Name="logoutButton"
+                                Grid.Row="2"
+                                Margin="0,0,0,0"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Width="200"
+                                Height="40"
+                                BorderThickness="0"
+                                Foreground="Black"
+                                Background="Transparent"
+                                FontSize="18"
+                                IsTabStop="False"
+                                Click="logoutButton_Click"
+                                Style="{StaticResource BorderGradientButton}">
+
+                            Đăng xuất
+
+                        </Button>
+
+                        <!--#endregion-->
+
+                        <!--#endregion-->
+
+
+                    </Grid>
+
+
+                </Border>
+
+                <!--#endregion-->
+
+
+                <!--#region Content-->
+                <Grid Grid.Column="1"
+                      Grid.Row="1"
+                      Margin="0 30 0 0"
+                      VerticalAlignment="Stretch"
+                      HorizontalAlignment="Stretch">
+
+                    <ContentControl x:Name="contentControl"
+                                    Content="{Binding CurrentView}" />
+
+
+
+                </Grid>
+
+
+            </Grid>
 
         </Grid>
     </Border>
