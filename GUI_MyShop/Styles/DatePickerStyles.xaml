@@ -18,12 +18,12 @@
                           HorizontalAlignment="Right"
                           Height="Auto"
                           Margin="0"
-                          VerticalAlignment="Center"
+                          VerticalAlignment="Stretch"
                           Width="Auto">
 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="25" />
                         </Grid.ColumnDefinitions>
 
                         <ContentPresenter Grid.Column="0"
@@ -37,12 +37,12 @@
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
 
                         <Image Grid.Column="1"
-                               HorizontalAlignment="Center"
                                VerticalAlignment="Center"
-                               Margin="3 0 3 2"
-                               Source="../Assets/Calendar.png"
-                               Height="40"
-                               Width="26" />
+                               HorizontalAlignment="Center"
+                               Height="30"
+                               Stretch="UniformToFill"
+                               Margin="0 0 0 0"
+                               Source="../Assets/Calendar.png"/>
 
                     </Grid>
 
@@ -65,9 +65,11 @@
         <Setter Property="SelectedDateFormat"
                 Value="Short" />
         <Setter Property="Padding"
-                Value="10 0 0 5" />
+                Value="10 0 0 0" />
         <Setter Property="HorizontalContentAlignment"
                 Value="Stretch" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
         <Setter Property="CalendarStyle"
                 Value="{DynamicResource DatePickerCalendarStyle}" />
 
@@ -99,13 +101,14 @@
 
                             <Button x:Name="PART_Button"
                                     Grid.Column="1"
+                                    Grid.RowSpan="2"
                                     Focusable="False"
                                     HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
                                     Content=""
                                     Margin="0 0 5 0"
                                     Grid.Row="0"
-                                    Style="{StaticResource DropDownButtonStyle}"
-                                    VerticalAlignment="Center" />
+                                    Style="{StaticResource DropDownButtonStyle}" />
 
                             <DatePickerTextBox x:Name="PART_TextBox"
                                                Grid.Column="0"
@@ -198,7 +201,7 @@
                                     Value="0,0,0,2" />
                             <Setter TargetName="ContainerBorder"
                                     Property="BorderBrush"
-                                    Value="#888" />
+                                    Value="#167" />
 
                         </DataTrigger>
 

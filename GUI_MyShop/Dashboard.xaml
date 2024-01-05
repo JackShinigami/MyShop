@@ -108,8 +108,8 @@
             <Border Background="#bfff"
                 CornerRadius="10"
                 VerticalAlignment="Top"
-                Height="39"
-                Margin="20,0,20,10" Grid.Row="2">
+                Height="42"
+                Margin="20,0,20,5" Grid.Row="2">
                 <StackPanel  Orientation="Horizontal">
                     <DatePicker
                     x:Name="beginDatePicker"
