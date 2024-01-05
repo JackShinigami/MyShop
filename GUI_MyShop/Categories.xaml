@@ -231,7 +231,8 @@
                 HorizontalScrollBarVisibility="Auto"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
-                BorderThickness="0">
+                BorderThickness="0"
+                SelectionChanged="dataGrid_Categories_SelectionChanged">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Mã thể loại" Binding="{Binding Id}"/>
                         <DataGridTextColumn Header="Tên thể loại" Width="*" Binding="{Binding CategoryName}"/>

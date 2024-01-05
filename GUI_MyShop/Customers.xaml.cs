@@ -48,17 +48,73 @@ namespace GUI_MyShop
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
+            Customer Customer = new Customer();
+            AddCustomerWindow addCustomerWindow = new AddCustomerWindow(Customer);
 
+            if (addCustomerWindow.ShowDialog() == true)
+            {
+                Customer = addCustomerWindow.ReturnCustomer;
+                try
+                {
+                    bus.AddCustomer(
+                        Customer.Id,
+                        Customer.CustomerName ?? "",
+                        Customer.Address ?? "",
+                        Customer.TelephoneNumber ?? ""
+                        );
+                    LoadData();
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show(ex.Message);
+                }
+            }
         }
 
         private void editButton_Click(object sender, RoutedEventArgs e)
         {
+            Customer Customer = dataGrid_Customers.SelectedItem as Customer;
+            if(Customer == null)
+            {
+                return;
+            }
+
+            EditCustomerWindow editCustomerWindow = new EditCustomerWindow(Customer);
+            if(editCustomerWindow.ShowDialog() == true)
+            {
+                Customer = editCustomerWindow.ReturnCustomer;
+                try
+                {
+                    bus.UpdateCustomer(Customer.Id,
+                        Customer.CustomerName ?? "",
+                        Customer.Address ?? "",
+                        Customer.TelephoneNumber ?? "");
+                    LoadData();
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show(ex.Message);
+                }
+            }
 
         }
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Customer customer = dataGrid_Customers.SelectedItem as Customer;
+            if (customer == null)
+            {
+                return;
+            }
+            try
+            {
+                bus.DeleteCustomer(customer.Id);
+                LoadData();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message);
+            }
         }
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
@@ -180,6 +236,20 @@ namespace GUI_MyShop
 
             previousPageButton.IsEnabled = _currentPage > 1;
             nextPageButton.IsEnabled = _currentPage < _totalPage;
+        }
+
+        private void dataGrid_Customers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(dataGrid_Customers.SelectedIndex != -1)
+            {
+                deleteButton.IsEnabled = true;
+                editButton.IsEnabled = true;
+            }
+            else
+            {
+                deleteButton.IsEnabled = false;
+                editButton.IsEnabled = false;
+            }
         }
     }
 }

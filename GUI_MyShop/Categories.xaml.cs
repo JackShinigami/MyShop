@@ -46,17 +46,68 @@ namespace GUI_MyShop
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
+            Category Category = new Category();
+            AddCategoryWindow addCategoryWindow = new AddCategoryWindow(Category);
 
+            if (addCategoryWindow.ShowDialog() == true)
+            {
+                Category = addCategoryWindow.ReturnCategory;
+                try
+                {
+                    bus.AddCategory(
+                        Category.Id,
+                        Category.CategoryName ?? ""
+                        );
+                    LoadData();
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show(ex.Message);
+                }
+            }
         }
 
         private void editButton_Click(object sender, RoutedEventArgs e)
         {
+            Category Category = dataGrid_Categories.SelectedItem as Category;
+            if (Category == null)
+            {
+                return;
+            }
 
+            EditCategoryWindow editCategoryWindow = new EditCategoryWindow(Category);
+            if (editCategoryWindow.ShowDialog() == true)
+            {
+                Category = editCategoryWindow.ReturnCategory;
+                try
+                {
+                    bus.UpdateCategory(Category.Id,
+                        Category.CategoryName ?? "");
+                    LoadData();
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show(ex.Message);
+                }
+            }
         }
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Category Category = dataGrid_Categories.SelectedItem as Category;
+            if (Category == null)
+            {
+                return;
+            }
+            try
+            {
+                bus.DeleteCategory(Category.Id);
+                LoadData();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message);
+            }
         }
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
@@ -178,6 +229,20 @@ namespace GUI_MyShop
 
             previousPageButton.IsEnabled = _currentPage > 1;
             nextPageButton.IsEnabled = _currentPage < _totalPage;
+        }
+
+        private void dataGrid_Categories_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dataGrid_Categories.SelectedIndex != -1)
+            {
+                deleteButton.IsEnabled = true;
+                editButton.IsEnabled = true;
+            }
+            else
+            {
+                deleteButton.IsEnabled = false;
+                editButton.IsEnabled = false;
+            }
         }
     }
 }
