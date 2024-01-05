@@ -23,26 +23,48 @@ namespace GUI_MyShop
     {
 
         Order ReturnOrder = new Order();
+        BindingList<OrderDetail> OrderDetails = new BindingList<OrderDetail>();
+        BindingList<Customer> Customers = new BindingList<Customer>();
+        BindingList<Product> Products = new BindingList<Product>();
+        public bool EditMode = false;
 
-        public EditOrderWindow(Order order)
+
+        public EditOrderWindow(Order order, bool editMode = false)
         {
 
             InitializeComponent();
             ReturnOrder = order.Clone() as Order;
+            EditMode = editMode;
 
             // Load Customer
-            var customers = BUS_MyShop.BUS_Customers.Instance.GetAllCustomers();
-            customerComboBox.ItemsSource = customers;
-            customerComboBox.SelectedIndex = customers.IndexOf(ReturnOrder.Customer);
+            Customers = BUS_MyShop.BUS_Customers.Instance.GetAllCustomers();
+            customerComboBox.Items.Clear();
+            customerComboBox.ItemsSource = Customers;
 
             // Load Product
-            var products = BUS_MyShop.BUS_Products.Instance.GetAllProducts();
-            productComboBox.ItemsSource = products;
+            Products = BUS_MyShop.BUS_Products.Instance.GetAllProducts();
+            productComboBox.Items.Clear();
+            productComboBox.ItemsSource = Products;
             addProductButton.IsEnabled = false;
 
             // Load Order
-            var orderDetails = BUS_MyShop.BUS_OrderDetails.Instance.GetOrderDetailsByOrderId(order.Id);
-            orderDetailDataGrid.ItemsSource = orderDetails;
+            OrderDetails = BUS_MyShop.BUS_OrderDetails.Instance.GetOrderDetailsByOrderId(order.Id);
+            orderDetailDataGrid.ItemsSource = OrderDetails;
+
+
+
+            if (editMode)
+            {
+                orderIDTextBox.IsEnabled = false;
+                customerComboBox.IsEnabled = false;
+
+                int index = Customers.IndexOf(Customers.FirstOrDefault(c => c.Id == order.CustomerId));
+                customerComboBox.SelectedIndex = index;
+            } else
+            {
+                Title = "Thêm đơn hàng";
+                titleLabel.Content = "Thêm đơn hàng";
+            }
 
             this.DataContext = ReturnOrder;
         }
@@ -58,11 +80,18 @@ namespace GUI_MyShop
             ReturnOrder.CustomerId = (customerComboBox.SelectedItem as Customer).Id;
             ReturnOrder.OrderDate = DateTime.Now;
 
+
             try
             {
 
                 // xoá các order detail cũ
-                BUS_MyShop.BUS_OrderDetails.Instance.DeleteOrderDetailsByOrderId(ReturnOrder.Id);
+                if (EditMode)
+                {
+                    BUS_MyShop.BUS_OrderDetails.Instance.DeleteOrderDetailsByOrderId(ReturnOrder.Id);
+                } else // thêm order mới
+                {
+                    BUS_MyShop.BUS_Orders.Instance.AddOrder(ReturnOrder.Id, ReturnOrder.CustomerId, ReturnOrder.OrderDate.Value);
+                }
                 // thêm các order detail mới
                 foreach (OrderDetail orderDetail in orderDetailDataGrid.Items)
                 {
@@ -70,7 +99,8 @@ namespace GUI_MyShop
                     BUS_MyShop.BUS_OrderDetails.Instance.AddOrderDetail(ReturnOrder.Id, orderDetail.ProductId, quantity);
                 }
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageWindow.Show(ex.Message, "Lỗi");
                 return;
@@ -82,9 +112,9 @@ namespace GUI_MyShop
         private void addProductButton_Click(object sender, RoutedEventArgs e)
         {
             var product = productComboBox.SelectedItem as Product;
-            if(product == null)
+            if (product == null)
             {
-                MessageWindow.Show("Please select a product");
+                MessageWindow.Show("Vui lòng chọn sản phẩm");
                 return;
             }
             int quantity = 0;
@@ -93,14 +123,17 @@ namespace GUI_MyShop
 
                 quantity = int.Parse(countTextBox.Text);
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageWindow.Show("Vui lòng nhập số lượng");
                 countTextBox.Text = "";
                 countTextBox.Focus();
                 return;
             }
-            orderDetailDataGrid.Items.Add(new OrderDetail()
+
+
+            OrderDetails.Add(new OrderDetail()
             {
                 ProductId = product.Id,
                 Product = product,

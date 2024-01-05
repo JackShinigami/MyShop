@@ -11,6 +11,7 @@
     <None Remove="Assets\Add.png" />
     <None Remove="Assets\add_bg.png" />
     <None Remove="Assets\BackupRestore_nm.png" />
+    <None Remove="Assets\calendar.png" />
     <None Remove="Assets\category_nm.png" />
     <None Remove="Assets\close.png" />
     <None Remove="Assets\close_mouseover.png" />
@@ -49,6 +50,7 @@
     <Resource Include="Assets\Add.png" />
     <Resource Include="Assets\add_bg.png" />
     <Resource Include="Assets\BackupRestore_nm.png" />
+    <Resource Include="Assets\calendar.png" />
     <Resource Include="Assets\category_nm.png" />
     <Resource Include="Assets\close.png" />
     <Resource Include="Assets\close_mouseover.png" />

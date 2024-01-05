@@ -52,23 +52,27 @@ namespace GUI_MyShop
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
+            EditOrderWindow editOrderWindow = new EditOrderWindow(new Order(), false);
+            editOrderWindow.ShowDialog();
+            LoadData();
 
         }
 
         private void editButton_Click(object sender, RoutedEventArgs e)
         {
-
+            var order = dataGrid_Orders.SelectedItem as Order;
+            EditOrderWindow editOrderWindow = new EditOrderWindow(order, true);
+            editOrderWindow.ShowDialog();
+            LoadData();
         }
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
 
+            bus.DeleteOrder((dataGrid_Orders.SelectedItem as Order).Id);
+               
         }
 
-        private void searchButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void previousPageButton_Click(object sender, RoutedEventArgs e)
         {
@@ -210,6 +214,12 @@ namespace GUI_MyShop
             endDatePicker.Text = endDate;
             if (beginDatePicker.SelectedDate != null)
                 LoadData();
+        }
+
+        private void dataGrid_Orders_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            deleteButton.IsEnabled = true;
+            editButton.IsEnabled = true;
         }
     }
 }

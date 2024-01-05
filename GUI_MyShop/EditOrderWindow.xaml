@@ -118,6 +118,7 @@
             <Label Grid.Column="0"
                    Grid.ColumnSpan="3"
                    Content="Chỉnh sửa thông tin"
+                   x:Name="titleLabel"
                    FontSize="16"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Top"
@@ -146,7 +147,7 @@
                                    Foreground="#167" />
 
                         <TextBox x:Name="orderIDTextBox"
-                                 Text="{Binding OrderId}"
+                                 Text="{Binding Id}"
                                  Margin="10,0,0,0"
                                  VerticalAlignment="Center"
                                  FontSize="16"
@@ -176,13 +177,15 @@
                                   Height="30"
                                   Style="{StaticResource ComboBoxStyle}">
 
-                            <ItemContainerTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding CustomerID}" />
-                                    <TextBlock Text=" - " />
-                                    <TextBlock Text="{Binding CustomerName}" />
-                                </StackPanel>
-                            </ItemContainerTemplate>
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Id}" />
+                                        <TextBlock Text=" - " />
+                                        <TextBlock Text="{Binding CustomerName}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
 
 
                         </ComboBox>
@@ -210,13 +213,16 @@
                                       SelectionChanged="productComboBox_SelectionChanged"
                                       Style="{StaticResource ComboBoxStyle}">
 
-                                <ItemContainerTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding ProductID}" />
-                                        <TextBlock Text=" - " />
-                                        <TextBlock Text="{Binding ProductName}" />
-                                    </StackPanel>
-                                </ItemContainerTemplate>
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Id}" />
+                                            <TextBlock Text=" - " />
+                                            <TextBlock Text="{Binding ProductName}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+
 
                             </ComboBox>
 
@@ -289,7 +295,7 @@
                                                         Binding="{Binding ProductId}" />
                                     <DataGridTextColumn Header="Tên sản phẩm"
                                                         Width="*"
-                                                        Binding="{Binding ProductName}" />
+                                                        Binding="{Binding Product.ProductName}" />
                                     <DataGridTextColumn Header="Số lượng"
                                                         Width="120"
                                                         Binding="{Binding Quantity}" />
