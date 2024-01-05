@@ -88,8 +88,8 @@
                 <Border Background="#bfff"
                         CornerRadius="10"
                         Margin="20,20,20,20"
-                        Grid.RowSpan="2"
-                        Grid.Column="2">
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
