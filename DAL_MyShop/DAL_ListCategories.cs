@@ -80,10 +80,6 @@ namespace DAL_MyShop
         public Category GetCategoryById(string id)
         {
             Category category = context.Categories.Find(id);
-            if (category == null)
-            {
-                throw new Exception("Id không tồn tại");
-            }
             return category;
         }
 
