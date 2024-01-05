@@ -59,6 +59,10 @@ namespace GUI_MyShop
                 customerComboBox.IsEnabled = false;
 
                 int index = Customers.IndexOf(Customers.FirstOrDefault(c => c.Id == order.CustomerId));
+                foreach (OrderDetail orderDetail in OrderDetails)
+                {
+                    orderDetail.Product = Products.FirstOrDefault(p => p.Id == orderDetail.ProductId);
+                }
                 customerComboBox.SelectedIndex = index;
             } else
             {
